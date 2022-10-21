@@ -4,4 +4,6 @@
     <string name="pubchem">PubChem</string>
     <string name="database">Database</string>
     <string name="ar">AR</string>
+    <string name="search">Search</string>
+    <string name="enter_common_name">Enter common name</string>
 </resources>
