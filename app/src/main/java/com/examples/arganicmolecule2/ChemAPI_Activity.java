@@ -3,14 +3,15 @@ package com.examples.arganicmolecule2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.Button;
+import android.webkit.WebView;
 
-public class task1Activity extends AppCompatActivity {
+public class ChemAPI_Activity extends AppCompatActivity {
+    WebView rscWeb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task1);
+        setContentView(R.layout.chem_api);
 
 
 
