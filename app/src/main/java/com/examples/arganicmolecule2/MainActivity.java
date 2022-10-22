@@ -14,12 +14,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        buttonsLayout = findViewById(R.id.buttons_linearLayout);
+        RSChem_Button = findViewById(R.id.PubChem_button);
 
-        RSChem_Button = buttonsLayout.findViewById(R.id.PubChem_button);
-        RSChem_Button.setOnClickListener(view -> {
-            Intent chemAPI_Intent = new Intent(MainActivity.this, ChemAPI_Activity.class);
-            startActivity( chemAPI_Intent);
-        });
+        RSChem_Button.setOnClickListener(view -> openRSChemWebViewScreen());
+    }
+
+    public void openRSChemWebViewScreen() {
+        Intent openRSChemWebViewActivity = new Intent(this, ChemAPI_Activity.class);
+        startActivity(openRSChemWebViewActivity);
     }
 }

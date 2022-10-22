@@ -20,57 +20,79 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Button
-            android:id="@+id/PubChem_button"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingHorizontal="5dp"
-            android:text="@string/pubchem" />
-
-        <Button
-            android:id="@+id/Firebase_button"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingHorizontal="5dp"
-            android:text="@string/database" />
-
-        <Button
-            android:id="@+id/AR_Button"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingHorizontal="5dp"
-            android:text="@string/ar" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="490dp"
+    <Button
+        android:id="@+id/PubChem_button"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:orientation="horizontal"
-        android:paddingRight="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttons_linearLayout"
+        android:layout_weight="1"
+        android:paddingHorizontal="5dp"
+        android:text="@string/pubchem"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.524" />
 
-        <TextView
-            android:id="@+id/TeamName_textView"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Team Name: " />
+    <Button
+        android:id="@+id/Firebase_button"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingHorizontal="5dp"
+        android:text="@string/database"
+        app:layout_constraintBottom_toTopOf="@+id/AR_Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PubChem_button"
+        app:layout_constraintVertical_bias="0.464" />
 
-        <TextView
-            android:id="@+id/ArganicMolecule_textView"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Arganic Molecule" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/AR_Button"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingHorizontal="5dp"
+        android:text="@string/ar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.845" />
+
+    <TextView
+        android:id="@+id/TeamName_textView"
+        android:layout_width="97dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="80dp"
+        android:layout_weight="1"
+        android:text="@string/team_name"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toTopOf="@+id/ARganic_Textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.887" />
+
+    <TextView
+        android:id="@+id/ARganic_Textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/arganic_molecule"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.372" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

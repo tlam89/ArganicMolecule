@@ -6,4 +6,6 @@
     <string name="ar">AR</string>
     <string name="search">Search</string>
     <string name="enter_common_name">Enter common name</string>
+    <string name="arganic_molecule">ARganic Molecule</string>
+    <string name="team_name">Team Name:</string>
 </resources>
