@@ -14,5 +14,16 @@ public class ChemAPI_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chem_api);
 
+        // Wire up the Molecule of the Month button
+        Button mtn = (Button) findViewById(R.id.button3);
+        mtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(ChemAPI_Activity.this, PBD_Date_Activity.class);
+                startActivity(intent1);
+            }
+        });
+
+
     }
 }
