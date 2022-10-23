@@ -179,17 +179,15 @@ public class PBD_WebService_Activity extends AppCompatActivity {
 
                             if (i == 0) {
                                 formula = chem_comp.getString("formula");
-                                featureList.add(formula);
+
                             } else if (i == 1) {
                                 Double formula_weight_temp =chem_comp.getDouble("formula_weight");
                                 formula_weight = Double.toString(formula_weight_temp);
-                                featureList.add(formula_weight);
+
                             } else if (i == 2) {
                                 id = chem_comp.getString("id");
-                                featureList.add(id);
                             } else if (i == 3) {
                                 name =chem_comp.getString("name");
-                                featureList.add(name);
                             }
 
                         }
@@ -209,21 +207,30 @@ public class PBD_WebService_Activity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        for (int j = 0; j<4 ; j++) {
-                            if (j == 0) {
-                                input1.setText(featureList.get(j));
-                            } else if (j == 0) {
-                                input2.setText(featureList.get(j));
-                            } else if (j == 0) {
-                                input3.setText(featureList.get(j));
-                            } else {
-                                input4.setText(featureList.get(j));
-                            }
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                        input1.setText(formula);
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        input2.setText(formula_weight);
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        input3.setText(id);
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        input4.setText(name);
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+
                         }
                     }
                 });
