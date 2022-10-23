@@ -24,6 +24,15 @@ public class ChemAPI_Activity extends AppCompatActivity {
             }
         });
 
+        Button web_view_Button = (Button) findViewById(R.id.webview_button);
+        web_view_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent webView_Intent1 = new Intent(ChemAPI_Activity.this, PBD_WebService_Activity.class);
+                startActivity(webView_Intent1);
+            }
+        });
+
 
     }
 }
