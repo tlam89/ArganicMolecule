@@ -1,8 +1,10 @@
 package com.examples.arganicmolecule2;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -120,6 +122,33 @@ public class PBD_Date_Activity extends AppCompatActivity {
             Glide.with(context).load(moleculeList.get(position).getLink()).into(image);
 
             return view;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (true) {
+            AlertDialog.Builder alertdialog = new AlertDialog.Builder(PBD_Date_Activity.this);
+            alertdialog.setTitle("Alert!");
+            alertdialog.setMessage("Are you sure you want to leave this page?");
+            alertdialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+
+            alertdialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            AlertDialog alert = alertdialog.create();
+            alertdialog.show();
+        } else {
+            finish();
         }
     }
 }
