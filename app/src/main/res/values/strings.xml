@@ -8,7 +8,7 @@
     <string name="enter_common_name">Enter common name</string>
     <string name="arganic_molecule">ARganic Molecule</string>
     <string name="team_name">Team Name:</string>
-    <string name="launch_website">Launch Website</string>
+    <string name="launch_webView">Launch WebView</string>
     <string name="launch_webservice">Launch WebService</string>
     <string name="button3">Team Name:</string>
     <string name="enter_id_name_date">Enter ID/Name/Date</string>
@@ -19,4 +19,5 @@
     <string name="molecule_summary">Molecule Summary</string>
     <string name="like">Like</string>
     <string name="json_output">JSON Output</string>
+    <string name="loading">Loading...</string>
 </resources>
