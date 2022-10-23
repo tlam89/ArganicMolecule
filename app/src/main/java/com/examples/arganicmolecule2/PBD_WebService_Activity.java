@@ -7,9 +7,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.provider.Telephony;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.stream.JsonReader;
@@ -24,6 +26,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -34,10 +37,13 @@ public class PBD_WebService_Activity extends AppCompatActivity {
     Button nameButton;
     Button dateButton;
     EditText enter_editText;
-    TextView json_output;
     Button summaryButton;
     String formula;
-    Double formula_weight;
+    String formula_weight;
+    String id;
+    String name;
+    ArrayList<String> featureList;
+    ListView Json_output;
 
     LinearLayout horizontal_buttons;
     LinearLayout vertical_layout1;
@@ -54,6 +60,12 @@ public class PBD_WebService_Activity extends AppCompatActivity {
     Boolean isDate=false;
     String comp_id = "";
 
+    TextView input1;
+    TextView input2;
+    TextView input3;
+    TextView input4;
+
+
 
 
     @Override
@@ -69,7 +81,11 @@ public class PBD_WebService_Activity extends AppCompatActivity {
 
         searchBy_textView = findViewById(R.id.textView_Search_By);
         enter_editText = findViewById(R.id.editText_Enter_ID_Name_Date);
-        json_output = findViewById(R.id.textView_JSON);
+
+        input1 = findViewById(R.id.textView_input1);
+        input2 = findViewById(R.id.textView_input2);
+        input3 = findViewById(R.id.textView_input3);
+        input4 = findViewById(R.id.textView_input4);
 
         idButton.setOnClickListener(view -> {
             isID = true;
@@ -157,12 +173,25 @@ public class PBD_WebService_Activity extends AppCompatActivity {
 //                        Log.i("Json string: ", s);
                         JSONObject jsonObject = new JSONObject(s);
 
-                        JSONArray jsonArray1 = jsonObject.getJSONArray("chem_comp");
+                        JSONObject chem_comp = jsonObject.getJSONObject("chem_comp");
 
                         for (int i = 0; i<10; i++) {
-                            JSONObject rec = jsonArray1.getJSONObject(i);
-                            formula = rec.getString("formula");
-                            formula_weight = rec.getDouble("formula_weight");
+
+                            if (i == 0) {
+                                formula = chem_comp.getString("formula");
+                                featureList.add(formula);
+                            } else if (i == 1) {
+                                Double formula_weight_temp =chem_comp.getDouble("formula_weight");
+                                formula_weight = Double.toString(formula_weight_temp);
+                                featureList.add(formula_weight);
+                            } else if (i == 2) {
+                                id = chem_comp.getString("id");
+                                featureList.add(id);
+                            } else if (i == 3) {
+                                name =chem_comp.getString("name");
+                                featureList.add(name);
+                            }
+
                         }
 
                     } catch (JSONException e) {
@@ -180,8 +209,22 @@ public class PBD_WebService_Activity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        json_output.setText(formula);
-
+                        for (int j = 0; j<4 ; j++) {
+                            if (j == 0) {
+                                input1.setText(featureList.get(j));
+                            } else if (j == 0) {
+                                input2.setText(featureList.get(j));
+                            } else if (j == 0) {
+                                input3.setText(featureList.get(j));
+                            } else {
+                                input4.setText(featureList.get(j));
+                            }
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 });
 
@@ -205,7 +248,7 @@ public class PBD_WebService_Activity extends AppCompatActivity {
                     PBD_WebService_Activity.this
             );
             alertdialog.setTitle("Alert!");
-            alertdialog.setMessage("Are you sure you want to leave this page?");
+            alertdialog.setMessage("Are you sure  you want to leave this page?");
             alertdialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
