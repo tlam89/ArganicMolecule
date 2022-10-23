@@ -18,86 +18,112 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <TextView
-            android:id="@+id/textView_Search_By"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/search_by" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout_Horizontal_Buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <Button
-                android:id="@+id/button_Id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/id"
-                style="?android:attr/buttonBarButtonStyle" />
-
-            <Button
-                android:id="@+id/button_Name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/name"
-                style="?android:attr/buttonBarButtonStyle" />
-
-            <Button
-                android:id="@+id/button_Date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/date"
-                style="?android:attr/buttonBarButtonStyle" />
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/editText_Enter_ID_Name_Date"
-            android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:autofillHints="Enter "
-            android:hint="@string/enter_id_name_date"
-            android:inputType="date" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_Horizontal_Buttons"
+        android:layout_width="417dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Search_By">
+
+
+        <Button
+            android:id="@+id/button_Name"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/name" />
+
+        <Button
+            android:id="@+id/button_Date"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/date" />
+
+        <Button
+            android:id="@+id/button_Id"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/id" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView_JSON"
+        android:layout_width="84dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/json_output"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_Molecule_Summary" />
+
+    <EditText
+        android:id="@+id/editText_Enter_ID_Name_Date"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_marginTop="20dp"
+        android:autofillHints="Enter "
+        android:hint="@string/enter_id_name_date"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_Horizontal_Buttons"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView_Search_By"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search_by"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.037" />
 
     <Button
         android:id="@+id/button_Molecule_Summary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="20dp"
         android:text="@string/molecule_summary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout_Control_Panel" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_Horizontal_Buttons" />
 
     <Button
         android:id="@+id/button_Like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="256dp"
-        android:text="@string/like"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="212dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Like"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_Molecule_Summary" />
-
-    <TextView
-        android:id="@+id/textView_JSON"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/json_output"
-        app:layout_constraintBottom_toTopOf="@+id/button_Like"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_Molecule_Summary" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_JSON"
+        app:layout_constraintVertical_bias="0.813" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
