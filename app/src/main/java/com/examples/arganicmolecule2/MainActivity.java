@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openRSChemWebViewScreen() {
-        Intent openRSChemWebViewActivity = new Intent(this, ChemAPI_Activity.class);
+        Intent openRSChemWebViewActivity = new Intent(this, PBD_Website_Activity.class);
         startActivity(openRSChemWebViewActivity);
     }
 }
