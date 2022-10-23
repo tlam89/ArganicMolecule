@@ -2,7 +2,9 @@ package com.examples.arganicmolecule2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 
