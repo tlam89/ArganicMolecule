@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:text="Molecule Name"
         android:layout_below="@id/picture"
-        android:textSize="30dp"
+        android:textSize="35dp"
         android:textColor="@color/black"
         android:padding="10dp"
         android:layout_centerHorizontal="true"
