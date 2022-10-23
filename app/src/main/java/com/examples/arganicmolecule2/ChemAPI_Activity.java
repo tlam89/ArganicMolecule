@@ -52,7 +52,7 @@ public class ChemAPI_Activity extends AppCompatActivity {
         webViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent webView_intent= new Intent(ChemAPI_Activity.this,PBD_Website_Activity.class);
+                Intent webView_intent= new Intent(ChemAPI_Activity.this, PBD_webview_Activity.class);
                 startActivity(webView_intent);
             }
         });

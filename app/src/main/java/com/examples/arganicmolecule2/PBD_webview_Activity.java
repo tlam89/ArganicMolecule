@@ -30,7 +30,7 @@ public class PBD_webview_Activity extends AppCompatActivity {
     public void onBackPressed() {
         if (true) {
             AlertDialog.Builder alertdialog = new AlertDialog.Builder(
-                    PBD_Website_Activity.this
+                    PBD_webview_Activity.this
             );
             alertdialog.setTitle("Alert!");
             alertdialog.setMessage("Are you sure you want to leave this page?");
