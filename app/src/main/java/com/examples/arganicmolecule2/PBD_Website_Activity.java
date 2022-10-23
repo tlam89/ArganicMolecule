@@ -1,17 +1,29 @@
 package com.examples.arganicmolecule2;
 
+
+import android.webkit.WebView;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
-import android.os.Bundle;
 
-public class PBD_Website_Activity extends AppCompatActivity {
+import android.os.Bundle;
+import android.webkit.WebViewClient;
+import android.widget.Toast;
+
+public class PBD_webview_Activity extends AppCompatActivity {
+
+    private WebView webView;
+    private final String PBD_URL_ADDRESS="https://www.rcsb.org/";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pbd_website);
+        webView= (WebView) findViewById(R.id.webview_view);
+        webView.setWebViewClient( new WebViewClient());
+        webView.loadUrl(PBD_URL_ADDRESS);
     }
 
     @Override

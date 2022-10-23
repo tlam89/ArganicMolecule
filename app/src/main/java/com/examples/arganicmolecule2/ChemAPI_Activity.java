@@ -10,8 +10,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 
 public class ChemAPI_Activity extends AppCompatActivity {
-
-
+    Button webViewButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,5 +47,14 @@ public class ChemAPI_Activity extends AppCompatActivity {
         });
 
 
+        // Lunch WEB VIEW for Launch WEBVIEW button
+        webViewButton=findViewById(R.id.button_for_webView);
+        webViewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent webView_intent= new Intent(ChemAPI_Activity.this,PBD_Website_Activity.class);
+                startActivity(webView_intent);
+            }
+        });
     }
 }
