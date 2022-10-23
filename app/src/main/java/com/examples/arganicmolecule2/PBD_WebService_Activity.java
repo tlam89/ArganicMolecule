@@ -1,7 +1,9 @@
 package com.examples.arganicmolecule2;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.provider.Telephony;
 import android.widget.Button;
@@ -9,7 +11,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -27,8 +36,11 @@ public class PBD_WebService_Activity extends AppCompatActivity {
     LinearLayout vertical_layout1;
 
     Boolean pdbConnecting = false;
-    URL pdbEndpoint;
-    HttpsURLConnection myConnection;
+    HttpURLConnection urlConnection = null;
+    PDBThread pdbThread;
+    String query = "";
+
+    URL url;
 
 
 
@@ -49,39 +61,126 @@ public class PBD_WebService_Activity extends AppCompatActivity {
 
         summaryButton.setOnClickListener(view -> {
             pdbConnecting = true;
-            //PDBThread.start()
+//            pdbThread = new PDBThread();
+//            pdbThread.start();
         });
+    }
 
 
 
-        try {
-            pdbEndpoint = new URL("https://api.github.com/");
-            myConnection =  (HttpsURLConnection) pdbEndpoint.openConnection();
-            pdbConnecting = true;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    class PDBThread extends Thread {
 
+        public String getJSON() {
+            String result = "";
+            try {
+                CharSequence comp_id = (CharSequence) enter_editText.getText();
+                query = "https://data.rcsb.org/rest/v1/core/chemcomp/{" + comp_id +"}";
 
-        try {
-            if (myConnection.getResponseCode() == 200) {
-                // Success
-                // Further processing here
-            } else {
-                // Error handling code goes here
+                try {
+                    url = new URL(query);
+
+                    urlConnection = (HttpURLConnection) url.openConnection();
+
+                    InputStream in = urlConnection.getInputStream();
+
+                    InputStreamReader isw = new InputStreamReader(in);
+
+                    int data = isw.read();
+
+                    while (data != -1) {
+                        result += (char) data;
+                        data = isw.read();
+
+                    }
+                    return result;
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (urlConnection != null) {
+                        urlConnection.disconnect();
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            return result;
         }
+
+
+
+
+        @Override
+        public void run() {
+            String s = getJSON();
+//            try {
+//                if (urlConnection.getResponseCode() == 200) {
+//                    try {
+//                        JSONObject jsonObject = new JSONObject(s);
+//
+//                        JSONArray jsonArray1 = jsonObject.getJSONArray("chem_comp");
+//
+//
+//
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//                    // Error handling code goes here
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+
+
+            while (pdbConnecting) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+
+            }
+
+
+        }
+
+
+
+
+
 
 
     }
 
-    class PDBThread extends Thread {
+    @Override
+    public void onBackPressed() {
+        if (true) {
+            AlertDialog.Builder alertdialog = new AlertDialog.Builder(
+                    PBD_WebService_Activity.this
+            );
+            alertdialog.setTitle("Alert!");
+            alertdialog.setMessage("Are you sure you want to leave this page?");
+            alertdialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
 
+            alertdialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
 
-
+            AlertDialog alert = alertdialog.create();
+            alertdialog.show();
+        } else {
+            finish();
+        }
     }
 }

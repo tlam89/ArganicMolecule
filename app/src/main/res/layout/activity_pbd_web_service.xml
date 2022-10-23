@@ -37,30 +37,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/id" />
+                android:text="@string/id"
+                style="?android:attr/buttonBarButtonStyle" />
 
             <Button
                 android:id="@+id/button_Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/name" />
+                android:text="@string/name"
+                style="?android:attr/buttonBarButtonStyle" />
 
             <Button
                 android:id="@+id/button_Date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/date" />
+                android:text="@string/date"
+                style="?android:attr/buttonBarButtonStyle" />
         </LinearLayout>
 
         <EditText
             android:id="@+id/editText_Enter_ID_Name_Date"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="58dp"
             android:autofillHints="Enter "
             android:hint="@string/enter_id_name_date"
-            android:inputType="date"/>
+            android:inputType="date" />
 
     </LinearLayout>
 
@@ -75,37 +78,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout_Control_Panel" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="415dp"
-        android:layout_height="295dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_Molecule_Summary"
-        app:layout_constraintVertical_bias="0.025">
-
-        <LinearLayout
-            android:id="@+id/linearLayout_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
-
     <Button
         android:id="@+id/button_Like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="256dp"
         android:text="@string/like"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        app:layout_constraintTop_toBottomOf="@+id/button_Molecule_Summary" />
+
+    <TextView
+        android:id="@+id/textView_JSON"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/json_output"
+        app:layout_constraintBottom_toTopOf="@+id/button_Like"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_Molecule_Summary" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
