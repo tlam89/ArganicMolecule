@@ -11,4 +11,11 @@
     <string name="launch_website">Launch Website</string>
     <string name="launch_webview">Launch Webview</string>
     <string name="button3">Team Name:</string>
+    <string name="enter_id_name_date">Enter ID/Name/Date</string>
+    <string name="date">Date</string>
+    <string name="name">Name</string>
+    <string name="id">ID</string>
+    <string name="search_by">Search By:</string>
+    <string name="molecule_summary">Molecule Summary</string>
+    <string name="like">Like</string>
 </resources>
