@@ -22,7 +22,7 @@ import java.net.URL;
 
 public class PBD_WebService_Activity extends AppCompatActivity {
     TextView searchBy_textView;
-    Button idButton, nameButton, dateButton, summaryButton;
+    Button idButton, nameButton, dateButton, summaryButton, likeButton;
     EditText enter_editText;
     String formula, formula_weight, id, name, query = "", comp_id = "";
 
@@ -44,8 +44,8 @@ public class PBD_WebService_Activity extends AppCompatActivity {
 
         horizontal_buttons = findViewById(R.id.linearLayout_Horizontal_Buttons);
         idButton = findViewById(R.id.button_Id);
-        nameButton = findViewById(R.id.button_Name);
-        dateButton = findViewById(R.id.button_Date);
+//        nameButton = findViewById(R.id.button_Name);
+//        dateButton = findViewById(R.id.button_Date);
 
         searchBy_textView = findViewById(R.id.textView_Search_By);
         enter_editText = findViewById(R.id.editText_Enter_ID_Name_Date);
@@ -86,14 +86,16 @@ public class PBD_WebService_Activity extends AppCompatActivity {
         idButton.setOnClickListener(view -> {
             isID = true;
         });
+//
+//        nameButton.setOnClickListener(view -> {
+//            isName = true;
+//        });
+//
+//        dateButton.setOnClickListener(view -> {
+//            isDate = true;
+//        });
 
-        nameButton.setOnClickListener(view -> {
-            isName = true;
-        });
 
-        dateButton.setOnClickListener(view -> {
-            isDate = true;
-        });
 
         summaryButton = findViewById(R.id.button_Molecule_Summary);
 
@@ -110,6 +112,12 @@ public class PBD_WebService_Activity extends AppCompatActivity {
             pdbThread = new PDBThread();
             pdbThread.start();
         });
+
+        likeButton = findViewById(R.id.button_Like);
+        likeButton.setOnClickListener(view -> {
+            pdbConnecting=false;
+            Thread.currentThread().interrupt();
+        });
     }
 
     @Override
@@ -123,11 +131,11 @@ public class PBD_WebService_Activity extends AppCompatActivity {
             alertdialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    pdbConnecting=false;
+                    Thread.currentThread().interrupt();
                     finish();
                 }
-            });
-
-            alertdialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
@@ -156,26 +164,22 @@ public class PBD_WebService_Activity extends AppCompatActivity {
         public String getJSON() {
             String result = "";
             try {
-                try {
-                    url = new URL(query);
-                    urlConnection = (HttpURLConnection) url.openConnection();
-                    InputStream in = urlConnection.getInputStream();
-                    InputStreamReader isw = new InputStreamReader(in);
-                    int data = isw.read();
-                    while (data != -1) {
-                        result += (char) data;
-                        data = isw.read();
-                    }
-                    return result;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    if (urlConnection != null) {
-                        urlConnection.disconnect();
-                    }
+                url = new URL(query);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream in = urlConnection.getInputStream();
+                InputStreamReader isw = new InputStreamReader(in);
+                int data = isw.read();
+                while (data != -1) {
+                    result += (char) data;
+                    data = isw.read();
                 }
+                return result;
             } catch (Exception e) {
                 e.printStackTrace();
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
             }
             return result;
         }
@@ -183,30 +187,23 @@ public class PBD_WebService_Activity extends AppCompatActivity {
         @Override
         public void run() {
             String s = getJSON();  //string from JSON file.
+
             try {
-                if (urlConnection.getResponseCode() == 200) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(s);
-                        JSONObject chem_comp = jsonObject.getJSONObject("chem_comp");
-                        for (int i = 0; i < 10; i++) {
-                            if (i == 0) {
-                                formula = chem_comp.getString("formula");
-                            } else if (i == 1) {
-                                Double formula_weight_temp = chem_comp.getDouble("formula_weight");
-                                formula_weight = Double.toString(formula_weight_temp);
-                            } else if (i == 2) {
-                                id = chem_comp.getString("id");
-                            } else if (i == 3) {
-                                name = chem_comp.getString("name");
-                            }
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                JSONObject jsonObject = new JSONObject(s);
+                JSONObject chem_comp = jsonObject.getJSONObject("chem_comp");
+                for (int i = 0; i < 4; i++) {
+                    if (i == 0) {
+                        formula = chem_comp.getString("formula");
+                    } else if (i == 1) {
+                        Double formula_weight_temp = chem_comp.getDouble("formula_weight");
+                        formula_weight = Double.toString(formula_weight_temp);
+                    } else if (i == 2) {
+                        id = chem_comp.getString("id");
+                    } else if (i == 3) {
+                        name = chem_comp.getString("name");
                     }
-                } else {
-                    // Error handling code goes here
                 }
-            } catch (IOException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
 
@@ -233,6 +230,8 @@ public class PBD_WebService_Activity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         input4.setText(name);
+                        pdbConnecting=false;
+                        Thread.currentThread().interrupt();
                     }
                 });
             }
