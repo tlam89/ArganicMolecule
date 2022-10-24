@@ -1,5 +1,6 @@
 package com.examples.arganicmolecule2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -86,6 +87,34 @@ public class PBD_WebService_Activity extends AppCompatActivity {
         input2 = findViewById(R.id.textView_input2);
         input3 = findViewById(R.id.textView_input3);
         input4 = findViewById(R.id.textView_input4);
+
+        if (savedInstanceState != null) {
+            formula = savedInstanceState.getString("formula",formula);
+            formula_weight = savedInstanceState.getString("formula_weight",formula_weight);
+            id = savedInstanceState.getString("id",id);
+            name = savedInstanceState.getString("name",name);
+            pdbConnecting = savedInstanceState.getBoolean("pdbConnecting", pdbConnecting);
+
+            input1.setText(formula);
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            input2.setText(formula_weight);
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            input3.setText(id);
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            input4.setText(name);
+        }
 
         idButton.setOnClickListener(view -> {
             isID = true;
@@ -226,12 +255,6 @@ public class PBD_WebService_Activity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         input4.setText(name);
-                        try {
-                            Thread.sleep(300);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-
-                        }
                     }
                 });
 
@@ -276,4 +299,16 @@ public class PBD_WebService_Activity extends AppCompatActivity {
             finish();
         }
     }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("formula",formula);
+        outState.putString("formula_weight",formula_weight);
+        outState.putString("id",id);
+        outState.putString("name",name);
+        outState.putBoolean("pdbConnecting", pdbConnecting);
+    }
+
+
 }
