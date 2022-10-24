@@ -1,13 +1,9 @@
 package com.examples.arganicmolecule2;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.examples.arganicmolecule2.model.molecule;
@@ -32,9 +31,9 @@ import retrofit2.Response;
 
 public class PBD_Date_Activity extends AppCompatActivity {
 
+    public static List<molecule> moleculeList;
     GridView gridView;
     CustomAdapter customerAdapter;
-    public static List<molecule> moleculeList;
     ProgressBar progressBar;
 
     @Override
@@ -47,31 +46,18 @@ public class PBD_Date_Activity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
-
         setTitle("LOADING...");
-
-//        final LoadingDialog loadingDialog = new LoadingDialog(PBD_Date_Activity.this);
-//        loadingDialog.startLoadingDialog();
 
         //make network call
         Call<List<molecule>> call = APIclient.apiInterface().getmolecule();
         call.enqueue(new Callback<List<molecule>>() {
             @Override
             public void onResponse(Call<List<molecule>> call, Response<List<molecule>> response) {
-//                progressBar.setVisibility(View.VISIBLE);
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     progressBar.setVisibility(View.GONE);
-//                    progressBar.setVisibility(View.GONE);
-//                    Handler handler = new Handler();
-//                    handler.postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            loadingDialog.dismissDialog();
-//                        }
-//                    }, 300);
                     moleculeList = response.body();
-                    customerAdapter = new CustomAdapter(response.body(),PBD_Date_Activity.this );
-                    gridView.setAdapter(customerAdapter );
+                    customerAdapter = new CustomAdapter(response.body(), PBD_Date_Activity.this);
+                    gridView.setAdapter(customerAdapter);
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -82,66 +68,21 @@ public class PBD_Date_Activity extends AppCompatActivity {
                             //intent.putExtra("image",moleculeList.get(position).getLink());
 
                             startActivity(new Intent(getApplicationContext(), item_data.class)
-                                    .putExtra("title",moleculeList.get(position).getTitle())
-                                    .putExtra("date",moleculeList.get(position).getDate())
-                                    .putExtra("image",moleculeList.get(position).getLink()));
+                                    .putExtra("title", moleculeList.get(position).getTitle())
+                                    .putExtra("date", moleculeList.get(position).getDate())
+                                    .putExtra("image", moleculeList.get(position).getLink()));
                         }
                     });
                 } else {
-                    Toast.makeText(getApplicationContext(),"An error Occured",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "An error Occured", Toast.LENGTH_LONG).show();
                 }
-
             }
 
             @Override
             public void onFailure(Call<List<molecule>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"An error Occured"+t.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "An error Occured" + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
-
-
-    }
-
-    public class CustomAdapter extends BaseAdapter{
-         public List<molecule> moleculeList;
-        public Context context;
-
-        public CustomAdapter(List<molecule> moleculeList, Context context) {
-            this.moleculeList = moleculeList;
-            this.context = context;
-        }
-
-        @Override
-        public int getCount() {
-            return moleculeList.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view = LayoutInflater.from(context).inflate(R.layout.row_data,null);
-            //find view
-            TextView title = view.findViewById(R.id.title);
-            //TextView date = view.findViewById(R.id.date);
-            ImageView image = view.findViewById(R.id.imageView);
-
-            //set data
-            title.setText(moleculeList.get(position).getTitle());
-            //date.setText(moleculeList.get(position).getDate());
-            Glide.with(context).load(moleculeList.get(position).getLink()).into(image);
-
-            return view;
-        }
     }
 
     @Override
@@ -168,6 +109,47 @@ public class PBD_Date_Activity extends AppCompatActivity {
             alertdialog.show();
         } else {
             finish();
+        }
+    }
+
+    public class CustomAdapter extends BaseAdapter {
+        public List<molecule> moleculeList;
+        public Context context;
+
+        public CustomAdapter(List<molecule> moleculeList, Context context) {
+            this.moleculeList = moleculeList;
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return moleculeList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = LayoutInflater.from(context).inflate(R.layout.row_data, null);
+            //find view
+            TextView title = view.findViewById(R.id.title);
+            //TextView date = view.findViewById(R.id.date);
+            ImageView image = view.findViewById(R.id.imageView);
+
+            //set data
+            title.setText(moleculeList.get(position).getTitle());
+            //date.setText(moleculeList.get(position).getDate());
+            Glide.with(context).load(moleculeList.get(position).getLink()).into(image);
+
+            return view;
         }
     }
 }
