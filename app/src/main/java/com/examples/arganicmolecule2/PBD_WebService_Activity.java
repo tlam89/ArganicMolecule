@@ -63,23 +63,8 @@ public class PBD_WebService_Activity extends AppCompatActivity {
             pdbConnecting = savedInstanceState.getBoolean("pdbConnecting", pdbConnecting);
 
             input1.setText(formula);
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             input2.setText(formula_weight);
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             input3.setText(id);
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             input4.setText(name);
         }
 
@@ -212,23 +197,8 @@ public class PBD_WebService_Activity extends AppCompatActivity {
                     @Override
                     public void run() {
                         input1.setText(formula);
-                        try {
-                            Thread.sleep(300);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
                         input2.setText(formula_weight);
-                        try {
-                            Thread.sleep(300);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
                         input3.setText(id);
-                        try {
-                            Thread.sleep(300);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
                         input4.setText(name);
                         pdbConnecting=false;
                         Thread.currentThread().interrupt();
