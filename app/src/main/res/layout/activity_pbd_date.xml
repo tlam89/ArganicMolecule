@@ -9,11 +9,23 @@
    <GridView
        android:id="@+id/gridView"
        android:layout_width="match_parent"
-       android:numColumns="2"
+       android:layout_height="match_parent"
        android:horizontalSpacing="2dp"
+       android:numColumns="2"
        android:verticalSpacing="2dp"
-       android:layout_margin="2dp"
-       android:layout_height="wrap_content"/>
+       >
+   </GridView>
 
+   <ProgressBar
+       android:id="@+id/progressBar"
+       style="?android:attr/progressBarStyle"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:foregroundGravity="center"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       android:visibility="gone"/>
 
 </RelativeLayout>
