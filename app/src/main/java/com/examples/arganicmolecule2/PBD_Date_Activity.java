@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,7 @@ public class PBD_Date_Activity extends AppCompatActivity {
     GridView gridView;
     CustomAdapter customerAdapter;
     public static List<molecule> moleculeList;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +45,30 @@ public class PBD_Date_Activity extends AppCompatActivity {
         gridView = findViewById(R.id.gridView);
         moleculeList = new ArrayList<>();
 
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
+        setTitle("LOADING...");
+
+//        final LoadingDialog loadingDialog = new LoadingDialog(PBD_Date_Activity.this);
+//        loadingDialog.startLoadingDialog();
+
         //make network call
         Call<List<molecule>> call = APIclient.apiInterface().getmolecule();
         call.enqueue(new Callback<List<molecule>>() {
             @Override
             public void onResponse(Call<List<molecule>> call, Response<List<molecule>> response) {
-                if(response.isSuccessful()){
+//                progressBar.setVisibility(View.VISIBLE);
+                if(response.isSuccessful()) {
+                    progressBar.setVisibility(View.GONE);
+//                    progressBar.setVisibility(View.GONE);
+//                    Handler handler = new Handler();
+//                    handler.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            loadingDialog.dismissDialog();
+//                        }
+//                    }, 300);
                     moleculeList = response.body();
                     customerAdapter = new CustomAdapter(response.body(),PBD_Date_Activity.this );
                     gridView.setAdapter(customerAdapter );
@@ -64,11 +85,9 @@ public class PBD_Date_Activity extends AppCompatActivity {
                                     .putExtra("title",moleculeList.get(position).getTitle())
                                     .putExtra("date",moleculeList.get(position).getDate())
                                     .putExtra("image",moleculeList.get(position).getLink()));
-
                         }
                     });
-
-                }else{
+                } else {
                     Toast.makeText(getApplicationContext(),"An error Occured",Toast.LENGTH_LONG).show();
                 }
 

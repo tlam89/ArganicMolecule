@@ -1,6 +1,9 @@
 package com.examples.arganicmolecule2;
 
 
+import android.graphics.Bitmap;
+import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -10,12 +13,14 @@ import android.content.DialogInterface;
 
 import android.os.Bundle;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class PBD_webview_Activity extends AppCompatActivity {
 
     private WebView webView;
     private final String PBD_URL_ADDRESS="https://www.rcsb.org/";
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -24,6 +29,27 @@ public class PBD_webview_Activity extends AppCompatActivity {
         webView= (WebView) findViewById(R.id.webview_view);
         webView.setWebViewClient( new WebViewClient());
         webView.loadUrl(PBD_URL_ADDRESS);
+
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        progressBar = findViewById(R.id.progressBar);
+
+
+        webView.setWebViewClient( new WebViewClient() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                progressBar.setVisibility(View.VISIBLE);
+                setTitle("LOADING...");
+                super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                progressBar.setVisibility(View.GONE);
+                super.onPageFinished(view, url);
+            }
+        });
     }
 
     @Override

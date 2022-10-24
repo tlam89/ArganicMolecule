@@ -16,21 +16,11 @@ public class ChemAPI_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chem_api);
 
-        final LoadingDialog loadingDialog = new LoadingDialog(ChemAPI_Activity.this);
-
         // Wire up the Molecule of the Month button
         Button mtn = (Button) findViewById(R.id.button3);
         mtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadingDialog.startLoadingDialog();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadingDialog.dismissDialog();
-                    }
-                }, 5000);
                 Intent intent1 = new Intent(ChemAPI_Activity.this, PBD_Date_Activity.class);
                 startActivity(intent1);
             }
