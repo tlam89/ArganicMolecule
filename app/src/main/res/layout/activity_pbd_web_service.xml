@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/textView_input2"
-        android:layout_width="150dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +29,7 @@
 
     <TextView
         android:id="@+id/textView_input3"
-        android:layout_width="150dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,29 +61,31 @@
         android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_Search_By">
+        tools:ignore="MissingConstraints">
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView_Search_By"-->
 
 
-        <Button
-            android:id="@+id/button_Name"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:text="@string/name" />
 
-        <Button
-            android:id="@+id/button_Date"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:text="@string/date" />
+        <!--        <Button-->
+        <!--            android:id="@+id/button_Name"-->
+        <!--            style="?android:attr/buttonBarButtonStyle"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="40dp"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:text="@string/name" />-->
+
+        <!--        <Button-->
+        <!--            android:id="@+id/button_Date"-->
+        <!--            style="?android:attr/buttonBarButtonStyle"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="40dp"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:text="@string/date" />-->
 
         <Button
             android:id="@+id/button_Id"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="40dp"
             android:layout_weight="1"
             android:text="@string/id" />
@@ -96,7 +98,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:autofillHints="Enter "
-        android:hint="@string/enter_id_name_date"
+        android:hint="Sample ID: CFF (3 digits or Capital Letters)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -104,17 +106,17 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout_Horizontal_Buttons"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textView_Search_By"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/search_by"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.037" />
+<!--    <TextView-->
+<!--        android:id="@+id/textView_Search_By"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/search_by"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.037" />-->
 
     <Button
         android:id="@+id/button_Molecule_Summary"
@@ -125,7 +127,7 @@
         android:layout_marginEnd="20dp"
         android:text="@string/molecule_summary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout_Horizontal_Buttons" />
 
@@ -133,13 +135,11 @@
         android:id="@+id/button_Like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="32dp"
         android:text="Like"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -155,7 +155,7 @@
 
     <TextView
         android:id="@+id/textView_input1"
-        android:layout_width="150dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -187,7 +187,7 @@
 
     <TextView
         android:id="@+id/textView_input4"
-        android:layout_width="150dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"

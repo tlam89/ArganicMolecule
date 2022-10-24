@@ -21,14 +21,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class PBD_WebService_Activity extends AppCompatActivity {
-    TextView searchBy_textView;
+//    TextView searchBy_textView;
     Button idButton, nameButton, dateButton, summaryButton, likeButton;
     EditText enter_editText;
     String formula, formula_weight, id, name, query = "", comp_id = "";
 
     LinearLayout horizontal_buttons, vertical_layout1;
 
-    Boolean pdbConnecting = false, isID = false, isName = false, isDate = false;
+    Boolean pdbConnecting = true, isID = true, isName = true, isDate = false;
     HttpURLConnection urlConnection = null;
     PDBThread pdbThread;
 
@@ -47,7 +47,7 @@ public class PBD_WebService_Activity extends AppCompatActivity {
 //        nameButton = findViewById(R.id.button_Name);
 //        dateButton = findViewById(R.id.button_Date);
 
-        searchBy_textView = findViewById(R.id.textView_Search_By);
+//        searchBy_textView = findViewById(R.id.textView_Search_By);
         enter_editText = findViewById(R.id.editText_Enter_ID_Name_Date);
 
         input1 = findViewById(R.id.textView_input1);
