@@ -27,6 +27,7 @@ public class PBD_Note_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pbd_note);
         notes = new ArrayList<>();
+
         initialItemData(savedInstanceState);
 
         recyclerView = findViewById(R.id.recyclerView);
@@ -34,6 +35,10 @@ public class PBD_Note_Activity extends AppCompatActivity {
         customAdapter = new NoteAdapter(notes);
         recyclerView.setAdapter(customAdapter );
 
+        getData();
+    }
+
+    public void getData(){
         if(getIntent().hasExtra(PBD_WebService_Activity.FORMULA_KEY)){
             String formula = getIntent().getStringExtra(PBD_WebService_Activity.FORMULA_KEY);
             String formula_weight = getIntent().getStringExtra(PBD_WebService_Activity.FORMULA_WEIGHT_KEY);
@@ -44,7 +49,6 @@ public class PBD_Note_Activity extends AppCompatActivity {
             Snackbar.make(findViewById(R.id.recyclerView), "Note Saved", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             customAdapter.notifyDataSetChanged();
         }
-
     }
 
 
