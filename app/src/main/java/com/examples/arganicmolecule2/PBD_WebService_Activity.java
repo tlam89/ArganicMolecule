@@ -1,7 +1,9 @@
 package com.examples.arganicmolecule2;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -36,6 +38,11 @@ public class PBD_WebService_Activity extends AppCompatActivity {
 
     TextView input1, input2, input3, input4;
 
+    public static final String NAME_KEY = "edu.ArganicMolecule.NAME_KEY";
+    public static final String ID_KEY = "edu.ArganicMolecule.ID_KEY";
+    public static final String FORMULA_KEY = "edu.ArganicMolecule.FORMULA_KEY";
+    public static final String FORMULA_WEIGHT_KEY = "edu.ArganicMolecule.FORMULA_WEIGHT_KEY";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +73,7 @@ public class PBD_WebService_Activity extends AppCompatActivity {
             input2.setText(formula_weight);
             input3.setText(id);
             input4.setText(name);
+
         }
 
         idButton.setOnClickListener(view -> {
@@ -96,12 +104,20 @@ public class PBD_WebService_Activity extends AppCompatActivity {
             pdbConnecting = true;
             pdbThread = new PDBThread();
             pdbThread.start();
+            enter_editText.onEditorAction(EditorInfo.IME_ACTION_DONE);
         });
 
         likeButton = findViewById(R.id.button_Like);
         likeButton.setOnClickListener(view -> {
             pdbConnecting=false;
             Thread.currentThread().interrupt();
+
+            Intent data = new Intent(PBD_WebService_Activity.this, PBD_Note_Activity.class);
+            data.putExtra(NAME_KEY, name);
+            data.putExtra(ID_KEY, id);
+            data.putExtra(FORMULA_KEY, formula);
+            data.putExtra(FORMULA_WEIGHT_KEY, formula_weight);
+            startActivity(data);
         });
     }
 
