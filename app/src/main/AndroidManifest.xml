@@ -36,6 +36,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".PBD_Note_Activity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ChemAPI_Activity"
             android:exported="false">
             <meta-data
