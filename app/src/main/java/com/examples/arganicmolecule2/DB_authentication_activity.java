@@ -11,8 +11,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class DB_authentication_activity extends AppCompatActivity {
-    DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReferenceFromUrl("");
+    DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReferenceFromUrl("https://arganicmolecule2-66023-default-rtdb.firebaseio.com");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,49 +36,46 @@ public class DB_authentication_activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                final String phoneTxt= phone.getText().toString();
-                final String passwordTxt= password.getText().toString();
-                if(phoneTxt.isEmpty() || passwordTxt.isEmpty()){
-                    Toast.makeText(DB_authentication_activity.this,"Please enter your mobile" +
-                            " or password",Toast.LENGTH_SHORT).show();
-                }else{
+                final String phoneTxt = phone.getText().toString();
+                final String passwordTxt = password.getText().toString();
+                if (phoneTxt.isEmpty() || passwordTxt.isEmpty()) {
+                    Toast.makeText(DB_authentication_activity.this, "Please enter your mobile" +
+                            " or password", Toast.LENGTH_SHORT).show();
+                } else {
                     //adding to the firebase
-                    databaseRefrence.child("users").addListenerForSingleValueEventListener(){
+                    databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot){
-                            if(snapshot.hasChild(phoneTxt)){
-                                final String getPassword= snapshot.chil(phoneTxt).child("password").getValue(String.class);
-                                if(getPassword.equals(passwordTxt)){
-                                    Toast.makeText(DB_authentication_activity.this,"Successfully logged in",
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.hasChild(phoneTxt)) {
+                                final String getPassword = snapshot.child(phoneTxt).child("password").getValue(String.class);
+                                if (getPassword.equals(passwordTxt)) {
+                                    Toast.makeText(DB_authentication_activity.this, "Successfully logged in",
                                             Toast.LENGTH_SHORT).show();
-                                    startActivity( new Intent(DB_authentication_activity.this,DB_stickerMessage_activity.class));
+                                    startActivity(new Intent(DB_authentication_activity.this, DB_stickerMessage_activity.class));
                                     finish();
-                                }else{
-                                    Toast.makeText(DB_authentication_activity.this,"Wrong password",
+                                } else {
+                                    Toast.makeText(DB_authentication_activity.this, "Wrong password",
                                             Toast.LENGTH_SHORT).show();
                                 }
-                            }
-                            }else{
-                            Toast.makeText(DB_authentication_activity.this,"Wrong mobile number",
-                                    Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(DB_authentication_activity.this, "Wrong Mobile number",
+                                        Toast.LENGTH_SHORT).show();
                             }
                         }
+
                         @Override
-                        public void onCancelled(@NonNull DatabaseError error){
+                        public void onCancelled(@NonNull DatabaseError error) {
 
                         }
+                    });
                 }
             }
         });
-
         registerNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity( new Intent(DB_authentication_activity.this,Register_authentication_activity.class));
-
             }
         });
-
-
     }
 }
