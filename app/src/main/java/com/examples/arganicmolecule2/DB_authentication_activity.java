@@ -36,6 +36,7 @@ public class DB_authentication_activity extends AppCompatActivity {
                                          @Override
                                          public void onClick(View view) {
 
+
                                              final String phoneTxt = phone.getText().toString();
                                              final String passwordTxt = password.getText().toString();
                                              if (phoneTxt.isEmpty() || passwordTxt.isEmpty()) {
@@ -70,12 +71,12 @@ public class DB_authentication_activity extends AppCompatActivity {
                                                  });
                                            }
                                       }
+
         });
         registerNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity( new Intent(DB_authentication_activity.this,Register_authentication_activity.class));
-
             }
         });
     }

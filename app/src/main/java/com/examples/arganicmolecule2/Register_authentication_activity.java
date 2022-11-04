@@ -81,3 +81,4 @@ public class Register_authentication_activity extends AppCompatActivity {
         });
     }
 };
+

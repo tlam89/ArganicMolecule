@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "1067955716732",
-    "firebase_url": "https://arganicmolecule2-729b3-default-rtdb.firebaseio.com",
-    "project_id": "arganicmolecule2-729b3",
-    "storage_bucket": "arganicmolecule2-729b3.appspot.com"
+    "project_number": "235758048274",
+    "project_id": "arganicmolecule2-66023",
+    "storage_bucket": "arganicmolecule2-66023.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1067955716732:android:65d29ca913e1a142177ff9",
+        "mobilesdk_app_id": "1:235758048274:android:01acb2bfd9930cec5df4cb",
         "android_client_info": {
           "package_name": "com.examples.arganicmolecule2"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1067955716732-c68hcn8bl9k93ch63ffl97jmd9ra8skt.apps.googleusercontent.com",
+          "client_id": "235758048274-3lij501lu5pj8cepemqqcfsab0tkb9k5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAwwk2H243CdZxFsyHWfg9HL-PdhUJmat0"
+          "current_key": "AIzaSyC1IPtfSPY5sI1ndZhQ1UuAI2x6Lbf3EpE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1067955716732-c68hcn8bl9k93ch63ffl97jmd9ra8skt.apps.googleusercontent.com",
+              "client_id": "235758048274-3lij501lu5pj8cepemqqcfsab0tkb9k5.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
