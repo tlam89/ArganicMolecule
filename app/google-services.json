@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "235758048274",
+    "project_id": "arganicmolecule2-66023",
+    "storage_bucket": "arganicmolecule2-66023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235758048274:android:01acb2bfd9930cec5df4cb",
+        "android_client_info": {
+          "package_name": "com.examples.arganicmolecule2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235758048274-3lij501lu5pj8cepemqqcfsab0tkb9k5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1IPtfSPY5sI1ndZhQ1UuAI2x6Lbf3EpE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235758048274-3lij501lu5pj8cepemqqcfsab0tkb9k5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

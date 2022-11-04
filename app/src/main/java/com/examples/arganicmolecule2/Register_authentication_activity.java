@@ -10,14 +10,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class Register_authentication_activity extends AppCompatActivity {
 
 
     //add the Realtime database link
-
-    //DatabaseReference databaseRefrence= FirebaseDatabase.getInstance().getReferenceFromUrl("");
+    DatabaseReference databaseRefrence= FirebaseDatabase.getInstance().getReferenceFromUrl("https://arganicmolecule2-66023-default-rtdb.firebaseio.com");
     //DatabaseRefrence databaseRefrence= FirebaseDatabase.getInstance().getToken();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,28 +50,26 @@ public class Register_authentication_activity extends AppCompatActivity {
                     Toast.makeText(Register_authentication_activity.this,"Passwords are not match",
                             Toast.LENGTH_SHORT).show();
                 }else{
-                    databaseRefrence.child("users").addListenerForSingleValueEventListener(){
+                    databaseRefrence.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot){
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if(snapshot.hasChild(phoneTxt)){
                                 Toast.makeText(Register_authentication_activity.this,"Phone is already registered",
                                         Toast.LENGTH_SHORT).show();
-                            }else{
+                            }else {
                                 databaseRefrence.child("user").child(phoneTxt).child("fullname").setValue(fullnameTxt);
                                 databaseRefrence.child("user").child(phoneTxt).child("email").setValue(emailTxt);
                                 databaseRefrence.child("user").child(phoneTxt).child("password").setValue(passwordTxt);
+
+                                Toast.makeText(Register_authentication_activity.this, "User registered successfully.", Toast.LENGTH_SHORT).show();
+                                finish();
                             }
                         }
                         @Override
-                        public void onCancelled(@NonNull DatabaseError error){
+                        public void onCancelled(@NonNull DatabaseError error) {
 
                         }
-                    }
-                    databaseRefrence.child("user").child(phoneTxt).child("fullname").setValue(fullnameTxt);
-                    databaseRefrence.child("user").child(phoneTxt).child("email").setValue(emailTxt);
-                    databaseRefrence.child("user").child(phoneTxt).child("password").setValue(passwordTxt);
-                    Toast.makeText(Register_authentication_activity.this,"User registered successfully.",Toast.LENGTH_SHORT).show();
-                    finish();
+                    });
                 }
             }
         });
@@ -79,3 +81,4 @@ public class Register_authentication_activity extends AppCompatActivity {
         });
     }
 };
+
