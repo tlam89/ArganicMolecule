@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         RSChem_Button = findViewById(R.id.PubChem_button);
 
+        
+
         RSChem_Button.setOnClickListener(view -> openRSChemWebViewScreen());
 
     }
