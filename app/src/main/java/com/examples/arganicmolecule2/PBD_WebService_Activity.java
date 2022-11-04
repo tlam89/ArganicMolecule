@@ -1,15 +1,21 @@
 package com.examples.arganicmolecule2;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +25,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class PBD_WebService_Activity extends AppCompatActivity {
 //    TextView searchBy_textView;
@@ -35,6 +42,16 @@ public class PBD_WebService_Activity extends AppCompatActivity {
     URL url;
 
     TextView input1, input2, input3, input4;
+
+    public static final String NAME_KEY = "edu.ArganicMolecule.NAME_KEY";
+    public static final String ID_KEY = "edu.ArganicMolecule.ID_KEY";
+    public static final String FORMULA_KEY = "edu.ArganicMolecule.FORMULA_KEY";
+    public static final String FORMULA_WEIGHT_KEY = "edu.ArganicMolecule.FORMULA_WEIGHT_KEY";
+    //static final int ADD_NOTE_REQUEST = 1;
+    ArrayList<Note> notes;
+    private static final String KEY_OF_NOTE = "KEY_OF_NOTE";
+    private static final String NUMBER_OF_NOTES = "NUMBER_OF_NOTES";
+    //NoteAdapter customAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +72,11 @@ public class PBD_WebService_Activity extends AppCompatActivity {
         input3 = findViewById(R.id.textView_input3);
         input4 = findViewById(R.id.textView_input4);
 
+        //
+        notes = new ArrayList<>();
+        //initialItemData(savedInstanceState);
+        //customAdapter = new NoteAdapter(notes);
+
         if (savedInstanceState != null) {
             formula = savedInstanceState.getString("formula", formula);
             formula_weight = savedInstanceState.getString("formula_weight", formula_weight);
@@ -66,6 +88,7 @@ public class PBD_WebService_Activity extends AppCompatActivity {
             input2.setText(formula_weight);
             input3.setText(id);
             input4.setText(name);
+
         }
 
         idButton.setOnClickListener(view -> {
@@ -96,14 +119,24 @@ public class PBD_WebService_Activity extends AppCompatActivity {
             pdbConnecting = true;
             pdbThread = new PDBThread();
             pdbThread.start();
+            enter_editText.onEditorAction(EditorInfo.IME_ACTION_DONE);
         });
 
         likeButton = findViewById(R.id.button_Like);
         likeButton.setOnClickListener(view -> {
             pdbConnecting=false;
             Thread.currentThread().interrupt();
+
+            Intent data = new Intent(PBD_WebService_Activity.this, PBD_Note_Activity.class);
+            data.putExtra(NAME_KEY, name);
+            data.putExtra(ID_KEY, id);
+            data.putExtra(FORMULA_KEY, formula);
+            data.putExtra(FORMULA_WEIGHT_KEY, formula_weight);
+            startActivity(data);
         });
+
     }
+
 
     @Override
     public void onBackPressed() {
@@ -207,4 +240,26 @@ public class PBD_WebService_Activity extends AppCompatActivity {
             }
         }
     }
+
+
+    private void initialItemData(Bundle savedInstanceState) {
+        // Not the first time to open this Activity
+        if (savedInstanceState != null && savedInstanceState.containsKey(NUMBER_OF_NOTES)) {
+            if (notes== null || notes.size() == 0) {
+                int size = savedInstanceState.getInt(NUMBER_OF_NOTES);
+
+                // Retrieve keys we stored in the instance
+                for (int i = 0; i < size; i++) {
+                    String formula = savedInstanceState.getString(KEY_OF_NOTE + i + "1");
+                    String formula_weight = savedInstanceState.getString(KEY_OF_NOTE + i + "2");
+                    String id = savedInstanceState.getString(KEY_OF_NOTE + i + "3");
+                    String name = savedInstanceState.getString(KEY_OF_NOTE + i + "4");
+                    Note note = new Note(formula, formula_weight, id, name);
+                    notes.add(note);
+                }
+            }
+        }
+    }
+
+
 }
