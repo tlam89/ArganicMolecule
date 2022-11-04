@@ -7,8 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
 
 public class MainActivity extends AppCompatActivity {
     Button RSChem_Button;
@@ -21,12 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
         RSChem_Button.setOnClickListener(view -> openRSChemWebViewScreen());
 
-
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue("Hello, World!");
     }
 
     public void openRSChemWebViewScreen() {
