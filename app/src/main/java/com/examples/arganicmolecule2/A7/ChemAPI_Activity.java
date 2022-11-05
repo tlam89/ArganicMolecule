@@ -1,13 +1,13 @@
-package com.examples.arganicmolecule2;
+package com.examples.arganicmolecule2.A7;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
+
+import com.examples.arganicmolecule2.R;
 
 public class ChemAPI_Activity extends AppCompatActivity {
     Button webViewButton;

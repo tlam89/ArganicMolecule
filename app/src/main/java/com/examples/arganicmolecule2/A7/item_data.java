@@ -1,4 +1,4 @@
-package com.examples.arganicmolecule2;
+package com.examples.arganicmolecule2.A7;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.examples.arganicmolecule2.R;
 
 public class item_data extends AppCompatActivity {
     TextView moleculename;

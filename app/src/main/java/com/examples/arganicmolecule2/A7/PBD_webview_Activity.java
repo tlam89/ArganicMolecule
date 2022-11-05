@@ -1,4 +1,4 @@
-package com.examples.arganicmolecule2;
+package com.examples.arganicmolecule2.A7;
 
 
 import android.graphics.Bitmap;
@@ -14,7 +14,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+
+import com.examples.arganicmolecule2.R;
 
 public class PBD_webview_Activity extends AppCompatActivity {
 

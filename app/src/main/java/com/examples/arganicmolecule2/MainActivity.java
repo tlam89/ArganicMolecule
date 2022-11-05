@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.examples.arganicmolecule2.A7.ChemAPI_Activity;
+import com.examples.arganicmolecule2.A8.DB_authentication_activity;
+
 public class MainActivity extends AppCompatActivity {
     Button RSChem_Button;
     Button FirebaseBtn;
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(openRSChemWebViewActivity);
     }
     public void openFirebaseViewScreen(){
-        Intent openFirebase_activity = new Intent(MainActivity.this,DB_authentication_activity.class);
+        Intent openFirebase_activity = new Intent(MainActivity.this, DB_authentication_activity.class);
         startActivity(openFirebase_activity);
     }
 }
