@@ -1,4 +1,4 @@
-package com.examples.arganicmolecule2;
+package com.examples.arganicmolecule2.A7;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.examples.arganicmolecule2.R;
 import com.examples.arganicmolecule2.model.molecule;
 import com.examples.arganicmolecule2.network.APIclient;
 

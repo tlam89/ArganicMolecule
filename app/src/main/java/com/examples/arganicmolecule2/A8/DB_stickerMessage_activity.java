@@ -1,8 +1,10 @@
-package com.examples.arganicmolecule2;
+package com.examples.arganicmolecule2.A8;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.examples.arganicmolecule2.R;
 
 public class DB_stickerMessage_activity extends AppCompatActivity {
 
