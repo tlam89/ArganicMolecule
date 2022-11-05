@@ -123,4 +123,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         }
         stickerList = new ArrayList<>();
     }
+
+    // Handling Orientation Changes on Android for ImageView
+
 }
