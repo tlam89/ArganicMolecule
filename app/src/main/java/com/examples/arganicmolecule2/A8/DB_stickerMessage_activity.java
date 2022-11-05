@@ -1,5 +1,7 @@
 package com.examples.arganicmolecule2.A8;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,10 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.examples.arganicmolecule2.R;
 import com.examples.arganicmolecule2.model.sticker;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +33,8 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     private ImageAdapter customerAdapter;
     ArrayList<sticker> stickerList;
     Context context;
+    LinkClickListener listener;
+    ImageView sendImage;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
@@ -64,6 +72,21 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             }
         });
 
+        //Click on recyclerview display at new ImageView
+        sendImage = findViewById(R.id.sendImage);
+        listener = new LinkClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String URL = stickerList.get(position).getImage();
+                Uri uri = Uri.parse(URL);
+                Log.d(TAG, "Clicked on: " + uri);
+                //Intent intent = new Intent(Intent.ACTION_VIEW);
+                //intent.setData(uri);
+                //startActivity(intent);
+                Glide.with(context).load(uri).into(sendImage);
+            }
+        };
+
     }
 
     private void GetDataFromFirebase() {
@@ -80,7 +103,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
                 }
                 System.out.println(stickerList);
                 context = getApplicationContext();
-                customerAdapter = new ImageAdapter(stickerList, context);
+                customerAdapter = new ImageAdapter(stickerList, context, listener);
                 stickers.setAdapter(customerAdapter);
                 customerAdapter.notifyDataSetChanged();
             }
@@ -100,4 +123,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         }
         stickerList = new ArrayList<>();
     }
+
+    // Handling Orientation Changes on Android for ImageView
+
 }
