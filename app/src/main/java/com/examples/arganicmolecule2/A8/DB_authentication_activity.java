@@ -53,7 +53,7 @@ public class DB_authentication_activity extends AppCompatActivity {
                                 if (getPassword.equals("")) {
                                     Toast.makeText(DB_authentication_activity.this, "Successfully logged in",
                                             Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(DB_authentication_activity.this, DB_stickerMessage_activity.class));
+                                    startActivity(new Intent(DB_authentication_activity.this, Testing_Image_Display.class));
                                     finish();
                                 } else {
                                     Toast.makeText(DB_authentication_activity.this, "Wrong password",
