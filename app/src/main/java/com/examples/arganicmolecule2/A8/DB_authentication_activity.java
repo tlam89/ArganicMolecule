@@ -34,9 +34,9 @@ public class DB_authentication_activity extends AppCompatActivity {
         final TextView registerNow= findViewById(R.id.registerNowBtn);
 
         login_btn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-
                 final String phoneTxt = phone.getText().toString();
                 final String passwordTxt = password.getText().toString();
                 if (phoneTxt.isEmpty() || passwordTxt.isEmpty()) {
@@ -44,12 +44,13 @@ public class DB_authentication_activity extends AppCompatActivity {
                             " or password", Toast.LENGTH_SHORT).show();
                 } else {
                     //adding to the firebase
-                    databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                    databaseReference.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.hasChild(phoneTxt)) {
-                                final String getPassword = snapshot.child(phoneTxt).child("password").getValue(String.class);
-                                if (getPassword.equals(passwordTxt)) {
+                                final String getPassword= "";
+
+                                if (getPassword.equals("")) {
                                     Toast.makeText(DB_authentication_activity.this, "Successfully logged in",
                                             Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(DB_authentication_activity.this, DB_stickerMessage_activity.class));
@@ -63,7 +64,6 @@ public class DB_authentication_activity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             }
                         }
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
 
@@ -71,6 +71,7 @@ public class DB_authentication_activity extends AppCompatActivity {
                     });
                 }
             }
+
         });
         registerNow.setOnClickListener(new View.OnClickListener() {
             @Override

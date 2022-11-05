@@ -21,9 +21,11 @@ public class MainActivity extends AppCompatActivity {
         RSChem_Button = findViewById(R.id.PubChem_button);
 
         RSChem_Button.setOnClickListener(view -> openRSChemWebViewScreen());
+
         //DataBase
         FirebaseBtn= findViewById(R.id.Firebase_button);
         FirebaseBtn.setOnClickListener(view -> openFirebaseViewScreen());
+
 
     }
 
