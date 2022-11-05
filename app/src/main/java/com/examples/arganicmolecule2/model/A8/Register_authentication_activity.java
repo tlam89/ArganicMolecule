@@ -1,4 +1,4 @@
-package com.examples.arganicmolecule2.A8;
+package com.examples.arganicmolecule2.model.A8;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
