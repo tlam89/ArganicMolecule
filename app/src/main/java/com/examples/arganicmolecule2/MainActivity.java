@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.examples.arganicmolecule2.A7.ChemAPI_Activity;
-import com.examples.arganicmolecule2.model.A8.DB_authentication_activity;
+import com.examples.arganicmolecule2.A8.DB_authentication_activity;
 
 public class MainActivity extends AppCompatActivity {
     Button RSChem_Button;

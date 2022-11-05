@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".model.A8.DB_authentication_activity">
+    tools:context=".A8.DB_authentication_activity">
 
     <TextView
         android:id="@+id/bannerTxtV"
