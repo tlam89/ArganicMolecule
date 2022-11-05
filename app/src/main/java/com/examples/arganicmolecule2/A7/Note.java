@@ -1,4 +1,4 @@
-package com.examples.arganicmolecule2;
+package com.examples.arganicmolecule2.A7;
 
 public class Note {
     private String formula;

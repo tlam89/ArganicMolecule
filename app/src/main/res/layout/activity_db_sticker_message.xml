@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DB_stickerMessage_activity">
+    tools:context=".A8.DB_stickerMessage_activity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
