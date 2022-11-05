@@ -1,10 +1,12 @@
-package com.examples.arganicmolecule2;
+package com.examples.arganicmolecule2.A7;
 
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.examples.arganicmolecule2.R;
 
 public class NoteViewHolder extends RecyclerView.ViewHolder{
     TextView name;

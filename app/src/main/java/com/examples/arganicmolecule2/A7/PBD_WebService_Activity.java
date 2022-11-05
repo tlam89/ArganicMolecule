@@ -1,6 +1,5 @@
-package com.examples.arganicmolecule2;
+package com.examples.arganicmolecule2.A7;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,16 +10,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.examples.arganicmolecule2.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;

@@ -4,4 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     tools:context=".DB_stickerMessage_activity"/>
+=======
+    tools:context=".A8.DB_stickerMessage_activity">
+
+    <TextView
+        android:id="@+id/texttest123"
+        android:layout_width="142dp"
+        android:layout_height="85dp"
+        android:text="hello"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+>>>>>>> d0c03389069f1c44a3eef3a0a11b0bc34e3565a0
