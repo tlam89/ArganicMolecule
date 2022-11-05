@@ -74,6 +74,22 @@
         app:layout_constraintTop_toTopOf="@+id/history"
         app:layout_constraintVertical_bias="0.0" />
 
+    <EditText
+        android:id="@+id/reciver"
+        android:layout_width="179dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:hint="Send TO"
+        android:inputType="phone"
+        android:maxLines="1"
+        android:minHeight="48dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sendImage" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
