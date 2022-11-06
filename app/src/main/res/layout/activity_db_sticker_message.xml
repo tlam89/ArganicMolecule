@@ -10,13 +10,13 @@
         android:id="@+id/recent_sticker_received_from"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
         android:text="@string/username"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/sendImage"
-        app:layout_constraintEnd_toEndOf="@+id/sendImage"
-        app:layout_constraintStart_toStartOf="@+id/sendImage"
-        app:layout_constraintTop_toTopOf="@+id/sendImage" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sendImage" />
 
     <ScrollView
         android:id="@+id/scrollView"
