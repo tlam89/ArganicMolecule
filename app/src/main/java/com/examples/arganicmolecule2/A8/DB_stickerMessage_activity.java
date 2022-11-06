@@ -79,7 +79,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         GetDataFromFirebase();
         getUSER_ID();
         getFriendList();
-        theLatestImage();
+        //theLatestImage();
 
         Button atn = (Button) findViewById(R.id.about);
         atn.setOnClickListener(new View.OnClickListener() {

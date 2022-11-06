@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/received_sticker_block">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/stickersample"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -16,7 +17,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/sticker_sent_by"
+        android:id="@+id/sticker_sent_to"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="68dp"
@@ -25,7 +26,7 @@
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/stickersample"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -37,27 +38,18 @@
         android:text="@string/username"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/sticker_sent_by" />
+        app:layout_constraintStart_toEndOf="@+id/stickersample"
+        app:layout_constraintTop_toBottomOf="@+id/sticker_sent_to" />
 
-    <TextView
-        android:id="@+id/received_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:text="@string/received_date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.667"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <TextView
         android:id="@+id/received_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="24dp"
         android:text="@string/received_time"
-        app:layout_constraintTop_toBottomOf="@+id/received_date"
-        tools:layout_editor_absoluteX="252dp" />
+        app:layout_constraintStart_toEndOf="@+id/stickersample"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
