@@ -29,8 +29,6 @@ import java.util.Map;
 
 public class DB_history_activity extends AppCompatActivity {
     //Create this list to store a user's history from firebase.
-    //ArrayList<Rec> recordList;
-
 
     RecyclerView history_recyclerView;
     private HistoryAdapter customerAdapter;
