@@ -28,7 +28,7 @@
     <string name="received_time">Time</string>
     <string name="send_ticker">Send Sticker</string>
     <string name="send_to">Send To</string>
-    <string name="tap_on_recycler_view">Tap on any sticker above to send</string>
+    <string name="tap_on_recycler_view">Tap on any sticker above to Send</string>
     <string name="recent_sticker_received">Recent sticker received by user:</string>
     <string name="send">Send</string>
     <string name="show_history">Show History</string>
