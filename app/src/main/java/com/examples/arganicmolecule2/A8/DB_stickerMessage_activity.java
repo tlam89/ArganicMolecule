@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -19,15 +20,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.examples.arganicmolecule2.A7.Note;
-import com.examples.arganicmolecule2.A7.PBD_WebService_Activity;
 import com.examples.arganicmolecule2.R;
 import com.examples.arganicmolecule2.model.sticker;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,12 +32,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DB_stickerMessage_activity extends AppCompatActivity {
     private RecyclerView stickers;
@@ -53,16 +47,12 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     DatabaseReference databaseReference;
     Uri uri;
 
-    //Thinh Lam
-    EditText target_EditText;
     ArrayList<String> friendList;
     String userID="";
-    Button sendButton;
 
     static final int USER_ID_REQUEST = 1;
 
-    //Thinh Lam
-
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,33 +114,37 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
 
         //Thinh Lam
 
-//        Log.i("USER_ID2", userID);
-//        //Check if a target exists. Otherwise, show a Toast.
-//        sendButton.setOnClickListener(view -> {
-//            String temp = "History/" + userID;
-//            Log.i("USER_ID3", userID);
-//            DatabaseReference userRef = databaseReference.child(temp);
-//            Toast.makeText(this,temp,Toast.LENGTH_LONG).show();
-////            String userHistory= user_num.getText().toString();
-//            Date currentTime = Calendar.getInstance().getTime();
-//            String dateTime = currentTime.toString();
-//            String signalType = "sendTo";
-//            String friendName = target_EditText.getText().toString();
-//            String imageURL = uri.toString();
-//            if (friendList.contains(friendName) && friendName != userID) {
-//                updateHistory(userRef, dateTime, signalType, friendName, imageURL);
-//            } else {
-//                Toast.makeText(this,"Do you have a friend?",Toast.LENGTH_LONG).show();
-//            }
-//        });
+        Log.i("USER_ID2", userID);
+        //Check if a target exists. Otherwise, show a Toast.
     }
 
     private void showSendToDialogBox() {
         Dialog sendStickerDialog = new Dialog(DB_stickerMessage_activity.this);
         sendStickerDialog.setContentView(R.layout.activity_send_to_dialog);
-        sendStickerDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        sendStickerDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
         sendStickerDialog.setCancelable(true);
 
+        final EditText enterFriendName = sendStickerDialog.findViewById(R.id.sticker_send_to);
+        final Button sendStickerButton = sendStickerDialog.findViewById(R.id.send_sticker_button);
+
+        sendStickerButton.setOnClickListener(view -> {
+            String temp = "History/" + userID;
+            Log.i("USER_ID3", userID);
+            DatabaseReference userRef = databaseReference.child(temp);
+            Toast.makeText(this,temp,Toast.LENGTH_LONG).show();
+            Date currentTime = Calendar.getInstance().getTime();
+            String dateTime = currentTime.toString();
+            String signalType = "sendTo";
+            String friendName = enterFriendName.getText().toString();
+            String imageURL = uri.toString();
+            if (friendList.contains(friendName) && !friendName.equals(userID)) {
+                updateHistory(userRef, dateTime, signalType, friendName, imageURL);
+            } else {
+                Toast.makeText(this,"Such user does not exist. " +
+                        "Please enter correct user number.",Toast.LENGTH_LONG).show();
+            }
+        });
 
         sendStickerDialog.show();
     }

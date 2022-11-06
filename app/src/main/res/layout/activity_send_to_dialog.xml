@@ -17,7 +17,7 @@
         tools:ignore="MissingConstraints">
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/sticker_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,10 +29,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="38dp"
             android:layout_marginTop="32dp"
-            app:layout_constraintBottom_toBottomOf="@id/imageView3"
-            app:layout_constraintEnd_toEndOf="@id/imageView3"
-            app:layout_constraintStart_toStartOf="@id/imageView3"
-            app:layout_constraintTop_toTopOf="@id/imageView3">
+            app:layout_constraintBottom_toBottomOf="@id/sticker_image"
+            app:layout_constraintEnd_toEndOf="@id/sticker_image"
+            app:layout_constraintStart_toStartOf="@id/sticker_image"
+            app:layout_constraintTop_toTopOf="@id/sticker_image">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/sticker_send_to"

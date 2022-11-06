@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/StickerImage"
+            android:id="@+id/sticker_image"
             android:layout_width="250dp"
             android:layout_height="220dp"
             android:scaleType="fitXY" />
