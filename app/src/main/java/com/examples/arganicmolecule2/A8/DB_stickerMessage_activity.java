@@ -54,7 +54,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     //Thinh Lam
     EditText target_EditText;
     ArrayList<String> friendList;
-    String userID;
+    String userID="";
     Button sendButton;
 
     static final int USER_ID_REQUEST = 1;
@@ -67,7 +67,8 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         setContentView(R.layout.activity_db_sticker_message);
 
         stickers = findViewById(R.id.sticker);
-        TextView user_num = findViewById(R.id.recent_sticker_received2);
+        target_EditText = findViewById(R.id.targetID_EditText);
+//        TextView user_num = findViewById(R.id.recent_sticker_received2);
 
         stickers.setHasFixedSize(true);
         stickers.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
@@ -77,7 +78,8 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         ClearAll();
         GetDataFromFirebase();
         getUSER_ID();
-        user_num.setText(userID);
+//        user_num.setText(userID);
+        Log.i("USER_ID1", userID);
         // Wire up the About button
         Button atn = (Button) findViewById(R.id.about);
         atn.setOnClickListener(new View.OnClickListener() {
@@ -120,25 +122,28 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         //Thinh Lam
         sendButton = findViewById(R.id.send);
 
-        target_EditText = findViewById(R.id.targetID_EditText);
-
+        Log.i("USER_ID2", userID);
         //Check if a target exists. Otherwise, show a Toast.
         sendButton.setOnClickListener(view -> {
-            DatabaseReference userRef = databaseReference.child("History");
-            String userHistory= user_num.getText().toString();
+
+            String temp = "History/" + userID;
+            Log.i("USER_ID3", userID);
+            DatabaseReference userRef = databaseReference.child(temp);
+            Toast.makeText(this,temp,Toast.LENGTH_LONG).show();
+//            String userHistory= user_num.getText().toString();
             Date currentTime = Calendar.getInstance().getTime();
             String dateTime = currentTime.toString();
             String signalType = "sendTo";
             String friendName = target_EditText.getText().toString();
             String imageURL = uri.toString();
-            updateHistory(userRef, userHistory , dateTime, signalType, friendName, imageURL);
+            updateHistory(userRef, dateTime, signalType, friendName, imageURL);
         });
     }
 
-    private void updateHistory(DatabaseReference userRef, String UserHistory, String datetime, String signalType, String friendName, String imageURL ) {
+    private void updateHistory(DatabaseReference userRef, String datetime, String signalType, String friendName, String imageURL ) {
         //Thinh Lam
         //Create,Read,Update,Delete in History
-        DatabaseReference currentUser = userRef.child(UserHistory).push();
+        DatabaseReference currentUser = userRef.push();
         currentUser.setValue(new Record(signalType,datetime,friendName,imageURL));
     }
 
@@ -161,8 +166,12 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        userID = data.getStringExtra(DB_authentication_activity.USER_ID);
-        System.out.println(userID);
+        if (requestCode == USER_ID_REQUEST && resultCode == RESULT_OK) {
+            assert data != null;
+            userID = data.getStringExtra(DB_authentication_activity.USER_ID);
+        } else {
+            Toast.makeText(this, "No ID", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void GetDataFromFirebase() {

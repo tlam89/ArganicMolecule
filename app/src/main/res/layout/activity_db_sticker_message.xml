@@ -10,6 +10,7 @@
         android:id="@+id/recent_sticker_received2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="280dp"
         android:text="@string/username"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -17,22 +18,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recent_sticker_received"
-        app:layout_constraintVertical_bias="0.054" />
-
-    <TextView
-        android:id="@+id/recent_sticker_received"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/recent_sticker_received"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sendImage"
-        app:layout_constraintVertical_bias="0.105" />
+        app:layout_constraintVertical_bias="0.291" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -54,46 +41,52 @@
 
     <ImageView
         android:id="@+id/sendImage"
-        android:layout_width="228dp"
-        android:layout_height="141dp"
-        android:layout_marginTop="128dp"
+        android:layout_width="186dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="88dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tap_on_recycler" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
     <Button
         android:id="@+id/about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="20dp"
         android:text="About"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/history"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+
+        />
 
     <Button
         android:id="@+id/history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="144dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="20dp"
         android:text="History"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.536"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tap_on_recycler"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:text="@string/tap_on_recycler_view"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.423" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sticker"
@@ -101,32 +94,31 @@
         android:layout_height="195dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="0dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="0dp" />
 
     <EditText
         android:id="@+id/targetID_EditText"
-        android:layout_width="120dp"
-        android:layout_height="34dp"
-        android:autofillHints="Enter a Friend ID"
-        app:layout_constraintBottom_toTopOf="@+id/tap_on_recycler"
+        android:layout_width="232dp"
+        android:layout_height="39dp"
+        android:hint="Send to: Enter a Friend ID"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sticker"
+        app:layout_constraintTop_toBottomOf="@+id/tap_on_recycler"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintHorizontal_bias="0.267"
         app:layout_constraintStart_toEndOf="@+id/history"
-        app:layout_constraintTop_toBottomOf="@+id/recent_sticker_received"
-        app:layout_constraintVertical_bias="0.586" />
+        app:layout_constraintVertical_bias="0.04" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

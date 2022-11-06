@@ -41,6 +41,9 @@ public class DB_authentication_activity extends AppCompatActivity {
             public void onClick(View view) {
                 final String phoneTxt = phone.getText().toString();
                 final String passwordTxt = password.getText().toString();
+
+
+
                 if (phoneTxt.isEmpty()) {
                     Toast.makeText(DB_authentication_activity.this, "Please enter your mobile" +
                             " or password", Toast.LENGTH_SHORT).show();
@@ -55,8 +58,10 @@ public class DB_authentication_activity extends AppCompatActivity {
                                 if (getPassword.equals("")) {
                                     Toast.makeText(DB_authentication_activity.this, "Successfully logged in",
                                             Toast.LENGTH_SHORT).show();
+                                    Intent data = new Intent(DB_authentication_activity.this, DB_stickerMessage_activity.class);
+                                    data.putExtra(USER_ID, phoneTxt);
+                                    startActivity(data);
 
-                                    startActivity(new Intent(DB_authentication_activity.this, DB_stickerMessage_activity.class));
                                     finish();
                                 } else {
                                     Toast.makeText(DB_authentication_activity.this, "Wrong password",
@@ -74,9 +79,7 @@ public class DB_authentication_activity extends AppCompatActivity {
                     });
                 }
 
-                Intent data = new Intent(DB_authentication_activity.this, DB_stickerMessage_activity.class);
-                data.putExtra(USER_ID, phoneTxt);
-                startActivity(data);
+
             }
 
         });
