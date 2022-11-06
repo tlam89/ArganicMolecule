@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.examples.arganicmolecule2.A7.PBD_Note_Activity;
+import com.examples.arganicmolecule2.A7.PBD_WebService_Activity;
 import com.examples.arganicmolecule2.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class DB_authentication_activity extends AppCompatActivity {
     DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReferenceFromUrl("https://arganicmolecule2-66023-default-rtdb.firebaseio.com");
-
+    public static final String USER_ID = "edu.ArganicMolecule.USER_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class DB_authentication_activity extends AppCompatActivity {
                                 if (getPassword.equals("")) {
                                     Toast.makeText(DB_authentication_activity.this, "Successfully logged in",
                                             Toast.LENGTH_SHORT).show();
+
                                     startActivity(new Intent(DB_authentication_activity.this, DB_stickerMessage_activity.class));
                                     finish();
                                 } else {
@@ -70,6 +73,10 @@ public class DB_authentication_activity extends AppCompatActivity {
                         }
                     });
                 }
+
+                Intent data = new Intent(DB_authentication_activity.this, DB_stickerMessage_activity.class);
+                data.putExtra(USER_ID, phoneTxt);
+                startActivity(data);
             }
 
         });
