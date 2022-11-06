@@ -3,16 +3,19 @@ package com.examples.arganicmolecule2.A8;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -84,9 +87,18 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
                 //intent.setData(uri);
                 //startActivity(intent);
                 Glide.with(context).load(uri).into(sendImage);
+                showSendToDialogBox();
             }
         };
+    }
 
+    private void showSendToDialogBox() {
+        Dialog sendStickerDialog = new Dialog(DB_stickerMessage_activity.this);
+        sendStickerDialog.setContentView(R.layout.activity_send_to_dialog);
+        sendStickerDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        sendStickerDialog.setCancelable(true);
+
+        sendStickerDialog.show();
     }
 
     private void GetDataFromFirebase() {
