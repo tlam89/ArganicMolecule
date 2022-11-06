@@ -170,6 +170,9 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             String imageURL = uri.toString();
             if (friendList.contains(friendName) && !friendName.equals(userID)) {
                 updateHistory(userRef, dateTime, signalType, friendName, imageURL);
+                sendStickerDialog.dismiss();
+                Toast.makeText(this,"Sticker sent successfully.",
+                        Toast.LENGTH_LONG).show();
             } else if(friendName.equals(userID)) {
                 Toast.makeText(this,"You cannot send a sticker to yourself. " +
                         "Please enter a number for other user.",Toast.LENGTH_LONG).show();
