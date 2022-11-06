@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.examples.arganicmolecule2.R;
 import com.examples.arganicmolecule2.model.historysticker;
@@ -36,6 +38,8 @@ public class DB_history_activity extends AppCompatActivity {
     Context context;
     FirebaseDatabase firebaseDB;
     DatabaseReference databaseRef;
+    String userID_history;
+    final static int USER_ID_REQUEST = 1;
 
 
     @Override
@@ -53,12 +57,14 @@ public class DB_history_activity extends AppCompatActivity {
         history_recyclerView.setLayoutManager(new LinearLayoutManager(this));
         historystickerList = new ArrayList<>();
         ClearAll();
+        getUSER_ID_history();
         getHistory();
 
     }
 
     private void getHistory() {
-        DatabaseReference dbRef = databaseRef.child("3");
+        DatabaseReference dbRef = databaseRef.child(userID_history);
+        Log.i("Get user Id History: ", userID_history);
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -94,6 +100,23 @@ public class DB_history_activity extends AppCompatActivity {
             }
         }
         historystickerList = new ArrayList<>();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == USER_ID_REQUEST && resultCode == RESULT_OK) {
+            assert data != null;
+            userID_history = data.getStringExtra(DB_authentication_activity.USER_ID);
+        } else {
+            Toast.makeText(this, "No ID", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void getUSER_ID_history() {
+        if(getIntent().hasExtra(DB_stickerMessage_activity.MAIN_USER_ID)){
+            userID_history = getIntent().getStringExtra(DB_stickerMessage_activity.MAIN_USER_ID);
+        }
     }
 
 }

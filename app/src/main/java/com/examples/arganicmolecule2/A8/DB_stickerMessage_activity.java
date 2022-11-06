@@ -54,6 +54,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
 
     ArrayList<String> friendList;
     String userID="", fName;
+    public final static String MAIN_USER_ID = "edu.ArganicMolecule.MAIN_USER_ID";
 
     static final int USER_ID_REQUEST = 1;
 
@@ -85,7 +86,8 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         atn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(DB_stickerMessage_activity.this, DB_about_activity.class);
+                Intent intent1 = new Intent(DB_stickerMessage_activity.this,
+                        DB_about_activity.class);
                 startActivity(intent1);
             }
         });
@@ -95,7 +97,9 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         htn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(DB_stickerMessage_activity.this, DB_history_activity.class);
+                Intent intent2 = new Intent(DB_stickerMessage_activity.this,
+                        DB_history_activity.class);
+                intent2.putExtra(MAIN_USER_ID, userID);
                 startActivity(intent2);
             }
         });
@@ -125,7 +129,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     }
 
     private void theLatestImage() {
-        DatabaseReference receiveRef = databaseReference.child("Receiver/" + userID);   //your user ID
+        DatabaseReference receiveRef = databaseReference.child("Receiver/" + userID); //your user ID
         receiveRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -176,7 +180,8 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     }
 
 
-    private void updateHistory(DatabaseReference userRef, String datetime, String signalType, String friendName, String imageURL ) {
+    private void updateHistory(DatabaseReference userRef, String datetime, String signalType,
+                               String friendName, String imageURL ) {
         DatabaseReference currentUser = userRef.push();
         currentUser.setValue(new Record(signalType,datetime,friendName,imageURL));
 
