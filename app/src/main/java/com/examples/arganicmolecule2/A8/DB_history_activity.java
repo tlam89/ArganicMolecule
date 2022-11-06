@@ -3,6 +3,7 @@ package com.examples.arganicmolecule2.A8;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.examples.arganicmolecule2.R;
+import com.examples.arganicmolecule2.model.historysticker;
 import com.examples.arganicmolecule2.model.sticker;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -27,36 +29,33 @@ import java.util.Map;
 
 public class DB_history_activity extends AppCompatActivity {
     //Create this list to store a user's history from firebase.
-    ArrayList<Rec> recordList;
+    //ArrayList<Rec> recordList;
 
-    ArrayList<String> uniqueIdList;
+
+    RecyclerView history_recyclerView;
+    private HistoryAdapter customerAdapter;
+    ArrayList<historysticker> historystickerList;
     Context context;
-    LinkClickListener listener;
     FirebaseDatabase firebaseDB;
     DatabaseReference databaseRef;
 
-    Button showHistory_Button;
-    RecyclerView history_recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        history_recyclerView = findViewById(R.id.history_recyclerView);
-        showHistory_Button = findViewById(R.id.show_Button);
 
         firebaseDB = FirebaseDatabase.getInstance();
         databaseRef = firebaseDB.getReference("History");
 
-        recordList = new ArrayList<>();
 
-        showHistory_Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getHistory();
-            }
-        });
-
+        //For displaying history in the recyclerview
+        history_recyclerView = findViewById(R.id.history_recyclerView);
+        //history_recyclerView.setHasFixedSize(true);
+        history_recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        historystickerList = new ArrayList<>();
+        ClearAll();
+        getHistory();
 
     }
 
@@ -66,54 +65,37 @@ public class DB_history_activity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.i("snapshot", snapshot.getKey());
+                ClearAll();
                 for(DataSnapshot datasnapshot: snapshot.getChildren()){
 
-                    String datetime = datasnapshot.child("datetime").getValue().toString();
-                    String friendName = datasnapshot.child("friendName").getValue().toString();
-                    String signalType = datasnapshot.child("signalType").getValue().toString();
-                    String imageURL = datasnapshot.child("imageURL").getValue().toString();
-                    Log.i("datetime1", datetime);
-                    Log.i("friend", friendName);
-                    Log.i("signal", signalType);
-                    Log.i("url", imageURL);
-
-//                    sticker.setName(datasnapshot.child("name").getValue().toString());
-                    Rec tempRecord = new Rec(datetime, friendName, signalType, imageURL);
-                    Log.i("tempR", tempRecord.toString());
-
-                    recordList.add(tempRecord);
+                    //Creating temporary history sticker and append to the list
+                    historysticker temp = new historysticker();
+                    temp.setImage(datasnapshot.child("imageURL").getValue().toString());
+                    temp.setUsername(datasnapshot.child("friendName").getValue().toString());
+                    temp.setReceived_time(datasnapshot.child("datetime").getValue().toString());
+                    historystickerList.add(temp);
                 }
+                context = getApplicationContext();
+                customerAdapter = new HistoryAdapter(historystickerList, context);
+                history_recyclerView.setAdapter(customerAdapter);
+                customerAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-//
-
         });
-
-
     }
 
-    public static class Rec {
-        public String datetime;
-        public String signalType;
-        public String friendName;
-        public String imageURL;
-
-        public Rec(String signalType, String datetime, String friendName, String imageURL) {
-            this.signalType= signalType;
-            this.friendName = friendName;
-            this.imageURL = imageURL;
-            this.datetime = datetime;
+    private void ClearAll(){
+        if(historystickerList!=null){
+            historystickerList.clear();
+            if(customerAdapter!=null){
+                customerAdapter.notifyDataSetChanged();
+            }
         }
-
+        historystickerList = new ArrayList<>();
     }
-
-
-
-
-
 
 }

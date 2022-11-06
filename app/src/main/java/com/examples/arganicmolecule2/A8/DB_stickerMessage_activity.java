@@ -112,12 +112,10 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
                 //Intent intent = new Intent(Intent.ACTION_VIEW);
                 //intent.setData(uri);
                 //startActivity(intent);
-                Glide.with(context).load(uri).into(sendImage);
+                //Glide.with(context).load(uri).into(sendImage);
             }
         };
         sendImage = findViewById(R.id.sendImage);
-
-
 
 
         //Thinh Lam
@@ -130,7 +128,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             Log.i("USER_ID3", userID);
             DatabaseReference userRef = databaseReference.child(temp);
             Toast.makeText(this,temp,Toast.LENGTH_LONG).show();
-//            String userHistory= user_num.getText().toString();
+     //     String userHistory= user_num.getText().toString();
             Date currentTime = Calendar.getInstance().getTime();
             String dateTime = currentTime.toString();
             String signalType = "sendTo";
@@ -225,11 +223,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-
     }
-
-
 
     private void ClearAll(){
         if(stickerList!=null){
@@ -241,7 +235,6 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         stickerList = new ArrayList<>();
     }
 
-    // Handling Orientation Changes on Android for ImageView
 
     public void getUSER_ID() {
         if(getIntent().hasExtra(DB_authentication_activity.USER_ID)){
