@@ -115,7 +115,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
                 //Intent intent = new Intent(Intent.ACTION_VIEW);
                 //intent.setData(uri);
                 //startActivity(intent);
-                Glide.with(context).load(uri).into(sendImage);
+//                Glide.with(context).load(uri).into(sendImage);
                 showSendToDialogBox();
             }
         };
@@ -162,6 +162,9 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
+        receiveURI = Uri.parse(imageURL);
+        Glide.with(context).load(receiveURI).into(sendImage);
+
     }
 
     private void showSendToDialogBox() {
@@ -204,7 +207,6 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot datasnapshot : snapshot.getChildren()) {
                     String each_userID = datasnapshot.getKey();
-                    Log.i("each UserID", each_userID);
                     friendList.add(each_userID);
                 }
             }
