@@ -52,6 +52,8 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     Uri uri;
+    Uri receiveURI;
+    String imageURL;
 
     //Thinh Lam
     EditText target_EditText;
@@ -122,6 +124,8 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
 
 
 
+
+
         //Thinh Lam
 
 //        Log.i("USER_ID2", userID);
@@ -145,22 +149,37 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
 //        });
     }
 
+    private void theLatestImage() {
+        DatabaseReference receiveRef = databaseReference.child("Receive/" + userID);   //your user ID
+        receiveRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot datasnapshot: snapshot.getChildren()){
+                    String imageURL = datasnapshot.child("imageURL").getValue().toString();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+    }
+
     private void showSendToDialogBox() {
         Dialog sendStickerDialog = new Dialog(DB_stickerMessage_activity.this);
         sendStickerDialog.setContentView(R.layout.activity_send_to_dialog);
         sendStickerDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         sendStickerDialog.setCancelable(true);
 
-
         sendStickerDialog.show();
     }
 
 
     private void updateHistory(DatabaseReference userRef, String datetime, String signalType, String friendName, String imageURL ) {
-        //Thinh Lam
-        //Create,Read,Update,Delete in History
         DatabaseReference currentUser = userRef.push();
         currentUser.setValue(new Record(signalType,datetime,friendName,imageURL));
+
+        DatabaseReference friendRef = databaseReference.child("Receiver/" + friendName).push();
+        friendRef.setValue(new Record("ReceiveFrom",datetime,userID,imageURL));
     }
 
     public static class Record {
