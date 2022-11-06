@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -35,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class DB_stickerMessage_activity extends AppCompatActivity {
     private RecyclerView stickers;
@@ -48,9 +50,11 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     Uri uri;
     Uri receiveURI;
     String imageURL;
+    TextView recentStickerReceivedFrom;
 
     ArrayList<String> friendList;
-    String userID="";
+    String userID="", fName;
+    public final static String MAIN_USER_ID = "edu.ArganicMolecule.MAIN_USER_ID";
 
     static final int USER_ID_REQUEST = 1;
 
@@ -62,6 +66,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
 
         stickers = findViewById(R.id.sticker);
         sendImage = findViewById(R.id.sendImage);
+        recentStickerReceivedFrom = findViewById(R.id.recent_sticker_received_from);
 //        TextView user_num = findViewById(R.id.recent_sticker_received2);
 
         stickers.setHasFixedSize(true);
@@ -75,13 +80,14 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         GetDataFromFirebase();
         getUSER_ID();
         getFriendList();
-        //theLatestImage();
+        theLatestImage();
 
         Button atn = (Button) findViewById(R.id.about);
         atn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(DB_stickerMessage_activity.this, DB_about_activity.class);
+                Intent intent1 = new Intent(DB_stickerMessage_activity.this,
+                        DB_about_activity.class);
                 startActivity(intent1);
             }
         });
@@ -91,7 +97,9 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         htn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(DB_stickerMessage_activity.this, DB_history_activity.class);
+                Intent intent2 = new Intent(DB_stickerMessage_activity.this,
+                        DB_history_activity.class);
+                intent2.putExtra(MAIN_USER_ID, userID);
                 startActivity(intent2);
             }
         });
@@ -118,21 +126,24 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     }
 
     private void theLatestImage() {
-        DatabaseReference receiveRef = databaseReference.child("Receiver/" + userID);   //your user ID
+        DatabaseReference receiveRef = databaseReference.child("Receiver/" + userID); //your user ID
         receiveRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot datasnapshot: snapshot.getChildren()){
-                    imageURL = datasnapshot.child("imageURL").getValue().toString();
+                    imageURL = (String) datasnapshot.child("imageURL").getValue();
+                    fName = (String) datasnapshot.child("friendName").getValue();
+                    Log.i("imageURL_latest", imageURL);
                 }
+                receiveURI = Uri.parse(imageURL);
+                Glide.with(context).load(receiveURI).into(sendImage);
+                recentStickerReceivedFrom.setText("From user: " + fName);
+                Log.i("receiveURI_received", receiveURI.toString());
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
-        receiveURI = Uri.parse(imageURL);
-        Glide.with(context).load(receiveURI).into(sendImage);
-
     }
 
     private void showSendToDialogBox() {
@@ -162,12 +173,12 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
                         "Please enter correct user number.",Toast.LENGTH_LONG).show();
             }
         });
-
         sendStickerDialog.show();
     }
 
 
-    private void updateHistory(DatabaseReference userRef, String datetime, String signalType, String friendName, String imageURL ) {
+    private void updateHistory(DatabaseReference userRef, String datetime, String signalType,
+                               String friendName, String imageURL ) {
         DatabaseReference currentUser = userRef.push();
         currentUser.setValue(new Record(signalType,datetime,friendName,imageURL));
 

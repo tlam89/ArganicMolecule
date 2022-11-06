@@ -7,7 +7,7 @@
     tools:context=".A8.DB_stickerMessage_activity">
 
     <TextView
-        android:id="@+id/recent_sticker_received2"
+        android:id="@+id/recent_sticker_received_from"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/username"
