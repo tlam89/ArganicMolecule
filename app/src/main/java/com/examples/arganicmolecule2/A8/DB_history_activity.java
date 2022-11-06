@@ -71,13 +71,11 @@ public class DB_history_activity extends AppCompatActivity {
                 Log.i("snapshot", snapshot.getKey());
                 ClearAll();
                 for(DataSnapshot datasnapshot: snapshot.getChildren()){
-
-                    //Creating temporary history sticker and append to the list
-                    historysticker temp = new historysticker();
-                    temp.setImage(datasnapshot.child("imageURL").getValue().toString());
-                    temp.setUsername(datasnapshot.child("friendName").getValue().toString());
-                    temp.setReceived_time(datasnapshot.child("datetime").getValue().toString());
-                    historystickerList.add(temp);
+                        historysticker temp = new historysticker();
+                        temp.setImage(datasnapshot.child("imageURL").getValue().toString());
+                        temp.setUsername(datasnapshot.child("friendName").getValue().toString());
+                        temp.setReceived_time(datasnapshot.child("datetime").getValue().toString());
+                        historystickerList.add(temp);
                 }
                 context = getApplicationContext();
                 customerAdapter = new HistoryAdapter(historystickerList, context);
