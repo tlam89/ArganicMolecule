@@ -79,7 +79,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         GetDataFromFirebase();
         getUSER_ID();
         getFriendList();
-        //theLatestImage();
+        theLatestImage();
 
         Button atn = (Button) findViewById(R.id.about);
         atn.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +136,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
                 }
                 receiveURI = Uri.parse(imageURL);
                 Glide.with(context).load(receiveURI).into(sendImage);
-                recentStickerReceivedFrom.setText("From: " + fName);
+                recentStickerReceivedFrom.setText("From user: " + fName);
                 Log.i("receiveURI_received", receiveURI.toString());
             }
 
