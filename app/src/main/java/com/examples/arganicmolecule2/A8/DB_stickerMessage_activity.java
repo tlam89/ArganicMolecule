@@ -155,7 +155,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot datasnapshot: snapshot.getChildren()){
-                    String imageURL = datasnapshot.child("imageURL").getValue().toString();
+                    imageURL = datasnapshot.child("imageURL").getValue().toString();
                 }
             }
 
