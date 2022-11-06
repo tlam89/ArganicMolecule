@@ -19,12 +19,12 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sendImage"
-        app:layout_constraintVertical_bias="0.291" />
+        app:layout_constraintVertical_bias="0.145" />
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="221dp"
-        android:layout_height="197dp"
+        android:layout_width="196dp"
+        android:layout_height="168dp"
         app:layout_constraintBottom_toTopOf="@+id/history"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
@@ -41,11 +41,10 @@
 
     <ImageView
         android:id="@+id/sendImage"
-        android:layout_width="186dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="88dp"
+        android:layout_width="155dp"
+        android:layout_height="117dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
@@ -58,7 +57,7 @@
         android:text="About"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/history"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.11"
         app:layout_constraintStart_toStartOf="parent"
 
         />
@@ -71,15 +70,15 @@
         android:text="History"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.536"
+        app:layout_constraintHorizontal_bias="0.782"
         app:layout_constraintStart_toStartOf="parent"
 
-        app:layout_constraintVertical_bias="1.0" />
+        />
 
     <TextView
         android:id="@+id/tap_on_recycler"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="211dp"
+        android:layout_height="19dp"
         android:layout_marginTop="12dp"
         android:text="@string/tap_on_recycler_view"
         android:textSize="16sp"
@@ -90,35 +89,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sticker"
-        android:layout_width="214dp"
-        android:layout_height="195dp"
+        android:layout_width="184dp"
+        android:layout_height="171dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="0dp" />
-
-    <EditText
-        android:id="@+id/targetID_EditText"
-        android:layout_width="232dp"
-        android:layout_height="39dp"
-        android:hint="Send to: Enter a Friend ID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tap_on_recycler"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/send"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.267"
-        app:layout_constraintStart_toEndOf="@+id/history"
-        app:layout_constraintVertical_bias="0.04" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
