@@ -8,12 +8,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -50,8 +52,6 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     Uri uri;
-    Uri receiveURL;
-    String imageURL;
 
     //Thinh Lam
     EditText target_EditText;
@@ -69,8 +69,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         setContentView(R.layout.activity_db_sticker_message);
 
         stickers = findViewById(R.id.sticker);
-        target_EditText = findViewById(R.id.targetID_EditText);
-        sendImage = findViewById(R.id.sendImage);
+//        TextView user_num = findViewById(R.id.recent_sticker_received2);
 
         stickers.setHasFixedSize(true);
         stickers.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
@@ -83,7 +82,6 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         GetDataFromFirebase();
         getUSER_ID();
         getFriendList();
-        showLastImage();
 
         Button atn = (Button) findViewById(R.id.about);
         atn.setOnClickListener(new View.OnClickListener() {
@@ -115,71 +113,54 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
                 //Intent intent = new Intent(Intent.ACTION_VIEW);
                 //intent.setData(uri);
                 //startActivity(intent);
-//                Glide.with(context).load(uri).into(sendImage);
+                Glide.with(context).load(uri).into(sendImage);
+                showSendToDialogBox();
             }
         };
-
-
-
+        sendImage = findViewById(R.id.sendImage);
 
 
 
 
         //Thinh Lam
-        sendButton = findViewById(R.id.send);
 
-        Log.i("USER_ID2", userID);
-        //Check if a target exists. Otherwise, show a Toast.
-        sendButton.setOnClickListener(view -> {
-            String temp = "History/" + userID;
-            DatabaseReference userRef = databaseReference.child(temp);
-            Toast.makeText(this,temp,Toast.LENGTH_LONG).show();
-//            String userHistory= user_num.getText().toString();
-            Date currentTime = Calendar.getInstance().getTime();
-            String dateTime = currentTime.toString();
-            String signalType = "sendTo";
-            String friendName = target_EditText.getText().toString();
-            String imageURL = uri.toString();
-            if (friendList.contains(friendName) && friendName != userID) {
-                updateHistory(userRef, dateTime, signalType, friendName, imageURL);
-            } else {
-                Toast.makeText(this,"Do you have a friend?",Toast.LENGTH_LONG).show();
-            }
-        });
+//        Log.i("USER_ID2", userID);
+//        //Check if a target exists. Otherwise, show a Toast.
+//        sendButton.setOnClickListener(view -> {
+//            String temp = "History/" + userID;
+//            Log.i("USER_ID3", userID);
+//            DatabaseReference userRef = databaseReference.child(temp);
+//            Toast.makeText(this,temp,Toast.LENGTH_LONG).show();
+////            String userHistory= user_num.getText().toString();
+//            Date currentTime = Calendar.getInstance().getTime();
+//            String dateTime = currentTime.toString();
+//            String signalType = "sendTo";
+//            String friendName = target_EditText.getText().toString();
+//            String imageURL = uri.toString();
+//            if (friendList.contains(friendName) && friendName != userID) {
+//                updateHistory(userRef, dateTime, signalType, friendName, imageURL);
+//            } else {
+//                Toast.makeText(this,"Do you have a friend?",Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
 
-    private void showLastImage() {
-        String imgPath = "Receiver/" + userID;
-        DatabaseReference imageRef = databaseReference.child(imgPath);   //your user ID
-        imageRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot datasnapshot: snapshot.getChildren()){
-                    imageURL = datasnapshot.child("imageURL").getValue().toString();
-                }
-            }
+    private void showSendToDialogBox() {
+        Dialog sendStickerDialog = new Dialog(DB_stickerMessage_activity.this);
+        sendStickerDialog.setContentView(R.layout.activity_send_to_dialog);
+        sendStickerDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        sendStickerDialog.setCancelable(true);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-//
-
-        });
-        receiveURL = Uri.parse(imageURL);
-        Glide.with(context).load(receiveURL).into(sendImage);
+        sendStickerDialog.show();
     }
 
 
-    private void updateHistory(DatabaseReference userRef, String datetime, String signalType, String friendID, String imageURL ) {
+    private void updateHistory(DatabaseReference userRef, String datetime, String signalType, String friendName, String imageURL ) {
         //Thinh Lam
         //Create,Read,Update,Delete in History
         DatabaseReference currentUser = userRef.push();
-        currentUser.setValue(new Record(signalType,datetime,friendID,imageURL));
-
-        String target = "Receiver/" + friendID;
-        DatabaseReference friendAccount = databaseReference.child(target).push();
-        friendAccount.setValue(new Record("receiveFrom", datetime,userID,imageURL));
+        currentUser.setValue(new Record(signalType,datetime,friendName,imageURL));
     }
 
     public static class Record {
@@ -210,7 +191,11 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+//
+
         });
     }
 
