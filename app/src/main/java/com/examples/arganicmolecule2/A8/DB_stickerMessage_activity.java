@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -35,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class DB_stickerMessage_activity extends AppCompatActivity {
     private RecyclerView stickers;
@@ -48,9 +50,10 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     Uri uri;
     Uri receiveURI;
     String imageURL;
+    TextView recentStickerReceivedFrom;
 
     ArrayList<String> friendList;
-    String userID="";
+    String userID="", fName;
 
     static final int USER_ID_REQUEST = 1;
 
@@ -62,6 +65,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
 
         stickers = findViewById(R.id.sticker);
         sendImage = findViewById(R.id.sendImage);
+        recentStickerReceivedFrom = findViewById(R.id.recent_sticker_received_from);
 //        TextView user_num = findViewById(R.id.recent_sticker_received2);
 
         stickers.setHasFixedSize(true);
@@ -126,16 +130,19 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot datasnapshot: snapshot.getChildren()){
-                    imageURL = datasnapshot.child("imageURL").getValue().toString();
+                    imageURL = (String) datasnapshot.child("imageURL").getValue();
+                    fName = (String) datasnapshot.child("friendName").getValue();
+                    Log.i("imageURL_latest", imageURL);
                 }
+                receiveURI = Uri.parse(imageURL);
+                Glide.with(context).load(receiveURI).into(sendImage);
+                recentStickerReceivedFrom.setText("From: " + fName);
+                Log.i("receiveURI_received", receiveURI.toString());
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
-        receiveURI = Uri.parse(imageURL);
-        Glide.with(context).load(receiveURI).into(sendImage);
-
     }
 
     private void showSendToDialogBox() {
@@ -165,7 +172,6 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
                         "Please enter correct user number.",Toast.LENGTH_LONG).show();
             }
         });
-
         sendStickerDialog.show();
     }
 
