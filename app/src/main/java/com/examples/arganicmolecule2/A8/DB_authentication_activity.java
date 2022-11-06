@@ -39,7 +39,7 @@ public class DB_authentication_activity extends AppCompatActivity {
             public void onClick(View view) {
                 final String phoneTxt = phone.getText().toString();
                 final String passwordTxt = password.getText().toString();
-                if (phoneTxt.isEmpty() || passwordTxt.isEmpty()) {
+                if (phoneTxt.isEmpty()) {
                     Toast.makeText(DB_authentication_activity.this, "Please enter your mobile" +
                             " or password", Toast.LENGTH_SHORT).show();
                 } else {
