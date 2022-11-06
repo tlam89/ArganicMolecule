@@ -50,6 +50,8 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     Uri uri;
+    Uri receiveURL;
+    String imageURL;
 
     //Thinh Lam
     EditText target_EditText;
@@ -68,7 +70,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
 
         stickers = findViewById(R.id.sticker);
         target_EditText = findViewById(R.id.targetID_EditText);
-//        TextView user_num = findViewById(R.id.recent_sticker_received2);
+        sendImage = findViewById(R.id.sendImage);
 
         stickers.setHasFixedSize(true);
         stickers.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
@@ -81,6 +83,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         GetDataFromFirebase();
         getUSER_ID();
         getFriendList();
+        showLastImage();
 
         Button atn = (Button) findViewById(R.id.about);
         atn.setOnClickListener(new View.OnClickListener() {
@@ -112,10 +115,12 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
                 //Intent intent = new Intent(Intent.ACTION_VIEW);
                 //intent.setData(uri);
                 //startActivity(intent);
-                Glide.with(context).load(uri).into(sendImage);
+//                Glide.with(context).load(uri).into(sendImage);
             }
         };
-        sendImage = findViewById(R.id.sendImage);
+
+
+
 
 
 
@@ -127,7 +132,6 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         //Check if a target exists. Otherwise, show a Toast.
         sendButton.setOnClickListener(view -> {
             String temp = "History/" + userID;
-            Log.i("USER_ID3", userID);
             DatabaseReference userRef = databaseReference.child(temp);
             Toast.makeText(this,temp,Toast.LENGTH_LONG).show();
 //            String userHistory= user_num.getText().toString();
@@ -144,11 +148,38 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         });
     }
 
-    private void updateHistory(DatabaseReference userRef, String datetime, String signalType, String friendName, String imageURL ) {
+    private void showLastImage() {
+        String imgPath = "Receiver/" + userID;
+        DatabaseReference imageRef = databaseReference.child(imgPath);   //your user ID
+        imageRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot datasnapshot: snapshot.getChildren()){
+                    imageURL = datasnapshot.child("imageURL").getValue().toString();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+//
+
+        });
+        receiveURL = Uri.parse(imageURL);
+        Glide.with(context).load(receiveURL).into(sendImage);
+    }
+
+
+    private void updateHistory(DatabaseReference userRef, String datetime, String signalType, String friendID, String imageURL ) {
         //Thinh Lam
         //Create,Read,Update,Delete in History
         DatabaseReference currentUser = userRef.push();
-        currentUser.setValue(new Record(signalType,datetime,friendName,imageURL));
+        currentUser.setValue(new Record(signalType,datetime,friendID,imageURL));
+
+        String target = "Receiver/" + friendID;
+        DatabaseReference friendAccount = databaseReference.child(target).push();
+        friendAccount.setValue(new Record("receiveFrom", datetime,userID,imageURL));
     }
 
     public static class Record {
@@ -179,11 +210,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-//
-
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 
