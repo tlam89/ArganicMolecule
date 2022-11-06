@@ -20,4 +20,11 @@
     <string name="like">Like</string>
     <string name="json_output">JSON Output</string>
     <string name="loading">Loading...</string>
+    <string name="back">Back</string>
+    <string name="stickers_received">Stickers received</string>
+    <string name="sticker_sent_by">Sticker sent by:</string>
+    <string name="username">Username</string>
+    <string name="received_date">Date</string>
+    <string name="received_time">Time</string>
+
 </resources>
