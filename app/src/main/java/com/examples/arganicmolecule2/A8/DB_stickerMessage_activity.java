@@ -110,10 +110,6 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         sendImage = findViewById(R.id.sendImage);
 
 
-
-
-        //Thinh Lam
-
         Log.i("USER_ID2", userID);
         //Check if a target exists. Otherwise, show a Toast.
     }
