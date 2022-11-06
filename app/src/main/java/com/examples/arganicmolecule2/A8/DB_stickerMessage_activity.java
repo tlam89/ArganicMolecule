@@ -8,24 +8,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.examples.arganicmolecule2.A7.Note;
-import com.examples.arganicmolecule2.A7.PBD_WebService_Activity;
 import com.examples.arganicmolecule2.R;
 import com.examples.arganicmolecule2.model.sticker;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,12 +32,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DB_stickerMessage_activity extends AppCompatActivity {
     private RecyclerView stickers;
@@ -50,24 +46,22 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     Uri uri;
+    Uri receiveURI;
+    String imageURL;
 
-    //Thinh Lam
-    EditText target_EditText;
     ArrayList<String> friendList;
     String userID="";
-    Button sendButton;
 
     static final int USER_ID_REQUEST = 1;
 
-    //Thinh Lam
-
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db_sticker_message);
 
         stickers = findViewById(R.id.sticker);
-        target_EditText = findViewById(R.id.targetID_EditText);
+        sendImage = findViewById(R.id.sendImage);
 //        TextView user_num = findViewById(R.id.recent_sticker_received2);
 
         stickers.setHasFixedSize(true);
@@ -81,6 +75,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         GetDataFromFirebase();
         getUSER_ID();
         getFriendList();
+        theLatestImage();
 
         Button atn = (Button) findViewById(R.id.about);
         atn.setOnClickListener(new View.OnClickListener() {
@@ -112,42 +107,77 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
                 //Intent intent = new Intent(Intent.ACTION_VIEW);
                 //intent.setData(uri);
                 //startActivity(intent);
-                //Glide.with(context).load(uri).into(sendImage);
+//                Glide.with(context).load(uri).into(sendImage);
+                showSendToDialogBox();
             }
         };
-        sendImage = findViewById(R.id.sendImage);
 
 
-        //Thinh Lam
-        sendButton = findViewById(R.id.send);
+
+
 
         Log.i("USER_ID2", userID);
         //Check if a target exists. Otherwise, show a Toast.
-        sendButton.setOnClickListener(view -> {
+    }
+
+    private void theLatestImage() {
+        DatabaseReference receiveRef = databaseReference.child("Receiver/" + userID);   //your user ID
+        receiveRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot datasnapshot: snapshot.getChildren()){
+                    imageURL = datasnapshot.child("imageURL").getValue().toString();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+        receiveURI = Uri.parse(imageURL);
+        Glide.with(context).load(receiveURI).into(sendImage);
+
+    }
+
+    private void showSendToDialogBox() {
+        Dialog sendStickerDialog = new Dialog(DB_stickerMessage_activity.this);
+        sendStickerDialog.setContentView(R.layout.activity_send_to_dialog);
+        sendStickerDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        sendStickerDialog.setCancelable(true);
+
+        final EditText enterFriendName = sendStickerDialog.findViewById(R.id.sticker_send_to);
+        final Button sendStickerButton = sendStickerDialog.findViewById(R.id.send_sticker_button);
+
+        sendStickerButton.setOnClickListener(view -> {
             String temp = "History/" + userID;
             Log.i("USER_ID3", userID);
             DatabaseReference userRef = databaseReference.child(temp);
             Toast.makeText(this,temp,Toast.LENGTH_LONG).show();
-     //     String userHistory= user_num.getText().toString();
             Date currentTime = Calendar.getInstance().getTime();
             String dateTime = currentTime.toString();
             String signalType = "sendTo";
-            String friendName = target_EditText.getText().toString();
+            String friendName = enterFriendName.getText().toString();
             String imageURL = uri.toString();
-            if (friendList.contains(friendName) && friendName != userID) {
+            if (friendList.contains(friendName) && !friendName.equals(userID)) {
                 updateHistory(userRef, dateTime, signalType, friendName, imageURL);
             } else {
-                Toast.makeText(this,"Do you have a friend?",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Such user does not exist. " +
+                        "Please enter correct user number.",Toast.LENGTH_LONG).show();
             }
         });
+
+        sendStickerDialog.show();
     }
 
+
     private void updateHistory(DatabaseReference userRef, String datetime, String signalType, String friendName, String imageURL ) {
-        //Thinh Lam
-        //Create,Read,Update,Delete in History
         DatabaseReference currentUser = userRef.push();
         currentUser.setValue(new Record(signalType,datetime,friendName,imageURL));
+
+        DatabaseReference friendRef = databaseReference.child("Receiver/" + friendName).push();
+        friendRef.setValue(new Record("ReceiveFrom",datetime,userID,imageURL));
     }
+
 
     public static class Record {
         public String datetime;
@@ -164,6 +194,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
 
     }
 
+    //Create a list of existing users to check if the target is valid.
     private void getFriendList() {
         DatabaseReference userRef = databaseReference.child("user");
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -171,17 +202,11 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot datasnapshot : snapshot.getChildren()) {
                     String each_userID = datasnapshot.getKey();
-                    Log.i("each UserID", each_userID);
                     friendList.add(each_userID);
                 }
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-//
-
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 
@@ -223,7 +248,11 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
+
     }
+
+
 
     private void ClearAll(){
         if(stickerList!=null){
@@ -235,6 +264,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         stickerList = new ArrayList<>();
     }
 
+    // Handling Orientation Changes on Android for ImageView
 
     public void getUSER_ID() {
         if(getIntent().hasExtra(DB_authentication_activity.USER_ID)){

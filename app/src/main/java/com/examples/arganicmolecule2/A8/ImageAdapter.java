@@ -2,17 +2,13 @@ package com.examples.arganicmolecule2.A8;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -64,7 +60,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         public ImageViewHolder(@NonNull View itemView, LinkClickListener listener) {
             super(itemView);
             name = itemView.findViewById(R.id.Text);
-            image = itemView.findViewById(R.id.StickerImage);
+            image = itemView.findViewById(R.id.sticker_image);
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {
