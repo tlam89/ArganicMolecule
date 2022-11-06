@@ -61,7 +61,7 @@ public class DB_history_activity extends AppCompatActivity {
     }
 
     private void getHistory() {
-        DatabaseReference dbRef = databaseRef.child("3");
+        DatabaseReference dbRef = databaseRef.child("3");   //your user ID
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -76,8 +76,6 @@ public class DB_history_activity extends AppCompatActivity {
                     Log.i("friend", friendName);
                     Log.i("signal", signalType);
                     Log.i("url", imageURL);
-
-//                    sticker.setName(datasnapshot.child("name").getValue().toString());
                     Rec tempRecord = new Rec(datetime, friendName, signalType, imageURL);
                     Log.i("tempR", tempRecord.toString());
 
