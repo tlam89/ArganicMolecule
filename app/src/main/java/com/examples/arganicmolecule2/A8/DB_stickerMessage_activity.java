@@ -71,6 +71,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         setContentView(R.layout.activity_db_sticker_message);
 
         stickers = findViewById(R.id.sticker);
+        sendImage = findViewById(R.id.sendImage);
 //        TextView user_num = findViewById(R.id.recent_sticker_received2);
 
         stickers.setHasFixedSize(true);
@@ -84,6 +85,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         GetDataFromFirebase();
         getUSER_ID();
         getFriendList();
+        theLatestImage();
 
         Button atn = (Button) findViewById(R.id.about);
         atn.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +121,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
                 showSendToDialogBox();
             }
         };
-        sendImage = findViewById(R.id.sendImage);
+
 
 
 
@@ -172,7 +174,6 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         sendStickerDialog.setContentView(R.layout.activity_send_to_dialog);
         sendStickerDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         sendStickerDialog.setCancelable(true);
-
         sendStickerDialog.show();
     }
 
@@ -184,6 +185,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         DatabaseReference friendRef = databaseReference.child("Receiver/" + friendName).push();
         friendRef.setValue(new Record("ReceiveFrom",datetime,userID,imageURL));
     }
+
 
     public static class Record {
         public String datetime;
@@ -200,6 +202,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
 
     }
 
+    //Create a list of existing users to check if the target is valid.
     private void getFriendList() {
         DatabaseReference userRef = databaseReference.child("user");
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -210,13 +213,8 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
                     friendList.add(each_userID);
                 }
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-//
-
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 
