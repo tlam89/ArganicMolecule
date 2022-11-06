@@ -66,8 +66,8 @@
         android:id="@+id/about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="24dp"
         android:text="About"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -76,8 +76,8 @@
         android:id="@+id/history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="76dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="144dp"
+        android:layout_marginBottom="24dp"
         android:text="History"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -93,7 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.325" />
+        app:layout_constraintVertical_bias="0.423" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sticker"
@@ -101,7 +101,32 @@
         android:layout_height="195dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/targetID_EditText"
+        android:layout_width="120dp"
+        android:layout_height="34dp"
+        android:autofillHints="Enter a Friend ID"
+        app:layout_constraintBottom_toTopOf="@+id/tap_on_recycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sticker"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintStart_toEndOf="@+id/history"
+        app:layout_constraintTop_toBottomOf="@+id/recent_sticker_received"
+        app:layout_constraintVertical_bias="0.586" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

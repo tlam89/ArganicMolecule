@@ -52,9 +52,10 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     Uri uri;
 
     //Thinh Lam
-    EditText sendTo_EditText;
+    EditText target_EditText;
     ArrayList<String> friendList;
     String userID;
+    Button sendButton;
 
     static final int USER_ID_REQUEST = 1;
 
@@ -66,7 +67,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         setContentView(R.layout.activity_db_sticker_message);
 
         stickers = findViewById(R.id.sticker);
-        TextView user_num = findViewById(R.id.user_TextView);
+        TextView user_num = findViewById(R.id.recent_sticker_received2);
 
         stickers.setHasFixedSize(true);
         stickers.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
@@ -112,23 +113,23 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             }
         };
         sendImage = findViewById(R.id.sendImage);
-        Button sendButton = (Button) findViewById(R.id.send);
+
 
 
 
         //Thinh Lam
+        sendButton = findViewById(R.id.send);
 
-        sendTo_EditText = findViewById(R.id.reciver);
-
+        target_EditText = findViewById(R.id.targetID_EditText);
 
         //Check if a target exists. Otherwise, show a Toast.
         sendButton.setOnClickListener(view -> {
             DatabaseReference userRef = databaseReference.child("History");
-            String userHistory= userID;
+            String userHistory= user_num.getText().toString();
             Date currentTime = Calendar.getInstance().getTime();
             String dateTime = currentTime.toString();
             String signalType = "sendTo";
-            String friendName = sendTo_EditText.getText().toString();
+            String friendName = target_EditText.getText().toString();
             String imageURL = uri.toString();
             updateHistory(userRef, userHistory , dateTime, signalType, friendName, imageURL);
         });
