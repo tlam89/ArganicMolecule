@@ -8,12 +8,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -67,7 +69,6 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         setContentView(R.layout.activity_db_sticker_message);
 
         stickers = findViewById(R.id.sticker);
-        target_EditText = findViewById(R.id.targetID_EditText);
 //        TextView user_num = findViewById(R.id.recent_sticker_received2);
 
         stickers.setHasFixedSize(true);
@@ -113,6 +114,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
                 //intent.setData(uri);
                 //startActivity(intent);
                 Glide.with(context).load(uri).into(sendImage);
+                showSendToDialogBox();
             }
         };
         sendImage = findViewById(R.id.sendImage);
@@ -121,28 +123,38 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
 
 
         //Thinh Lam
-        sendButton = findViewById(R.id.send);
 
-        Log.i("USER_ID2", userID);
-        //Check if a target exists. Otherwise, show a Toast.
-        sendButton.setOnClickListener(view -> {
-            String temp = "History/" + userID;
-            Log.i("USER_ID3", userID);
-            DatabaseReference userRef = databaseReference.child(temp);
-            Toast.makeText(this,temp,Toast.LENGTH_LONG).show();
-//            String userHistory= user_num.getText().toString();
-            Date currentTime = Calendar.getInstance().getTime();
-            String dateTime = currentTime.toString();
-            String signalType = "sendTo";
-            String friendName = target_EditText.getText().toString();
-            String imageURL = uri.toString();
-            if (friendList.contains(friendName) && friendName != userID) {
-                updateHistory(userRef, dateTime, signalType, friendName, imageURL);
-            } else {
-                Toast.makeText(this,"Do you have a friend?",Toast.LENGTH_LONG).show();
-            }
-        });
+//        Log.i("USER_ID2", userID);
+//        //Check if a target exists. Otherwise, show a Toast.
+//        sendButton.setOnClickListener(view -> {
+//            String temp = "History/" + userID;
+//            Log.i("USER_ID3", userID);
+//            DatabaseReference userRef = databaseReference.child(temp);
+//            Toast.makeText(this,temp,Toast.LENGTH_LONG).show();
+////            String userHistory= user_num.getText().toString();
+//            Date currentTime = Calendar.getInstance().getTime();
+//            String dateTime = currentTime.toString();
+//            String signalType = "sendTo";
+//            String friendName = target_EditText.getText().toString();
+//            String imageURL = uri.toString();
+//            if (friendList.contains(friendName) && friendName != userID) {
+//                updateHistory(userRef, dateTime, signalType, friendName, imageURL);
+//            } else {
+//                Toast.makeText(this,"Do you have a friend?",Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
+
+    private void showSendToDialogBox() {
+        Dialog sendStickerDialog = new Dialog(DB_stickerMessage_activity.this);
+        sendStickerDialog.setContentView(R.layout.activity_send_to_dialog);
+        sendStickerDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        sendStickerDialog.setCancelable(true);
+
+
+        sendStickerDialog.show();
+    }
+
 
     private void updateHistory(DatabaseReference userRef, String datetime, String signalType, String friendName, String imageURL ) {
         //Thinh Lam
