@@ -152,7 +152,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     }
 
     private void theLatestImage() {
-        DatabaseReference receiveRef = databaseReference.child("Receive/" + userID);   //your user ID
+        DatabaseReference receiveRef = databaseReference.child("Receiver/" + userID);   //your user ID
         receiveRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
