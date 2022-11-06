@@ -134,14 +134,16 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot datasnapshot: snapshot.getChildren()){
-                    imageURL = (String) datasnapshot.child("imageURL").getValue();
-                    fName = (String) datasnapshot.child("friendName").getValue();
-                    Log.i("imageURL_latest", imageURL);
+                        imageURL = (String) datasnapshot.child("imageURL").getValue();
+                        fName = (String) datasnapshot.child("friendName").getValue();
+                        Log.i("imageURL_latest", imageURL);
                 }
-                receiveURI = Uri.parse(imageURL);
-                Glide.with(context).load(receiveURI).into(sendImage);
-                recentStickerReceivedFrom.setText("From user: " + fName);
-                Log.i("receiveURI_received", receiveURI.toString());
+                if(imageURL != null) {
+                    receiveURI = Uri.parse(imageURL);
+                    Glide.with(context).load(receiveURI).into(sendImage);
+                    recentStickerReceivedFrom.setText("From user: " + fName);
+                    Log.i("receiveURI_received", receiveURI.toString());
+                }
             }
 
             @Override
