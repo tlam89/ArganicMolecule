@@ -75,12 +75,13 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         stickerList = new ArrayList<>();
+        friendList = new ArrayList<>();
+
         ClearAll();
         GetDataFromFirebase();
         getUSER_ID();
-//        user_num.setText(userID);
-        Log.i("USER_ID1", userID);
-        // Wire up the About button
+        getFriendList();
+
         Button atn = (Button) findViewById(R.id.about);
         atn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +126,6 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         Log.i("USER_ID2", userID);
         //Check if a target exists. Otherwise, show a Toast.
         sendButton.setOnClickListener(view -> {
-
             String temp = "History/" + userID;
             Log.i("USER_ID3", userID);
             DatabaseReference userRef = databaseReference.child(temp);
@@ -136,7 +136,11 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             String signalType = "sendTo";
             String friendName = target_EditText.getText().toString();
             String imageURL = uri.toString();
-            updateHistory(userRef, dateTime, signalType, friendName, imageURL);
+            if (friendList.contains(friendName) && friendName != userID) {
+                updateHistory(userRef, dateTime, signalType, friendName, imageURL);
+            } else {
+                Toast.makeText(this,"Do you have a friend?",Toast.LENGTH_LONG).show();
+            }
         });
     }
 
@@ -162,6 +166,28 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
 
     }
 
+    private void getFriendList() {
+        DatabaseReference userRef = databaseReference.child("user");
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot datasnapshot : snapshot.getChildren()) {
+                    String each_userID = datasnapshot.getKey();
+                    Log.i("each UserID", each_userID);
+                    friendList.add(each_userID);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+//
+
+        });
+    }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -173,6 +199,8 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             Toast.makeText(this, "No ID", Toast.LENGTH_LONG).show();
         }
     }
+
+
 
     private void GetDataFromFirebase() {
         Query query = databaseReference.child("Data");
