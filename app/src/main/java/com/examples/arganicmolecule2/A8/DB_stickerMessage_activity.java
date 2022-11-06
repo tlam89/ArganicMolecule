@@ -107,13 +107,10 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
                 //Intent intent = new Intent(Intent.ACTION_VIEW);
                 //intent.setData(uri);
                 //startActivity(intent);
-//                Glide.with(context).load(uri).into(sendImage);
+                //Glide.with(context).load(uri).into(sendImage);
                 showSendToDialogBox();
             }
         };
-
-
-
 
 
         Log.i("USER_ID2", userID);
