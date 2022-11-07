@@ -5,14 +5,22 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,10 +41,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
+import java.util.Locale;
 
 public class DB_stickerMessage_activity extends AppCompatActivity {
     private RecyclerView stickers;
@@ -49,11 +58,13 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     DatabaseReference databaseReference;
     Uri uri;
     Uri receiveURI;
-    String imageURL;
+    String imageURL, recordImageIcon;
     TextView recentStickerReceivedFrom;
+    boolean firstNotification;
+    private NotificationManager notificationManager;
 
     ArrayList<String> friendList;
-    String userID="", fName;
+    String userID="", fName, description;
     public final static String MAIN_USER_ID = "edu.ArganicMolecule.MAIN_USER_ID";
 
     static final int USER_ID_REQUEST = 1;
@@ -120,6 +131,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             }
         };
 
+        createNotification();
 
         Log.i("USER_ID2", userID);
         //Check if a target exists. Otherwise, show a Toast.
@@ -171,7 +183,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             if (friendList.contains(friendName) && !friendName.equals(userID)) {
                 updateHistory(userRef, dateTime, signalType, friendName, imageURL);
                 sendStickerDialog.dismiss();
-                Toast.makeText(this,"Sticker sent successfully.",
+                Toast.makeText(this,"Sticker sent successfully to " + friendName + ".",
                         Toast.LENGTH_LONG).show();
             } else if(friendName.equals(userID)) {
                 Toast.makeText(this,"You cannot send a sticker to yourself. " +
@@ -192,6 +204,9 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
 
         DatabaseReference friendRef = databaseReference.child("Receiver/" + friendName).push();
         friendRef.setValue(new Record("ReceiveFrom",datetime,userID,imageURL));
+
+        DatabaseReference notificationRef = databaseReference.child("Notification/" + friendName).push();
+        notificationRef.setValue(new Record("Notification",datetime,userID,imageURL));
     }
 
 
@@ -208,6 +223,14 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             this.datetime = datetime;
         }
 
+        public Record(String imageURL, String friendName) {
+            this.imageURL = imageURL;
+            this.friendName = friendName;
+        }
+
+        public String getFriendName() {
+            return friendName;
+        }
     }
 
     //Create a list of existing users to check if the target is valid.
@@ -286,6 +309,65 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
         if(getIntent().hasExtra(DB_authentication_activity.USER_ID)){
             userID = getIntent().getStringExtra(DB_authentication_activity.USER_ID);
         }
+    }
+
+    public void object () {
+        String CHANNEL_ID = "channel01";
+    }
+
+    public void createNotification() {
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel(
+                    "TEAM_MOLECULE",
+                    "Sticker Received From",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+
+            notificationChannel.enableVibration(true);
+            notificationChannel.enableLights(true);
+            notificationChannel.getSound();
+            notificationChannel.setShowBadge(true);
+
+            if(notificationChannel != null) {
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+        }
+
+        DatabaseReference notificationReceiveRef = databaseReference.child("Notification/" + userID);
+        notificationReceiveRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot datasnapshot: snapshot.getChildren()){
+                    String recordFriendName = datasnapshot.child("friendName").getValue().toString();
+                    //recordImageIcon = datasnapshot.child("imageURL").getValue().toString();
+                    if(!recordFriendName.equals("")){
+                        sendNotification(recordFriendName);
+                    }
+                }
+                firstNotification = false;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void sendNotification(String record) {
+        description = "You've received a sticker from " + record;
+
+        Notification stickerNotification = new NotificationCompat.Builder(this,
+                "TEAM_MOLECULE")
+                .setContentTitle("ARganic")
+                .setContentText(description)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.drawable.notification_icon)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
+                .setAutoCancel(true)
+                .build();
+        notificationManager.notify(1, stickerNotification);
     }
 
 }
