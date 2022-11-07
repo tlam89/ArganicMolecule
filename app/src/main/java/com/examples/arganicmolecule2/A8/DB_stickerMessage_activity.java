@@ -18,10 +18,13 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +44,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -321,7 +325,7 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
             NotificationChannel notificationChannel = new NotificationChannel(
                     "TEAM_MOLECULE",
                     "Sticker Received From",
-                    NotificationManager.IMPORTANCE_HIGH
+                    NotificationManager.IMPORTANCE_DEFAULT
             );
 
             notificationChannel.enableVibration(true);
@@ -358,13 +362,22 @@ public class DB_stickerMessage_activity extends AppCompatActivity {
     public void sendNotification(String record) {
         description = "You've received a sticker from " + record;
 
+//        try{
+//            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getActivity().getContentResolver(), uri);
+//            Bitmap thumbBitmap = ThumbnailUtils.extractThumbnail(bitmap,120,120);
+//            // imageView.setImageBitmap(thumbBitmap);
+//        }
+//        catch (IOException ex){
+//            //......
+//        }
+
         Notification stickerNotification = new NotificationCompat.Builder(this,
                 "TEAM_MOLECULE")
                 .setContentTitle("ARganic")
                 .setContentText(description)
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.notification_icon)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
+                .setSmallIcon(R.drawable.pdb)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.pdb))
                 .setAutoCancel(true)
                 .build();
         notificationManager.notify(1, stickerNotification);
