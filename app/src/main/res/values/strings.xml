@@ -39,46 +39,78 @@
 
     <string-array name="array_category">
         <item>Select Category</item>
-        <item>ALIPHATIC</item><item>AROMATIC</item><item>ACIDIC</item><item>
-        BASIC</item><item>HYDROXYLIC</item><item>SULFUR_CONTAINING</item>
-        <item>AMIDIC</item><item>ESSENTIAL</item><item>NON-ESSENTIAL</item>
+        <item>ALIPHATIC</item>
+        <item>AROMATIC</item>
+        <item>ACIDIC</item>
+        <item>
+        BASIC</item>
+        <item>HYDROXYLIC</item>
+        <item>SULFUR_CONTAINING</item>
+        <item>AMIDIC</item>
+        <item>ESSENTIAL</item>
+        <item>NON-ESSENTIAL</item>
     </string-array>
 
     <string-array name="array_amino">
         <item>Select Amino acide</item>
     </string-array>
     <string-array name="array_aliphatic">
-        <item>Alanine</item><item>Glycine</item><item>Isoleucine</item>
-        <item>Leucine</item><item>Proline</item><item>Valine</item>
+        <item>Alanine</item>
+        <item>Glycine</item>
+        <item>Isoleucine</item>
+        <item>Leucine</item>
+        <item>Proline</item>
+        <item>Valine</item>
     </string-array>
     <string-array name="array_aromatic">
-        <item>Phenylalanine</item><item>Tryptophan</item>
+        <item>Phenylalanine</item>
+        <item>Tryptophan</item>
         <item>Tyrosine</item>
     </string-array>
     <string-array name="array_acidic">
-        <item>Aspartic-Acid</item><item>Glutamic-Acid</item>
+        <item>Aspartic-Acid</item>
+        <item>Glutamic-Acid</item>
     </string-array>
     <string-array name="array_basic">
-        <item>Arginine</item><item>Histidine</item><item>Lysine</item>
+        <item>Arginine</item>
+        <item>Histidine</item>
+        <item>Lysine</item>
     </string-array>
     <string-array name="array_hydroxylic">
-        <item>Serine</item><item>Threonine</item>
+        <item>Serine</item>
+        <item>Threonine</item>
     </string-array>
 
     <string-array name="array_sulfur_containing">
-        <item>Cysteine</item><item>Methionine</item>
+        <item>Cysteine</item>
+        <item>Methionine</item>
     </string-array>
     <string-array name="array_amidic">
-        <item>Asparagine</item><item>Glutamine</item>
+        <item>Asparagine</item>
+        <item>Glutamine</item>
     </string-array>
     <string-array name="array_essential">
-        <item>Alanine</item><item>Glycine</item><item>Proline</item><item>Tyrosine</item>
-        <item> Aspartic Acid</item><item>Glutamic Acid</item><item>Arginine</item>
-        <item>Serine</item><item>Cysteine</item><item>Asparagine</item><item>Glutamine</item>
+        <item>Alanine</item>
+        <item>Glycine</item>
+        <item>Proline</item>
+        <item>Tyrosine</item>
+        <item> Aspartic Acid</item>
+        <item>Glutamic Acid</item>
+        <item>Arginine</item>
+        <item>Serine</item>
+        <item>Cysteine</item>
+        <item>Asparagine</item>
+        <item>Glutamine</item>
     </string-array>
     <string-array name="array_non_essential">
-        <item>Methionine</item><item>Threonine</item><item>Lysine</item><item>Histidine</item>
-        <item>Tryptophan</item><item>Phenylalanine</item><item>Valine</item><item>Leucine</item>
+        <item>Methionine</item>
+        <item>Threonine</item>
+        <item>Lysine</item>
+        <item>Histidine</item>
+        <item>Tryptophan</item>
+        <item>Phenylalanine</item>
+        <item>Valine</item>
+        <item>Leucine</item>
         <item>Isoleucine</item>
     </string-array>
 </resources>

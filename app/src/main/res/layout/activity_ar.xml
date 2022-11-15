@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/guidence_text"
         android:padding="6dp"
-        android:textSize="12dp"
+        android:textSize="12sp"
         android:textAlignment="center"
         android:textColor="#555555"/>
 
@@ -29,12 +29,14 @@
         android:text="@string/category"
         android:focusable="true"
         android:focusableInTouchMode="true"/>
+
     <Spinner
         android:id="@+id/spinner_categories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textview_category_key"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/textview_category_key" />
+        android:minHeight="48dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -48,12 +50,14 @@
         android:text="@string/protein"
         android:focusable="true"
         android:focusableInTouchMode="true"/>
+
     <Spinner
         android:id="@+id/amino_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textview_amino_acide"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:minHeight="48dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -67,4 +71,15 @@
         android:paddingRight="40dp"
         android:paddingLeft="40dp"
         />
+
+    <ImageView
+        android:id="@+id/getImage"
+        android:layout_width="258dp"
+        android:layout_height="260dp"
+        android:layout_below="@+id/submit_confirm"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="83dp"
+        tools:srcCompat="@tools:sample/avatars" />
 </RelativeLayout>
