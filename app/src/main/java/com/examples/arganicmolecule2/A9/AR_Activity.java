@@ -1,18 +1,36 @@
 package com.examples.arganicmolecule2.A9;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.examples.arganicmolecule2.R;
+import com.examples.arganicmolecule2.databinding.ActivityMainBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+import java.io.IOException;
 
 public class AR_Activity extends AppCompatActivity {
     //String [] items={"ALIPHATIC","AROMATIC","ACIDIC","BASIC","HYDROXYLIC","SULFUR_CONTAINING","AMIDIC","ESSENTIAL","NON-ESSENTIAL"};
@@ -20,7 +38,14 @@ public class AR_Activity extends AppCompatActivity {
     private TextView textViewCatelogSpinner,textViewAminoSpinner;
     private Spinner catalogSpinner,aminoSpinner;
     private ArrayAdapter<CharSequence> categoryAdapter,aminoAdapter;
-    Button confirmbtn;
+    Button confirmbtn, back;
+    //ActivityMainBinding binding;
+    StorageReference storageReference;
+    ProgressBar progressBar;
+
+    //Dialog ar_2d_dialog;
+
+
 
     //AutoCompleteTextView autoCompleteTextView;
     //ArrayAdapter<String> adapterItems;
@@ -117,28 +142,37 @@ public class AR_Activity extends AppCompatActivity {
             }else{
                 textViewCatelogSpinner.setError(null);
                 textViewAminoSpinner.setError(null);
+                String test=aminoAcide.toUpperCase();
+                storageReference= FirebaseStorage.getInstance().getReference("images/"+test+".jpg");
+                //storageReference= FirebaseStorage.getInstance().getReference().child("images/GLYCINE.jpg");
+                try{
+                    File localFile= File.createTempFile(test,".jpg");
+                    //final File localFile=File.createTempFile("GLYCINE","jpg");
+                    storageReference.getFile(localFile)
+                            .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                    Toast.makeText(AR_Activity.this,"picture Retreved",Toast.LENGTH_SHORT).show();
+                                    Bitmap bitmap= BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                                    ((ImageView)findViewById(R.id.getImage)).setImageBitmap( bitmap);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AR_Activity.this,"failed to retrive",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
                 Toast.makeText(AR_Activity.this,"Select category:"+category+"\n Select Amino acid: "+aminoAcide,
                         Toast.LENGTH_LONG).show();
+
             }
         });
 
 
-
-
-
-
-
-//        autoCompleteTextView=findViewById(R.id.auto_Complete_txt);
-//        adapterItems= new ArrayAdapter<String>(this,R.layout.activity_ar_listitem,items);
-//        autoCompleteTextView.setAdapter(adapterItems);
-
-//        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-//                String item= parent.getItemAtPosition(i).toString();
-//                Toast.makeText(getApplicationContext(),":Amino acid "+item,Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
 }
+
