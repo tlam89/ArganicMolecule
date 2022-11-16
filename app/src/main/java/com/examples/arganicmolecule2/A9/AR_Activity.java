@@ -22,7 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.examples.arganicmolecule2.R;
-import com.examples.arganicmolecule2.databinding.ActivityMainBinding;
+//import com.examples.arganicmolecule2.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -134,7 +134,7 @@ public class AR_Activity extends AppCompatActivity {
                 Toast.makeText(AR_Activity.this,"Please Select the Category first",Toast.LENGTH_LONG).show();
                 textViewCatelogSpinner.setError("Category is required!");
                 textViewCatelogSpinner.requestFocus();
-            }else if(aminoAcide.equals("Select Amino acide")){
+            }else if(aminoAcide.equals("Select Amino acid")){
                 Toast.makeText(AR_Activity.this,"Please select the amino acid ",Toast.LENGTH_LONG).show();
                 textViewAminoSpinner.setError("Amino acid is required");
                 textViewAminoSpinner.requestFocus();
@@ -152,14 +152,14 @@ public class AR_Activity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                    Toast.makeText(AR_Activity.this,"picture Retreved",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AR_Activity.this,"picture Retrieved",Toast.LENGTH_SHORT).show();
                                     Bitmap bitmap= BitmapFactory.decodeFile(localFile.getAbsolutePath());
                                     ((ImageView)findViewById(R.id.getImage)).setImageBitmap( bitmap);
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(AR_Activity.this,"failed to retrive",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AR_Activity.this,"failed to retrieve",Toast.LENGTH_SHORT).show();
                                 }
                             });
                 }catch (IOException e){
