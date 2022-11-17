@@ -1,5 +1,6 @@
 package com.examples.arganicmolecule2.A9;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -172,6 +173,10 @@ public class AR_Activity extends AppCompatActivity {
                                             .getAbsolutePath());
                                     ((ImageView) findViewById(R.id.getImage))
                                             .setImageBitmap(bitmap);
+                                    Intent AR2 = new Intent(AR_Activity.this,
+                                            AR_Activity2.class);
+                                    AR2.putExtra("Amino_Acid_Image", localFile);
+                                    startActivity(AR2);
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override

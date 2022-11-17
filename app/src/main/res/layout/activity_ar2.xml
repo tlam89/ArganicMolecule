@@ -7,7 +7,7 @@
     tools:context=".A9.AR_Activity2">
 
     <ImageView
-        android:id="@+id/amino_acid_image"
+        android:id="@+id/amino_acid_molecule_image"
         android:layout_width="315dp"
         android:layout_height="292dp"
         android:layout_marginTop="36dp"
