@@ -8,15 +8,13 @@
 
     <ImageView
         android:id="@+id/amino_acid_image"
-        android:layout_width="315dp"
-        android:layout_height="292dp"
-        android:layout_marginTop="36dp"
-        app:layout_constraintBottom_toTopOf="@+id/AR_View_Button"
+        android:layout_width="259dp"
+        android:layout_height="248dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.103"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
@@ -26,8 +24,8 @@
         android:text="@string/ARview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.955" />
+        app:layout_constraintVertical_bias="0.98" />
 </androidx.constraintlayout.widget.ConstraintLayout>

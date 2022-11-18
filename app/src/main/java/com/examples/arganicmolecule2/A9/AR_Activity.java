@@ -176,6 +176,7 @@ public class AR_Activity extends AppCompatActivity {
                                     Intent AR2 = new Intent(AR_Activity.this,
                                             AR_Activity2.class);
                                     AR2.putExtra("image", localFile.toString());
+                                    AR2.putExtra("aminoName", test);
                                     startActivity(AR2);
                                 }
                             }).addOnFailureListener(new OnFailureListener() {

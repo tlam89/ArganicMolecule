@@ -30,5 +30,5 @@ public class AR_Activity2 extends AppCompatActivity {
             Toast.makeText(AR_Activity2.this,
                     "Image retrieval failed in Activity2", Toast.LENGTH_SHORT).show();
         }
-        }
+    }
 }
