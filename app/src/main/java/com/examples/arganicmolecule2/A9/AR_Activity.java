@@ -175,7 +175,7 @@ public class AR_Activity extends AppCompatActivity {
                                             .setImageBitmap(bitmap);
                                     Intent AR2 = new Intent(AR_Activity.this,
                                             AR_Activity2.class);
-                                    AR2.putExtra("Amino_Acid_Image", localFile);
+                                    AR2.putExtra("image", localFile.toString());
                                     startActivity(AR2);
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -197,6 +197,5 @@ public class AR_Activity extends AppCompatActivity {
 
 
     }
-
 }
 
