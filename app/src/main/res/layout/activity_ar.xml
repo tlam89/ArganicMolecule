@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:layout_margin="25dp"
     tools:context=".A9.AR_Activity">
+
     <TextView
         android:id="@+id/guidence_text"
         android:layout_width="match_parent"
@@ -70,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textview_amino_acide"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="72dp"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
         android:text="@string/confirm"
@@ -79,20 +80,12 @@
     <ImageView
         android:id="@+id/getImage"
         android:layout_width="258dp"
-        android:layout_height="260dp"
+        android:layout_height="0dp"
         android:layout_below="@+id/submit_confirm"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp"
-        android:layout_marginBottom="106dp"
+        android:layout_marginTop="71dp"
+        android:layout_marginBottom="358dp"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="341dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="7dp"
-        android:text="@string/ARview" />
 </RelativeLayout>
