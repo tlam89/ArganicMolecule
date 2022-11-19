@@ -34,12 +34,12 @@ public class AR_Activity2 extends AppCompatActivity {
         }
 
         amino_acid_molecule_image.setImageAlpha(1000);
-        amino_acid_molecule_image.animate().scaleYBy(0.7F).scaleXBy(0.7F);
-        amino_acid_molecule_image.animate().alpha(0.2f).setStartDelay(500).setDuration(3000);
+        amino_acid_molecule_image.animate().scaleYBy(0.3F).scaleXBy(0.3F);
+        amino_acid_molecule_image.animate().alpha(0.1f).setStartDelay(500).setDuration(3000);
 
         new Handler().postDelayed(() -> {
             startActivity(new Intent(this, AR_Activity3.class));
             finish();
-        }, 3000);
+        }, 2900);
     }
 }
