@@ -19,19 +19,19 @@ import com.google.firebase.storage.StorageReference;
 public class AR_Activity3 extends AppCompatActivity {
     private ArFragment arFragment;
     StorageReference storageReference;
-    String model;
+    String model_URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ar3);
 
-        storageReference= FirebaseStorage.getInstance().getReference("Amino Acids/"+"A.glb");
-        model = storageReference.toString();
-        Toast.makeText(AR_Activity3.this, model , Toast.LENGTH_LONG).show();
-
+        storageReference= FirebaseStorage.getInstance().getReference();;
+        model_URL = storageReference.child("Amino Acids/"+"A.glb").toString();
+        Toast.makeText(AR_Activity3.this, model_URL, Toast.LENGTH_LONG).show();
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.arFragment);
         arFragment.onCreate(savedInstanceState);
+
 
         // adding listener for detecting plane.
         arFragment.setOnTapArPlaneListener((hitResult, plane, motionEvent) -> {
@@ -39,12 +39,7 @@ public class AR_Activity3 extends AppCompatActivity {
 
             // adding model to the scene
             ModelRenderable.builder()
-                    .setSource(this, RenderableSource.builder().setSource(
-                                    this, Uri.parse(model), RenderableSource.SourceType .GLB)
-                            .setScale(0.1f)
-                            .setRecenterMode(RenderableSource.RecenterMode.ROOT)
-                            .build())
-                    .build()
+                    .setSource(this, Uri.parse(model_URL)).build()
                     .thenAccept(modelRenderable -> addModelToScene(anchor, modelRenderable));
         });
     }
