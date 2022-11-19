@@ -40,7 +40,7 @@ public class AR_Activity3 extends AppCompatActivity {
             // adding model to the scene
             ModelRenderable.builder()
                     .setSource(this, RenderableSource.builder().setSource(
-                                    this, Uri.parse(model), RenderableSource.SourceType.GLB)
+                                    this, Uri.parse(model), RenderableSource.SourceType .GLB)
                             .setScale(0.1f)
                             .setRecenterMode(RenderableSource.RecenterMode.ROOT)
                             .build())
