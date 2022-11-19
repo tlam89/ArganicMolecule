@@ -33,7 +33,7 @@ public class AR_Activity3 extends AppCompatActivity {
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.arFragment);
         arFragment.onCreate(savedInstanceState);
 
-        // adding listener for detecting plane
+        // adding listener for detecting plane.
         arFragment.setOnTapArPlaneListener((hitResult, plane, motionEvent) -> {
             Anchor anchor = hitResult.createAnchor();
 
