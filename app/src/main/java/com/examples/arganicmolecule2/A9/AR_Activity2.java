@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.google.firebase.storage.StorageReference;
 public class AR_Activity2 extends AppCompatActivity {
     ImageView amino_acid_molecule_image;
     int imageId;
+    Button ARbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,5 +32,12 @@ public class AR_Activity2 extends AppCompatActivity {
             Toast.makeText(AR_Activity2.this,
                     "Image retrieval failed in Activity2", Toast.LENGTH_SHORT).show();
         }
+
+        ARbtn = findViewById(R.id.AR_View_Button);
+        ARbtn.setOnClickListener(view -> {
+            Intent AR3 = new Intent(AR_Activity2.this, AR_Activity3.class);
+            startActivity(AR3);
+        });
+
+        }
     }
-}
