@@ -56,7 +56,7 @@ public class AR_Activity3 extends AppCompatActivity {
         transformableNode.setRenderable(modelRenderable);
         transformableNode.getLight();
 
-        arFragment.getArSceneView().getScene().addChild(node); // adding only parent node, so the child nodes will be added automatically
+        arFragment.getArSceneView().getScene().addChild(node); // adddding only parent node, so the child nodes will be added automatically
         transformableNode.select();
     }
 
