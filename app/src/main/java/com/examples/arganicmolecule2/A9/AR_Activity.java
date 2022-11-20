@@ -167,8 +167,8 @@ public class AR_Activity extends AppCompatActivity {
                                     .TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                    Toast.makeText(AR_Activity.this,
-                                            "Picture Retrieved", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(AR_Activity.this,
+//                                            "Picture Retrieved", Toast.LENGTH_SHORT).show();
                                     Bitmap bitmap = BitmapFactory.decodeFile(localFile
                                             .getAbsolutePath());
                                     ((ImageView) findViewById(R.id.getImage))

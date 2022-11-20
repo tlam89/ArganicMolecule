@@ -7,9 +7,9 @@
     tools:context=".A9.AR_Activity3">
 
     <fragment
+        android:id="@+id/arFragment"
         android:name="com.google.ar.sceneform.ux.ArFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/arFragment" />
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
