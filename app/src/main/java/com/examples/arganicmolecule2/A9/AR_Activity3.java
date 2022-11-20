@@ -2,68 +2,98 @@ package com.examples.arganicmolecule2.A9;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.examples.arganicmolecule2.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.ar.core.Anchor;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.assets.RenderableSource;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
+
 public class AR_Activity3 extends AppCompatActivity {
-    private ArFragment arFragment;
-    StorageReference storageReference;
-    String model_URL;
+    //private ArFragment arFragment;
+    //StorageReference storageReference;
+    //String model_URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ar3);
+        setContentView(R.layout.ar_layout);
 
-        storageReference= FirebaseStorage.getInstance().getReference();;
-        model_URL = storageReference.child("Amino Acids/"+"A.glb").toString();
-        Toast.makeText(AR_Activity3.this, model_URL, Toast.LENGTH_LONG).show();
-        arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.arFragment);
-        arFragment.onCreate(savedInstanceState);
+        FirebaseApp.initializeApp(this);
 
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference modelRef = storage.getReference().child("A.glb");
 
-        // adding listener for detecting plane.
+        ArFragment arFragment = (ArFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.arFragment);
+
+        findViewById(R.id.downloadBtn)
+                .setOnClickListener(v -> {
+
+                    try {
+                        File file = File.createTempFile("A", "glb");
+
+                        modelRef.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                                buildModel(file);
+
+                            }
+                        });
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                });
+
         arFragment.setOnTapArPlaneListener((hitResult, plane, motionEvent) -> {
-            Anchor anchor = hitResult.createAnchor();
 
-            // adding model to the scene
-            ModelRenderable.builder()
-                    .setSource(this, Uri.parse(model_URL)).build()
-                    .thenAccept(modelRenderable -> addModelToScene(anchor, modelRenderable));
+            AnchorNode anchorNode = new AnchorNode(hitResult.createAnchor());
+            anchorNode.setRenderable(renderable);
+            arFragment.getArSceneView().getScene().addChild(anchorNode);
+
         });
     }
 
-    private void addModelToScene(Anchor anchor, ModelRenderable modelRenderable) {
-        AnchorNode node = new AnchorNode(anchor);
-        TransformableNode transformableNode = new TransformableNode(arFragment.getTransformationSystem());
-        transformableNode.setParent(node); // need to attach to parent
-        transformableNode.setRenderable(modelRenderable);
-        transformableNode.getLight();
+    private ModelRenderable renderable;
 
-        arFragment.getArSceneView().getScene().addChild(node); // adddding only parent node, so the child nodes will be added automatically
-        transformableNode.select();
-    }
+    private void buildModel(File file) {
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
+        RenderableSource renderableSource = RenderableSource
+                .builder()
+                .setSource(this, Uri.parse(file.getPath()), RenderableSource.SourceType.GLB)
+                .setRecenterMode(RenderableSource.RecenterMode.ROOT)
+                .build();
 
-    @Override
-    protected void onPause() {
-        super.onPause();
+        ModelRenderable
+                .builder()
+                .setSource(this, renderableSource)
+                .setRegistryId(file.getPath())
+                .build()
+                .thenAccept(modelRenderable -> {
+                    Toast.makeText(this, "Model built", Toast.LENGTH_SHORT).show();;
+                    renderable = modelRenderable;
+                });
+
     }
 }
+
+
 
 

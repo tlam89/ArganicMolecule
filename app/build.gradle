@@ -64,7 +64,12 @@ dependencies {
     // Alternatively, use ArSceneView without the UX dependency.
     implementation 'com.google.ar.sceneform:core:1.17.1'
     implementation 'com.google.ar.sceneform:assets:1.17.1'
+    //implementation 'com.google.ar.sceneform.ux:sceneform-ux:1.15.0'
+    //implementation 'com.google.ar.sceneform:assets:1.15.0'
     implementation 'com.google.mediapipe:solution-core:latest.release'
     implementation 'com.google.mediapipe:hands:latest.release'
 
+    //From example
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
+apply plugin: 'com.google.gms.google-services'
