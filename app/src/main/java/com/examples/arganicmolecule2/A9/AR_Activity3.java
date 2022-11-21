@@ -7,14 +7,17 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Gravity;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.examples.arganicmolecule2.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -40,15 +43,9 @@ import java.util.concurrent.Callable;
 
 public class AR_Activity3 extends AppCompatActivity {
     private ArFragment arFragment;
-    FirebaseStorage storage;
     StorageReference storageRef;
-    String model_path;
-    String fb_path;
-    Uri glbUri;
-    String name = "C";
-    String glb_path;
-    private Renderable renderable;
-    ModelRenderable modelRenderable;
+    String model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,12 +56,81 @@ public class AR_Activity3 extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
         storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference aminoRef = storageRef.child("Amino Acids/Y.glb");
 
+        Intent modelIntent = getIntent();
+        if(modelIntent.hasExtra("aminoName")) {
+            String moleculeModel = modelIntent.getExtras().getString("aminoName");
+            //Toast.makeText(AR_Activity3.this, moleculeModel, Toast.LENGTH_SHORT).show();
+            switch (moleculeModel) {
+                case "Alanine":
+                    model = "Amino Acids/A.glb";
+                    break;
+                case "Arginine":
+                    model = "Amino Acids/R.glb";
+                    break;
+                case "Asparagine":
+                    model = "Amino Acids/N.glb";
+                    break;
+                case "Aspartic Acid":
+                    model = "Amino Acids/D.glb";
+                case "Clutamine":
+                    model = "Amino Acids/Q.glb";
+                    break;
+                case "Cysteine":
+                    model = "Amino Acids/C.glb";
+                    break;
+                case "Glutamic Acid":
+                    model = "Amino Acids/E.glb";
+                    break;
+                case "Glycine":
+                    model = "Amino Acids/G.glb";
+                    break;
+                case "Histidine":
+                    model = "Amino Acids/H.glb";
+                    break;
+                case "Isoleucine":
+                    model = "Amino Acids/L.glb";
+                    break;
+                case "Leucine":
+                    model = "Amino Acids/I.glb";
+                    break;
+                case "Lysine":
+                    model = "Amino Acids/K.glb";
+                    break;
+                case "Methionine":
+                    model = "Amino Acids/M.glb";
+                    break;
+                case "Phenylalanine":
+                    model = "Amino Acids/F.glb";
+                    break;
+                case "Proline":
+                    model = "Amino Acids/P.glb";
+                    break;
+                case "Serine":
+                    model = "Amino Acids/S.glb";
+                    break;
+                case "Threonine":
+                    model = "Amino Acids/T.glb";
+                    break;
+                case "Tryptophan":
+                    model = "Amino Acids/W.glb";
+                    break;
+                case "Tyrosine":
+                    model = "Amino Acids/Y.glb";
+                    break;
+                case "Valine":
+                    model = "Amino Acids/V.glb";
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            Toast.makeText(AR_Activity3.this, "Failed to load model", Toast.LENGTH_SHORT).show();
+        }
+
+        StorageReference aminoRef = storageRef.child(model);
 
         verifyStoragePermissions(this);
-
-
 
 
 //        File download = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
@@ -137,8 +203,6 @@ public class AR_Activity3 extends AppCompatActivity {
 //    private void onPostExecute(Long result) {
 //        AR_Activity3.this.receiveDownloadId(result);
 //    }
-//
-//
 //
 //    private void receiveDownloadId(Long downloadId) {
 ////        DownloadManager downloadManager = (DownloadManager) AR_Activity3.this.getSystemService(Context.DOWNLOAD_SERVICE);
