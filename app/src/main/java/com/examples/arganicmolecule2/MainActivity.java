@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
         Ar=findViewById(R.id.AR_Button);
         Ar.setOnClickListener(view -> openArViewScreen());
 
-
-
     }
 
     public void openRSChemWebViewScreen() {
