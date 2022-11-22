@@ -176,7 +176,7 @@ public class AR_Activity extends AppCompatActivity {
                                     Intent AR2 = new Intent(AR_Activity.this,
                                             AR_Activity2.class);
                                     AR2.putExtra("image", localFile.toString());
-                                    AR2.putExtra("aminoName", test);
+                                    AR2.putExtra("aminoName", aminoAcide);
                                     startActivity(AR2);
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -189,9 +189,8 @@ public class AR_Activity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Toast.makeText(AR_Activity.this, "Select category: " + category
-                                + "\n Select Amino acid: " + aminoAcide,
-                        Toast.LENGTH_LONG).show();
+                //Toast.makeText(AR_Activity.this, "Select category: " + category+ "\n Select Amino acid: " + aminoAcide,
+                // Toast.LENGTH_LONG).show();
 
             }
         });
