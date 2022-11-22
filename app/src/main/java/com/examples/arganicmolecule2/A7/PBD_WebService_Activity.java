@@ -8,12 +8,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.examples.arganicmolecule2.A8.DB_stickerMessage_activity;
 import com.examples.arganicmolecule2.R;
+import com.google.firebase.database.DatabaseReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,7 +42,8 @@ public class PBD_WebService_Activity extends AppCompatActivity {
     URL url;
 
     TextView input1, input2, input3, input4;
-
+    EditText owner;
+    public static final String OWNER_KEY = "edu.ArganicMolecule.OWNER_KEY";
     public static final String NAME_KEY = "edu.ArganicMolecule.NAME_KEY";
     public static final String ID_KEY = "edu.ArganicMolecule.ID_KEY";
     public static final String FORMULA_KEY = "edu.ArganicMolecule.FORMULA_KEY";
@@ -68,6 +72,7 @@ public class PBD_WebService_Activity extends AppCompatActivity {
         input2 = findViewById(R.id.textView_input2);
         input3 = findViewById(R.id.textView_input3);
         input4 = findViewById(R.id.textView_input4);
+        //owner = findViewById(R.id.Owner);
 
         //
         notes = new ArrayList<>();
@@ -91,16 +96,6 @@ public class PBD_WebService_Activity extends AppCompatActivity {
         idButton.setOnClickListener(view -> {
             isID = true;
         });
-//
-//        nameButton.setOnClickListener(view -> {
-//            isName = true;
-//        });
-//
-//        dateButton.setOnClickListener(view -> {
-//            isDate = true;
-//        });
-
-
 
         summaryButton = findViewById(R.id.button_Molecule_Summary);
 
@@ -125,11 +120,22 @@ public class PBD_WebService_Activity extends AppCompatActivity {
             Thread.currentThread().interrupt();
 
             Intent data = new Intent(PBD_WebService_Activity.this, PBD_Note_Activity.class);
+
             data.putExtra(NAME_KEY, name);
             data.putExtra(ID_KEY, id);
             data.putExtra(FORMULA_KEY, formula);
             data.putExtra(FORMULA_WEIGHT_KEY, formula_weight);
             startActivity(data);
+            //String tempOwner = owner.getText().toString();
+            //if(tempOwner != null){
+                //data.putExtra(OWNER_KEY, tempOwner);
+                //startActivity(data);
+            //}
+            //else{
+                //startActivity(data);
+                //Toast.makeText(getApplicationContext(), "Please input your name for taking notes", Toast.LENGTH_LONG).show();
+           // }
+
         });
 
     }
@@ -234,26 +240,6 @@ public class PBD_WebService_Activity extends AppCompatActivity {
                         Thread.currentThread().interrupt();
                     }
                 });
-            }
-        }
-    }
-
-
-    private void initialItemData(Bundle savedInstanceState) {
-        // Not the first time to open this Activity
-        if (savedInstanceState != null && savedInstanceState.containsKey(NUMBER_OF_NOTES)) {
-            if (notes== null || notes.size() == 0) {
-                int size = savedInstanceState.getInt(NUMBER_OF_NOTES);
-
-                // Retrieve keys we stored in the instance
-                for (int i = 0; i < size; i++) {
-                    String formula = savedInstanceState.getString(KEY_OF_NOTE + i + "1");
-                    String formula_weight = savedInstanceState.getString(KEY_OF_NOTE + i + "2");
-                    String id = savedInstanceState.getString(KEY_OF_NOTE + i + "3");
-                    String name = savedInstanceState.getString(KEY_OF_NOTE + i + "4");
-                    Note note = new Note(formula, formula_weight, id, name);
-                    notes.add(note);
-                }
             }
         }
     }
