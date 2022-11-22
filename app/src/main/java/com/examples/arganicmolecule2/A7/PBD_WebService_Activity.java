@@ -185,26 +185,6 @@ public class PBD_WebService_Activity extends AppCompatActivity {
         outState.putBoolean("pdbConnecting", pdbConnecting);
     }
 
-    private void initialItemData(Bundle savedInstanceState) {
-        // Not the first time to open this Activity
-        if (savedInstanceState != null && savedInstanceState.containsKey(NUMBER_OF_NOTES)) {
-            if (notes == null || notes.size() == 0) {
-                int size = savedInstanceState.getInt(NUMBER_OF_NOTES);
-
-                // Retrieve keys we stored in the instance
-                for (int i = 0; i < size; i++) {
-                    String formula = savedInstanceState.getString(KEY_OF_NOTE + i + "1");
-                    String formula_weight = savedInstanceState.getString(KEY_OF_NOTE + i
-                            + "2");
-                    String id = savedInstanceState.getString(KEY_OF_NOTE + i + "3");
-                    String name = savedInstanceState.getString(KEY_OF_NOTE + i + "4");
-                    Note note = new Note(formula, formula_weight, id, name);
-                    notes.add(note);
-                }
-            }
-        }
-    }
-
     private void sendSummaryData(DatabaseReference molSumRef, String molFormula,
                                  String molFormularWeight, String molID, String molName) {
         DatabaseReference moleculeDBRef = molSumRef.push();

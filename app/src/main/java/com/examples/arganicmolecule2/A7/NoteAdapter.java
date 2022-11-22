@@ -34,7 +34,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
     public void onBindViewHolder(@NonNull NoteAdapter.NotesViewHolder holder, int position) {
         holder.formula.setText(notes.get(position).getFormula());
         holder.formula_weight.setText(notes.get(position).getFormula_weight());
-        holder.id.setText(String.valueOf(notes.get(position).getId()));
+        holder.id.setText(notes.get(position).getId());
         holder.name.setText(notes.get(position).getName());
     }
 
@@ -44,16 +44,16 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
     }
 
     public static class NotesViewHolder extends RecyclerView.ViewHolder {
-        private TextView formula;
-        private TextView formula_weight;
-        private TextView id;
-        private TextView name;
+        private final TextView formula;
+        private final TextView formula_weight;
+        private final TextView id;
+        private final TextView name;
         public NotesViewHolder(@NonNull View notesView) {
             super(notesView);
-            TextView formula = notesView.findViewById(R.id.textView_formula);
-            TextView formularWeight = notesView.findViewById(R.id.textView_formular_weight);
-            TextView id = notesView.findViewById(R.id.textView_id);
-            TextView name = notesView.findViewById(R.id.textView_name);
+            formula = notesView.findViewById(R.id.molecule_formula);
+            formula_weight = notesView.findViewById(R.id.molecule_formular_weight);
+            id = notesView.findViewById(R.id.molecule_id);
+            name = notesView.findViewById(R.id.molecule_name);
         }
     }
 }

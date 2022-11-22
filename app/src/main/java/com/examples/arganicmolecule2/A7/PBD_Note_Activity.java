@@ -23,23 +23,22 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class PBD_Note_Activity extends AppCompatActivity {
     ArrayList<Note> notesList;
-    Context context;
     FirebaseDatabase firebaseDB;
     DatabaseReference databaseRef;
     RecyclerView noteRecyclerView;
-    Button search;
     NoteAdapter noteAdapter;
     String formula, formula_weight, id, name;
+    Context context;
 
     static final int ADD_NOTE_REQUEST = 1;
-    private static final String KEY_OF_NOTE = "KEY_OF_NOTE";
-    private static final String NUMBER_OF_NOTES = "NUMBER_OF_NOTES";
 
 
     @Override
@@ -52,43 +51,41 @@ public class PBD_Note_Activity extends AppCompatActivity {
         //initialItemData(savedInstanceState);
 
         firebaseDB = FirebaseDatabase.getInstance();
-        databaseRef = firebaseDB.getReference("Molecule Recycler View");
+        databaseRef = firebaseDB.getReference("MoleculeSummary" + id);
 
         noteRecyclerView = findViewById(R.id.recyclerView);
         noteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        noteAdapter = new NoteAdapter(notesList);
-        noteRecyclerView.setAdapter(noteAdapter);
 
-        search = findViewById(R.id.search);
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PBD_Note_Activity.this, PBD_WebService_Activity.class);
-                startActivity(intent);
-            }
-        });
         ClearAll();
-        getMoleculeSummary();
+        getMoleculeID();
+        //getMoleculeSummary();
         getData();
     }
 
     private void getData() {
-        DatabaseReference dbRef = databaseRef.child(id);
+        Query dbRef = databaseRef.child(id);
         Log.i("Molecule ID: ", id);
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.i("snapshot", snapshot.getKey());
-                ClearAll();
+                Toast.makeText(context, "Molecule" + notesList.get(0), Toast.LENGTH_LONG)
+                        .show();
                 for (DataSnapshot datasnapshot : snapshot.getChildren()) {
-                    Note note = new Note();
-                    note.setFormula(datasnapshot.child("formula").getValue().toString());
-                    note.setFormula_weight(datasnapshot.child("formula_weight").getValue().toString());
-                    note.setId(datasnapshot.child("id").getValue().toString());
-                    note.setName(datasnapshot.child("name").getValue().toString());
+                    Note note = new Note(formula, formula_weight, id, name);
+                    note.setFormula(Objects.requireNonNull(datasnapshot.child("formula").getValue())
+                            .toString());
+                    note.setFormula_weight(Objects.requireNonNull(datasnapshot
+                            .child("formula_weight").getValue()).toString());
+                    note.setId(Objects.requireNonNull(datasnapshot.child("id").getValue())
+                            .toString());
+                    note.setName(Objects.requireNonNull(datasnapshot.child("name").getValue())
+                            .toString());
                     notesList.add(note);
                 }
+                noteAdapter = new NoteAdapter(notesList);
+                noteRecyclerView.setAdapter(noteAdapter);
                 noteAdapter.notifyDataSetChanged();
             }
 
@@ -110,56 +107,55 @@ public class PBD_Note_Activity extends AppCompatActivity {
         notesList = new ArrayList<>();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
             assert data != null;
-            formula = data.getStringExtra(PBD_WebService_Activity.FORMULA_KEY);
-            formula_weight = data.getStringExtra(PBD_WebService_Activity.FORMULA_WEIGHT_KEY);
-            id = data.getStringExtra(PBD_WebService_Activity.ID_KEY);
-            name = data.getStringExtra(PBD_WebService_Activity.NAME_KEY);
-            Note note = new Note(formula, formula_weight, id, name);
-            notesList.add(note);
-            Snackbar.make(findViewById(R.id.recyclerView), "Note Saved", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-            noteAdapter.notifyDataSetChanged();
+            id = data.getExtras().getString(PBD_WebService_Activity.ID_KEY);
         } else {
-            Snackbar.make(findViewById(R.id.recyclerView), "Invalid input. Please try again.",
-                    Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Toast.makeText(this, "Invalid Molecule ID.", Toast.LENGTH_LONG).show();
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void getMoleculeSummary() {
-        if(getIntent().hasExtra(PBD_WebService_Activity.FORMULA_KEY)){
-            formula = getIntent().getStringExtra(PBD_WebService_Activity.FORMULA_KEY);
-            formula_weight = getIntent().getStringExtra(PBD_WebService_Activity.FORMULA_WEIGHT_KEY);
+    public void getMoleculeID() {
+        if(getIntent().hasExtra(PBD_WebService_Activity.ID_KEY)){
             id = getIntent().getStringExtra(PBD_WebService_Activity.ID_KEY);
-            name = getIntent().getStringExtra(PBD_WebService_Activity.NAME_KEY);
-            Note note = new Note(formula, formula_weight, id, name);
-            notesList.add(note);
-            noteAdapter.notifyDataSetChanged();
         }
     }
 
-    // Handling Orientation Changes on Android
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
+//    @SuppressLint("NotifyDataSetChanged")
+//    public void getMoleculeSummary() {
+//        if(getIntent().hasExtra(PBD_WebService_Activity.ID_KEY)){
+//            formula = getIntent().getExtras().getString(PBD_WebService_Activity.FORMULA_KEY);
+//            formula_weight = getIntent().getExtras().getString(PBD_WebService_Activity
+//                    .FORMULA_WEIGHT_KEY);
+//            id = getIntent().getExtras().getString(PBD_WebService_Activity.ID_KEY);
+//            name = getIntent().getExtras().getString(PBD_WebService_Activity.NAME_KEY);
+//            Note note = new Note(formula, formula_weight, id, name);
+//            notesList.add(note);
+//            noteAdapter = new NoteAdapter(notesList);
+//            noteRecyclerView.setAdapter(noteAdapter);
+//            noteAdapter.notifyDataSetChanged();
+//        }
+//    }
 
-        int size = notesList == null ? 0 : notesList.size();
-        outState.putInt(NUMBER_OF_NOTES, size);
-
-        // Need to generate unique key for each item
-        for (int i = 0; i < size; i++) {
-            outState.putString(KEY_OF_NOTE + i + "1", notesList.get(i).getFormula());
-            outState.putString(KEY_OF_NOTE + i + "2", notesList.get(i).getFormula_weight());
-            outState.putString(KEY_OF_NOTE + i + "3", notesList.get(i).getId());
-            outState.putString(KEY_OF_NOTE + i + "4", notesList.get(i).getName());
-        }
-        super.onSaveInstanceState(outState);
-    }
+//    // Handling Orientation Changes on Android
+//    @Override
+//    protected void onSaveInstanceState(@NonNull Bundle outState) {
+//
+//        int size = notesList == null ? 0 : notesList.size();
+//        outState.putInt(NUMBER_OF_NOTES, size);
+//
+//        // Need to generate unique key for each item
+//        for (int i = 0; i < size; i++) {
+//            outState.putString(KEY_OF_NOTE + i + "1", notesList.get(i).getFormula());
+//            outState.putString(KEY_OF_NOTE + i + "2", notesList.get(i).getFormula_weight());
+//            outState.putString(KEY_OF_NOTE + i + "3", notesList.get(i).getId());
+//            outState.putString(KEY_OF_NOTE + i + "4", notesList.get(i).getName());
+//        }
+//        super.onSaveInstanceState(outState);
+//    }
 
 //    private void initialItemData(Bundle savedInstanceState) {
 //

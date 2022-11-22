@@ -12,7 +12,7 @@ public class Note {
         this.formula = formula;
         this.formula_weight= formula_weight;
         this.name = name;
-        this. id = id;
+        this.id = id;
     }
 
     public String getFormula() {

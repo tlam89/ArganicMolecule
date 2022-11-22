@@ -37,6 +37,12 @@
     <string name="category">Chart key, Category</string>
     <string name="confirm">Confirm</string>
     <string name="ARview">View the AR model for this molecule</string>
+    <string name="molecule_id">Molecule ID</string>
+    <string name="sample_id_hint">Sample ID: CFF (3 digits or Capital Letters)</string>
+    <string name="like_button">Like</string>
+    <string name="formula">Formula</string>
+    <string name="formula_weight">Formula_weight</string>
+    <string name="molecule_name">Molecule Name</string>
 
     <string-array name="array_category">
         <item>Select Category</item>
