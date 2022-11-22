@@ -171,8 +171,6 @@ public class AR_Activity extends AppCompatActivity {
 //                                            "Picture Retrieved", Toast.LENGTH_SHORT).show();
                                     Bitmap bitmap = BitmapFactory.decodeFile(localFile
                                             .getAbsolutePath());
-                                    ((ImageView) findViewById(R.id.getImage))
-                                            .setImageBitmap(bitmap);
                                     Intent AR2 = new Intent(AR_Activity.this,
                                             AR_Activity2.class);
                                     AR2.putExtra("image", localFile.toString());
