@@ -29,9 +29,4 @@ public class molecule {
     public void setDate(String date) {
         this.date = date;
     }
-
-
-
-
-
 }

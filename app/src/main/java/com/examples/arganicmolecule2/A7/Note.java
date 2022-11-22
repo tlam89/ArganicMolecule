@@ -6,6 +6,7 @@ public class Note {
     private String id;
     private String name;
 
+    public Note() {}
 
     public Note(String formula, String formula_weight,  String id, String name){
         this.formula = formula;
