@@ -18,6 +18,7 @@ import com.google.firebase.storage.StorageReference;
 
 public class AR_Activity2 extends AppCompatActivity {
     ImageView amino_acid_molecule_image;
+    String model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,11 @@ public class AR_Activity2 extends AppCompatActivity {
         if(imageIntent.hasExtra("image")) {
             String moleculeImage = imageIntent.getExtras().getString("image");
             Glide.with(AR_Activity2.this).load(moleculeImage).into(amino_acid_molecule_image);
-        } else {
+        }
+        if(imageIntent.hasExtra("aminoName")) {
+            model = imageIntent.getExtras().getString("aminoName");
+        }
+        else {
             Toast.makeText(AR_Activity2.this,
                     "Image retrieval failed in Activity2", Toast.LENGTH_SHORT).show();
         }
@@ -38,7 +43,9 @@ public class AR_Activity2 extends AppCompatActivity {
         amino_acid_molecule_image.animate().alpha(0.1f).setStartDelay(500).setDuration(3000);
 
         new Handler().postDelayed(() -> {
-            startActivity(new Intent(this, AR_Activity3.class));
+            Intent AR3 =new Intent(this, AR_Activity3.class);
+            AR3.putExtra("aminoName", model);
+            startActivity(AR3);
             finish();
         }, 2900);
     }
