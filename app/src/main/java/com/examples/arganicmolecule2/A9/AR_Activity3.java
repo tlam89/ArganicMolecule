@@ -73,7 +73,7 @@ public class AR_Activity3 extends AppCompatActivity {
                     break;
                 case "Aspartic Acid":
                     model = "Amino Acids/D.glb";
-                case "Clutamine":
+                case "Glutamine":
                     model = "Amino Acids/Q.glb";
                     break;
                 case "Cysteine":
