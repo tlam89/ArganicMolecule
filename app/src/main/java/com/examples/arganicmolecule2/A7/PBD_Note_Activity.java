@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.examples.arganicmolecule2.A8.HistoryAdapter;
 import com.examples.arganicmolecule2.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
@@ -51,10 +52,10 @@ public class PBD_Note_Activity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        customAdapter = new NoteAdapter(notes);
-        recyclerView.setAdapter(customAdapter );
-
-        getMoleculeSummary();
+        //customAdapter = new NoteAdapter(notes);
+       // recyclerView.setAdapter(customAdapter );
+        //ClearAll();
+        getMoleculeID();
         getData();
 
         search = findViewById(R.id.search);
@@ -68,11 +69,17 @@ public class PBD_Note_Activity extends AppCompatActivity {
         });
     }
 
-
+    public void getMoleculeID() {
+        Intent IDIntent = getIntent();
+        if(IDIntent.hasExtra("edu.ArganicMolecule.ID_KEY")){
+            owner =IDIntent.getExtras().getString("edu.ArganicMolecule.ID_KEY");
+            Toast.makeText(getApplicationContext(), owner, Toast.LENGTH_LONG).show();
+        }
+    }
 
     public void getData(){
         DatabaseReference dbRef = databaseRef.child(owner);
-        dbRef .addListenerForSingleValueEvent(new ValueEventListener() {
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -83,9 +90,12 @@ public class PBD_Note_Activity extends AppCompatActivity {
                     String name =  datasnapshot.child("name").getValue().toString();
                     Note note =  new Note(formula, formula_weight, id, name);
                     notes.add(note);
-                    Toast.makeText(getApplicationContext(), formula, Toast.LENGTH_LONG).show();
-                    customAdapter.notifyDataSetChanged();
+                    Toast.makeText(getApplicationContext(), notes.get(0).getFormula_weight(), Toast.LENGTH_LONG).show();
+                    //customAdapter = new NoteAdapter(notes);
                 }
+                customAdapter = new NoteAdapter(notes);
+                //recyclerView.setAdapter(customAdapter);
+                //customAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -95,13 +105,16 @@ public class PBD_Note_Activity extends AppCompatActivity {
         });
     }
 
-    public void getMoleculeSummary() {
-        Intent IDIntent = getIntent();
-        if(IDIntent.hasExtra("edu.ArganicMolecule.ID_KEY")){
-            owner =IDIntent.getExtras().getString("edu.ArganicMolecule.ID_KEY");
-            Toast.makeText(getApplicationContext(), owner, Toast.LENGTH_LONG).show();
+    private void ClearAll(){
+        if(notes!=null){
+            notes.clear();
+            if(customAdapter!=null){
+                customAdapter.notifyDataSetChanged();
+            }
         }
+        notes = new ArrayList<>();
     }
+
 
 
 
