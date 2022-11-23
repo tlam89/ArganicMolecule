@@ -38,5 +38,4 @@ public class historysticker {
         this.received_time = received_time;
     }
 
-
 }
