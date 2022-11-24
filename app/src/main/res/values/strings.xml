@@ -40,6 +40,12 @@
     <string name="shakeDevice">Shake your device to animate the image
         and launch the 3D AR view
     </string>
+    <string name="molecule_id">ID</string>
+    <string name="sample_id_hint">Hint: Enter CFF to search</string>
+    <string name="like_button">Like</string>
+    <string name="formula">Formula</string>
+    <string name="formula_weight">Formular Weight</string>
+    <string name="molecule_name">Name</string>
 
     <string-array name="array_category">
         <item>Select Category</item>

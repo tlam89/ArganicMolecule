@@ -70,8 +70,6 @@ public class PBD_Note_Activity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.i("snapshot", snapshot.getKey());
-                Toast.makeText(context, "Molecule" + notesList.get(0), Toast.LENGTH_LONG)
-                        .show();
                 for (DataSnapshot datasnapshot : snapshot.getChildren()) {
                     Note note = new Note(formula, formula_weight, id, name);
                     note.setFormula(Objects.requireNonNull(datasnapshot.child("formula").getValue())
