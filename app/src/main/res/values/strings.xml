@@ -46,6 +46,7 @@
     <string name="formula">Formula</string>
     <string name="formula_weight">Formular Weight</string>
     <string name="molecule_name">Name</string>
+    <string name="molecule_username">Username</string>
 
     <string-array name="array_category">
         <item>Select Category</item>

@@ -10,9 +10,9 @@
         android:id="@+id/textView_input2"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.581"
+        app:layout_constraintHorizontal_bias="0.254"
         app:layout_constraintStart_toEndOf="@+id/molecule_formular_weight"
         app:layout_constraintTop_toBottomOf="@+id/textView_input1" />
 
@@ -23,7 +23,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/molecule_id"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.183"
+        app:layout_constraintHorizontal_bias="0.122"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/molecule_formular_weight" />
 
@@ -31,9 +31,9 @@
         android:id="@+id/textView_input3"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.67"
+        app:layout_constraintHorizontal_bias="0.706"
         app:layout_constraintStart_toEndOf="@+id/molecule_id"
         app:layout_constraintTop_toBottomOf="@+id/textView_input2" />
 
@@ -57,13 +57,11 @@
         android:layout_width="417dp"
         android:layout_height="0dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints">
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView_Search_By"-->
-
+        <!--        app:layout_constraintTop_toBottomOf="@+id/textView_Search_By"-->
 
 
         <!--        <Button-->
@@ -85,49 +83,49 @@
         <Button
             android:id="@+id/button_Id"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_width="355dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/id" />
 
     </LinearLayout>
 
+    <!--    <TextView-->
+    <!--        android:id="@+id/textView_Search_By"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/search_by"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="1.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="0.037" />-->
+
     <EditText
         android:id="@+id/editText_Enter_ID_Name_Date"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="377dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="12dp"
         android:autofillHints="Enter "
         android:hint="@string/sample_id_hint"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button_Molecule_Summary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout_Horizontal_Buttons"
-        app:layout_constraintVertical_bias="0.0" />
-
-<!--    <TextView-->
-<!--        android:id="@+id/textView_Search_By"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/search_by"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="1.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.037" />-->
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button_Molecule_Summary"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="20dp"
         android:text="@string/molecule_summary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout_Horizontal_Buttons" />
 
@@ -135,11 +133,11 @@
         android:id="@+id/button_Like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="4dp"
         android:text="@string/like_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -149,7 +147,7 @@
         android:layout_marginTop="12dp"
         android:text="@string/formula"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.172"
+        app:layout_constraintHorizontal_bias="0.129"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_Molecule_Summary" />
 
@@ -158,18 +156,18 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="44dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.719"
         app:layout_constraintTop_toBottomOf="@+id/button_Molecule_Summary" />
 
     <TextView
         android:id="@+id/molecule_formular_weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:text="@string/formula_weight"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.203"
+        app:layout_constraintHorizontal_bias="0.141"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/molecule_formula" />
 
@@ -177,10 +175,10 @@
         android:id="@+id/molecule_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         android:text="@string/molecule_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.203"
+        app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/molecule_id" />
 
@@ -188,10 +186,21 @@
         android:id="@+id/textView_input4"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.606"
+        app:layout_constraintHorizontal_bias="0.65"
         app:layout_constraintStart_toEndOf="@+id/molecule_name"
         app:layout_constraintTop_toBottomOf="@+id/textView_input3" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/molecule_username_editText"
+        android:layout_width="389dp"
+        android:layout_height="39dp"
+        android:hint="Enter Username"
+        app:layout_constraintBottom_toTopOf="@+id/editText_Enter_ID_Name_Date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_Horizontal_Buttons" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

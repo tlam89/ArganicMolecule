@@ -11,14 +11,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.examples.arganicmolecule2.A8.DB_authentication_activity;
-import com.examples.arganicmolecule2.A8.DB_stickerMessage_activity;
 import com.examples.arganicmolecule2.R;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,8 +30,7 @@ public class PBD_Note_Activity extends AppCompatActivity {
     DatabaseReference databaseRef;
     RecyclerView noteRecyclerView;
     NoteAdapter noteAdapter;
-    String formula, formula_weight, id, name;
-    Context context;
+    String formula, formula_weight, id, name, username = "";
 
     static final int ADD_NOTE_REQUEST = 1;
 
@@ -51,27 +45,26 @@ public class PBD_Note_Activity extends AppCompatActivity {
         //initialItemData(savedInstanceState);
 
         firebaseDB = FirebaseDatabase.getInstance();
-        databaseRef = firebaseDB.getReference("MoleculeSummary" + id);
+        databaseRef = firebaseDB.getReference("MoleculeSummary" + username);
 
         noteRecyclerView = findViewById(R.id.recyclerView);
         noteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ClearAll();
-        getMoleculeID();
-        //getMoleculeSummary();
+        getUsername();
         getData();
     }
 
     private void getData() {
-        Query dbRef = databaseRef.child(id);
-        Log.i("Molecule ID: ", id);
+        Query dbRef = databaseRef.child(username);
+        Log.i("Username: ", username);
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.i("snapshot", snapshot.getKey());
                 for (DataSnapshot datasnapshot : snapshot.getChildren()) {
-                    Note note = new Note(formula, formula_weight, id, name);
+                    Note note = new Note(formula, formula_weight, id, name, username);
                     note.setFormula(Objects.requireNonNull(datasnapshot.child("formula").getValue())
                             .toString());
                     note.setFormula_weight(Objects.requireNonNull(datasnapshot
@@ -79,6 +72,8 @@ public class PBD_Note_Activity extends AppCompatActivity {
                     note.setId(Objects.requireNonNull(datasnapshot.child("id").getValue())
                             .toString());
                     note.setName(Objects.requireNonNull(datasnapshot.child("name").getValue())
+                            .toString());
+                    note.setName(datasnapshot.child("username").getValue()
                             .toString());
                     notesList.add(note);
                 }
@@ -110,15 +105,15 @@ public class PBD_Note_Activity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
             assert data != null;
-            id = data.getExtras().getString(PBD_WebService_Activity.ID_KEY);
+            username = data.getExtras().getString(PBD_WebService_Activity.USERNAME_KEY);
         } else {
-            Toast.makeText(this, "Invalid Molecule ID.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Invalid Username.", Toast.LENGTH_LONG).show();
         }
     }
 
-    public void getMoleculeID() {
-        if(getIntent().hasExtra(PBD_WebService_Activity.ID_KEY)){
-            id = getIntent().getStringExtra(PBD_WebService_Activity.ID_KEY);
+    public void getUsername() {
+        if(getIntent().hasExtra(PBD_WebService_Activity.USERNAME_KEY)){
+            username = getIntent().getStringExtra(PBD_WebService_Activity.USERNAME_KEY);
         }
     }
 
