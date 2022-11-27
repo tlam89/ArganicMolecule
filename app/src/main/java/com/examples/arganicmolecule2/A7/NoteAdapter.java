@@ -1,5 +1,6 @@
 package com.examples.arganicmolecule2.A7;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,10 @@ import java.util.ArrayList;
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolder> {
 
     private final ArrayList<Note> notes;
-    //private Context context;
+//    private Context context;
 
     public NoteAdapter(ArrayList<Note> notes) {
         this.notes = notes;
-        //this.context = context;
     }
 
     @NonNull

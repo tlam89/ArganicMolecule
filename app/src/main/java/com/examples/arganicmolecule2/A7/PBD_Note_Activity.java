@@ -30,12 +30,10 @@ public class PBD_Note_Activity extends AppCompatActivity {
     DatabaseReference databaseRef;
     RecyclerView noteRecyclerView;
     NoteAdapter noteAdapter;
-    String formula, formula_weight, id, name, username;
+    String formula, formula_weight, id, name, username = "";
+    Context context;
 
     static final int ADD_NOTE_REQUEST = 1;
-
-    private static final String KEY_OF_NOTE = "KEY_OF_NOTE";
-    private static final String NUMBER_OF_NOTES = "NUMBER_OF_NOTES";
 
 
     @Override
@@ -45,15 +43,18 @@ public class PBD_Note_Activity extends AppCompatActivity {
         notesList = new ArrayList<>();
 
         // initial link item data
-        initialItemData(savedInstanceState);
+        //initialItemData(savedInstanceState);
 
         firebaseDB = FirebaseDatabase.getInstance();
-        databaseRef = firebaseDB.getReference("MoleculeSummary" + username);
+        databaseRef = firebaseDB.getReference("MoleculeSummary/");
 
         noteRecyclerView = findViewById(R.id.recyclerView);
-        noteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        noteRecyclerView.setLayoutManager(linearLayoutManager);
+        noteRecyclerView.setHasFixedSize(true);
 
-        ClearAll();
+        //ClearAll();
         getUsername();
         getData();
     }
@@ -62,22 +63,16 @@ public class PBD_Note_Activity extends AppCompatActivity {
         Query dbRef = databaseRef.child(username);
         Log.i("Username: ", username);
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.i("snapshot", snapshot.getKey());
                 for (DataSnapshot datasnapshot : snapshot.getChildren()) {
+                    formula =  Objects.requireNonNull(datasnapshot.child("formula").getValue()).toString();
+                    formula_weight =  Objects.requireNonNull(datasnapshot.child("formula_weight").getValue()).toString();
+                    id =  Objects.requireNonNull(datasnapshot.child("id").getValue()).toString();
+                    name =  Objects.requireNonNull(datasnapshot.child("name").getValue()).toString();
+                    username = Objects.requireNonNull(datasnapshot.child("username").getValue()).toString();
                     Note note = new Note(formula, formula_weight, id, name, username);
-                    note.setFormula(Objects.requireNonNull(datasnapshot.child("formula").getValue())
-                            .toString());
-                    note.setFormula_weight(Objects.requireNonNull(datasnapshot
-                            .child("formula_weight").getValue()).toString());
-                    note.setId(Objects.requireNonNull(datasnapshot.child("id").getValue())
-                            .toString());
-                    note.setName(Objects.requireNonNull(datasnapshot.child("name").getValue())
-                            .toString());
-                    note.setUserName(Objects.requireNonNull(datasnapshot.child("username")
-                                    .getValue()).toString());
                     notesList.add(note);
                 }
                 noteAdapter = new NoteAdapter(notesList);
@@ -92,16 +87,16 @@ public class PBD_Note_Activity extends AppCompatActivity {
         });
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private void ClearAll() {
-        if (notesList != null) {
-            notesList.clear();
-            if (noteAdapter != null) {
-                noteAdapter.notifyDataSetChanged();
-            }
-        }
-        notesList = new ArrayList<>();
-    }
+//    @SuppressLint("NotifyDataSetChanged")
+//    private void ClearAll() {
+//        if (notesList != null) {
+//            notesList.clear();
+//            if (noteAdapter != null) {
+//                noteAdapter.notifyDataSetChanged();
+//            }
+//        }
+//        notesList = new ArrayList<>();
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -116,7 +111,7 @@ public class PBD_Note_Activity extends AppCompatActivity {
 
     public void getUsername() {
         if(getIntent().hasExtra(PBD_WebService_Activity.USERNAME_KEY)){
-            username = getIntent().getStringExtra(PBD_WebService_Activity.USERNAME_KEY);
+            username = getIntent().getExtras().getString(PBD_WebService_Activity.USERNAME_KEY);
         }
     }
 
@@ -153,24 +148,24 @@ public class PBD_Note_Activity extends AppCompatActivity {
 //        super.onSaveInstanceState(outState);
 //    }
 
-    private void initialItemData(Bundle savedInstanceState) {
-
-        // Not the first time to open this Activity
-        if (savedInstanceState != null && savedInstanceState.containsKey(NUMBER_OF_NOTES)) {
-            if (notesList== null || notesList.size() == 0) {
-                int size = savedInstanceState.getInt(NUMBER_OF_NOTES);
-
-                // Retrieve keys we stored in the instance
-                for (int i = 0; i < size; i++) {
-                    String formula = savedInstanceState.getString(KEY_OF_NOTE + i + "1");
-                    String formula_weight = savedInstanceState.getString(KEY_OF_NOTE + i
-                            + "2");
-                    String id = savedInstanceState.getString(KEY_OF_NOTE + i + "3");
-                    String name = savedInstanceState.getString(KEY_OF_NOTE + i + "4");
-                    Note note = new Note(formula, formula_weight, id, name, username);
-                    notesList.add(note);
-                }
-            }
-        }
-    }
+//    private void initialItemData(Bundle savedInstanceState) {
+//
+//        // Not the first time to open this Activity
+//        if (savedInstanceState != null && savedInstanceState.containsKey(NUMBER_OF_NOTES)) {
+//            if (notesList== null || notesList.size() == 0) {
+//                int size = savedInstanceState.getInt(NUMBER_OF_NOTES);
+//
+//                // Retrieve keys we stored in the instance
+//                for (int i = 0; i < size; i++) {
+//                    String formula = savedInstanceState.getString(KEY_OF_NOTE + i + "1");
+//                    String formula_weight = savedInstanceState.getString(KEY_OF_NOTE + i
+//                            + "2");
+//                    String id = savedInstanceState.getString(KEY_OF_NOTE + i + "3");
+//                    String name = savedInstanceState.getString(KEY_OF_NOTE + i + "4");
+//                    Note note = new Note(formula, formula_weight, id, name, username);
+//                    notesList.add(note);
+//                }
+//            }
+//        }
+//    }
 }

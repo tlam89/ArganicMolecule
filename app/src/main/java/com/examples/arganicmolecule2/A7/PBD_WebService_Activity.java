@@ -38,7 +38,7 @@ public class PBD_WebService_Activity extends AppCompatActivity {
     //    TextView searchBy_textView;
     Button idButton, nameButton, dateButton, summaryButton, likeButton;
     EditText enter_editText, username;
-    String formula, formula_weight, id, name, query = "", comp_id = "", username_string = "";
+    String formula, formula_weight, id, name, query = "", comp_id = "", username_string;
     LinearLayout horizontal_buttons, vertical_layout1;
     Boolean pdbConnecting = true, isID = true, isName = true, isDate = false;
     HttpURLConnection urlConnection = null;
@@ -148,8 +148,8 @@ public class PBD_WebService_Activity extends AppCompatActivity {
                 data.putExtra(USERNAME_KEY, username_string);
                 startActivity(data);
             } else {
-                Toast.makeText(this,"Could not send data to Firebase as null is "
-                        + "being passed.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"No input has been provided. "
+                        + "Please enter the required fields.", Toast.LENGTH_LONG).show();
             }
         });
 
