@@ -14,9 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.examples.arganicmolecule2.A8.DB_stickerMessage_activity;
 import com.examples.arganicmolecule2.R;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,31 +28,29 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class PBD_WebService_Activity extends AppCompatActivity {
-//    TextView searchBy_textView;
-    Button idButton, nameButton, dateButton, summaryButton, likeButton;
-    EditText enter_editText;
-    String formula, formula_weight, id, name, query = "", comp_id = "";
-
-    LinearLayout horizontal_buttons, vertical_layout1;
-
-    Boolean pdbConnecting = true, isID = true, isName = true, isDate = false;
-    HttpURLConnection urlConnection = null;
-    PDBThread pdbThread;
-
-    URL url;
-
-    TextView input1, input2, input3, input4;
-    EditText owner;
-    public static final String OWNER_KEY = "edu.ArganicMolecule.OWNER_KEY";
     public static final String NAME_KEY = "edu.ArganicMolecule.NAME_KEY";
     public static final String ID_KEY = "edu.ArganicMolecule.ID_KEY";
     public static final String FORMULA_KEY = "edu.ArganicMolecule.FORMULA_KEY";
     public static final String FORMULA_WEIGHT_KEY = "edu.ArganicMolecule.FORMULA_WEIGHT_KEY";
-    //static final int ADD_NOTE_REQUEST = 1;
-    ArrayList<Note> notes;
+    public static final String USERNAME_KEY = "edu.ArganicMolecule.USERNAME_KEY";
     private static final String KEY_OF_NOTE = "KEY_OF_NOTE";
     private static final String NUMBER_OF_NOTES = "NUMBER_OF_NOTES";
+    //    TextView searchBy_textView;
+    Button idButton, nameButton, dateButton, summaryButton, likeButton;
+    EditText enter_editText, username;
+    String formula, formula_weight, id, name, query = "", comp_id = "", username_string;
+    LinearLayout horizontal_buttons, vertical_layout1;
+    Boolean pdbConnecting = true, isID = true, isName = true, isDate = false;
+    HttpURLConnection urlConnection = null;
+    PDBThread pdbThread;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    URL url;
+    TextView input1, input2, input3, input4;
+    //static final int ADD_NOTE_REQUEST = 1;
+    ArrayList<Note> notes;
     //NoteAdapter customAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +65,16 @@ public class PBD_WebService_Activity extends AppCompatActivity {
 
 //        searchBy_textView = findViewById(R.id.textView_Search_By);
         enter_editText = findViewById(R.id.editText_Enter_ID_Name_Date);
+        username = findViewById(R.id.molecule_username_editText);
+        username_string = username.getText().toString();
 
         input1 = findViewById(R.id.textView_input1);
         input2 = findViewById(R.id.textView_input2);
         input3 = findViewById(R.id.textView_input3);
         input4 = findViewById(R.id.textView_input4);
-        //owner = findViewById(R.id.Owner);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
 
         //
         notes = new ArrayList<>();
@@ -84,58 +86,71 @@ public class PBD_WebService_Activity extends AppCompatActivity {
             formula_weight = savedInstanceState.getString("formula_weight", formula_weight);
             id = savedInstanceState.getString("id", id);
             name = savedInstanceState.getString("name", name);
+            username_string = savedInstanceState.getString("username", username_string);
             pdbConnecting = savedInstanceState.getBoolean("pdbConnecting", pdbConnecting);
 
             input1.setText(formula);
             input2.setText(formula_weight);
             input3.setText(id);
             input4.setText(name);
-
         }
 
         idButton.setOnClickListener(view -> {
             isID = true;
         });
+//
+//        nameButton.setOnClickListener(view -> {
+//            isName = true;
+//        });
+//
+//        dateButton.setOnClickListener(view -> {
+//            isDate = true;
+//        });
+
 
         summaryButton = findViewById(R.id.button_Molecule_Summary);
 
         summaryButton.setOnClickListener(view -> {
             if (isID) {
                 comp_id = enter_editText.getText().toString();
+                username_string = username.getText().toString();
             } else if (isName) {
                 comp_id = enter_editText.getText().toString();
+                username_string = username.getText().toString();
             } else if (isDate) {
                 comp_id = enter_editText.getText().toString();
+                username_string = username.getText().toString();
             }
             query = "https://data.rcsb.org/rest/v1/core/chemcomp/" + comp_id;
             pdbConnecting = true;
             pdbThread = new PDBThread();
             pdbThread.start();
             enter_editText.onEditorAction(EditorInfo.IME_ACTION_DONE);
+            username.onEditorAction(EditorInfo.IME_ACTION_DONE);
         });
 
         likeButton = findViewById(R.id.button_Like);
+
         likeButton.setOnClickListener(view -> {
-            pdbConnecting=false;
+            String temp = "MoleculeSummary/" + username_string;
+            DatabaseReference molRef = databaseReference.child(temp);
+            pdbConnecting = false;
             Thread.currentThread().interrupt();
-
-            Intent data = new Intent(PBD_WebService_Activity.this, PBD_Note_Activity.class);
-
-            data.putExtra(NAME_KEY, name);
-            data.putExtra(ID_KEY, id);
-            data.putExtra(FORMULA_KEY, formula);
-            data.putExtra(FORMULA_WEIGHT_KEY, formula_weight);
-            startActivity(data);
-            //String tempOwner = owner.getText().toString();
-            //if(tempOwner != null){
-                //data.putExtra(OWNER_KEY, tempOwner);
-                //startActivity(data);
-            //}
-            //else{
-                //startActivity(data);
-                //Toast.makeText(getApplicationContext(), "Please input your name for taking notes", Toast.LENGTH_LONG).show();
-           // }
-
+            if(username_string!= null && id != null && formula!= null && formula_weight!= null
+                    && name != null) {
+                sendSummaryData(molRef, username_string, formula, formula_weight, id, name);
+                Intent data = new Intent(PBD_WebService_Activity.this,
+                        PBD_Note_Activity.class);
+                data.putExtra(NAME_KEY, name);
+                data.putExtra(ID_KEY, id);
+                data.putExtra(FORMULA_KEY, formula);
+                data.putExtra(FORMULA_WEIGHT_KEY, formula_weight);
+                data.putExtra(USERNAME_KEY, username_string);
+                startActivity(data);
+            } else {
+                Toast.makeText(this,"No input has been provided. "
+                        + "Please enter the required fields.", Toast.LENGTH_LONG).show();
+            }
         });
 
     }
@@ -152,7 +167,7 @@ public class PBD_WebService_Activity extends AppCompatActivity {
             alertdialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    pdbConnecting=false;
+                    pdbConnecting = false;
                     Thread.currentThread().interrupt();
                     finish();
                 }
@@ -177,7 +192,18 @@ public class PBD_WebService_Activity extends AppCompatActivity {
         outState.putString("formula_weight", formula_weight);
         outState.putString("id", id);
         outState.putString("name", name);
+        outState.putString("username", username_string);
         outState.putBoolean("pdbConnecting", pdbConnecting);
+    }
+
+    private void sendSummaryData(DatabaseReference molSumRef, String username, String molFormula,
+                                 String molFormularWeight, String molID, String molName) {
+        DatabaseReference moleculeDBRef = molSumRef.push();
+        moleculeDBRef.setValue(new Note(molFormula, molFormularWeight, molID, molName, username));
+
+        DatabaseReference molSummaryData = databaseReference.child("MoleculeSummary/" + username)
+                                            .push();
+        molSummaryData.setValue(new Note(molFormula, molFormularWeight, molID, molName, username));
     }
 
     class PDBThread extends Thread {
@@ -216,11 +242,11 @@ public class PBD_WebService_Activity extends AppCompatActivity {
                     if (i == 0) {
                         formula = chem_comp.getString("formula");
                     } else if (i == 1) {
-                        Double formula_weight_temp = chem_comp.getDouble("formula_weight");
+                        double formula_weight_temp = chem_comp.getDouble("formula_weight");
                         formula_weight = Double.toString(formula_weight_temp);
                     } else if (i == 2) {
                         id = chem_comp.getString("id");
-                    } else if (i == 3) {
+                    } else {
                         name = chem_comp.getString("name");
                     }
                 }
@@ -236,13 +262,11 @@ public class PBD_WebService_Activity extends AppCompatActivity {
                         input2.setText(formula_weight);
                         input3.setText(id);
                         input4.setText(name);
-                        pdbConnecting=false;
+                        pdbConnecting = false;
                         Thread.currentThread().interrupt();
                     }
                 });
             }
         }
     }
-
-
 }

@@ -7,15 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.util.Log;
 import android.widget.Toast;
 
-import com.examples.arganicmolecule2.A8.HistoryAdapter;
 import com.examples.arganicmolecule2.R;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,78 +22,67 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class PBD_Note_Activity extends AppCompatActivity {
-    ArrayList<Note> notes;
-    RecyclerView recyclerView;
-    Button search;
-    NoteAdapter customAdapter;
-
-    static final int ADD_NOTE_REQUEST = 1;
-    private static final String KEY_OF_NOTE = "KEY_OF_NOTE";
-    private static final String NUMBER_OF_NOTES = "NUMBER_OF_NOTES";
-
+    ArrayList<Note> notesList;
     FirebaseDatabase firebaseDB;
     DatabaseReference databaseRef;
-    String owner;
+    RecyclerView noteRecyclerView;
+    NoteAdapter noteAdapter;
+    String formula, formula_weight, id, name, username;
+    Context context;
+
+    static final int ADD_NOTE_REQUEST = 1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pbd_note);
+        notesList = new ArrayList<>();
 
+        // initial link item data
+        //initialItemData(savedInstanceState);
 
         firebaseDB = FirebaseDatabase.getInstance();
         databaseRef = firebaseDB.getReference("MoleculeSummary");
-        notes = new ArrayList<>();
 
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //customAdapter = new NoteAdapter(notes);
-       // recyclerView.setAdapter(customAdapter );
+        noteRecyclerView = findViewById(R.id.recyclerView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        noteRecyclerView.setLayoutManager(linearLayoutManager);
+        noteRecyclerView.setHasFixedSize(true);
+
         //ClearAll();
-        getMoleculeID();
+        getUsername();
         getData();
-
-        search = findViewById(R.id.search);
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PBD_Note_Activity.this,
-                        PBD_WebService_Activity.class);
-                startActivity(intent);
-            }
-        });
     }
 
-    public void getMoleculeID() {
-        Intent IDIntent = getIntent();
-        if(IDIntent.hasExtra("edu.ArganicMolecule.ID_KEY")){
-            owner =IDIntent.getExtras().getString("edu.ArganicMolecule.ID_KEY");
-            Toast.makeText(getApplicationContext(), owner, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void getData(){
-        DatabaseReference dbRef = databaseRef.child(owner);
+    private void getData() {
+        Query dbRef = databaseRef.child(username);
+        Log.i("Username: ", username);
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.i("snapshot", snapshot.getKey());
                 for (DataSnapshot datasnapshot : snapshot.getChildren()) {
-                    String formula =  datasnapshot.child("formula").getValue().toString();
-                    String formula_weight =  datasnapshot.child("formula_weight").getValue().toString();
-                    String id =  datasnapshot.child("id").getValue().toString();
-                    String name =  datasnapshot.child("name").getValue().toString();
-                    Note note =  new Note(formula, formula_weight, id, name);
-                    notes.add(note);
-                    Toast.makeText(getApplicationContext(), notes.get(0).getFormula_weight(), Toast.LENGTH_LONG).show();
-                    //customAdapter = new NoteAdapter(notes);
+                    Note note = new Note(formula, formula_weight, id, name, username);
+                    note.setFormula(Objects.requireNonNull(datasnapshot.child("formula").getValue())
+                            .toString());
+                    note.setFormula_weight(Objects.requireNonNull(datasnapshot
+                            .child("formula_weight").getValue()).toString());
+                    note.setId(Objects.requireNonNull(datasnapshot.child("id").getValue())
+                            .toString());
+                    note.setName(Objects.requireNonNull(datasnapshot.child("name").getValue())
+                            .toString());
+                    note.setUserName(Objects.requireNonNull(datasnapshot.child("userName")
+                                    .getValue()).toString());
+                    notesList.add(note);
                 }
-                customAdapter = new NoteAdapter(notes);
-                //recyclerView.setAdapter(customAdapter);
-                //customAdapter.notifyDataSetChanged();
+                noteAdapter = new NoteAdapter(notesList);
+                noteRecyclerView.setAdapter(noteAdapter);
+                noteAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -105,23 +92,85 @@ public class PBD_Note_Activity extends AppCompatActivity {
         });
     }
 
-    private void ClearAll(){
-        if(notes!=null){
-            notes.clear();
-            if(customAdapter!=null){
-                customAdapter.notifyDataSetChanged();
-            }
+//    @SuppressLint("NotifyDataSetChanged")
+//    private void ClearAll() {
+//        if (notesList != null) {
+//            notesList.clear();
+//            if (noteAdapter != null) {
+//                noteAdapter.notifyDataSetChanged();
+//            }
+//        }
+//        notesList = new ArrayList<>();
+//    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
+            assert data != null;
+            username = data.getExtras().getString(PBD_WebService_Activity.USERNAME_KEY);
+        } else {
+            Toast.makeText(this, "Invalid Username.", Toast.LENGTH_LONG).show();
         }
-        notes = new ArrayList<>();
     }
 
+    public void getUsername() {
+        if(getIntent().hasExtra(PBD_WebService_Activity.USERNAME_KEY)){
+            username = getIntent().getExtras().getString(PBD_WebService_Activity.USERNAME_KEY);
+        }
+    }
 
+//    @SuppressLint("NotifyDataSetChanged")
+//    public void getMoleculeSummary() {
+//        if(getIntent().hasExtra(PBD_WebService_Activity.ID_KEY)){
+//            formula = getIntent().getExtras().getString(PBD_WebService_Activity.FORMULA_KEY);
+//            formula_weight = getIntent().getExtras().getString(PBD_WebService_Activity
+//                    .FORMULA_WEIGHT_KEY);
+//            id = getIntent().getExtras().getString(PBD_WebService_Activity.ID_KEY);
+//            name = getIntent().getExtras().getString(PBD_WebService_Activity.NAME_KEY);
+//            Note note = new Note(formula, formula_weight, id, name);
+//            notesList.add(note);
+//            noteAdapter = new NoteAdapter(notesList);
+//            noteRecyclerView.setAdapter(noteAdapter);
+//            noteAdapter.notifyDataSetChanged();
+//        }
+//    }
 
+//    // Handling Orientation Changes on Android
+//    @Override
+//    protected void onSaveInstanceState(@NonNull Bundle outState) {
+//
+//        int size = notesList == null ? 0 : notesList.size();
+//        outState.putInt(NUMBER_OF_NOTES, size);
+//
+//        // Need to generate unique key for each item
+//        for (int i = 0; i < size; i++) {
+//            outState.putString(KEY_OF_NOTE + i + "1", notesList.get(i).getFormula());
+//            outState.putString(KEY_OF_NOTE + i + "2", notesList.get(i).getFormula_weight());
+//            outState.putString(KEY_OF_NOTE + i + "3", notesList.get(i).getId());
+//            outState.putString(KEY_OF_NOTE + i + "4", notesList.get(i).getName());
+//        }
+//        super.onSaveInstanceState(outState);
+//    }
 
-
-
-
-
-
-
+//    private void initialItemData(Bundle savedInstanceState) {
+//
+//        // Not the first time to open this Activity
+//        if (savedInstanceState != null && savedInstanceState.containsKey(NUMBER_OF_NOTES)) {
+//            if (notesList== null || notesList.size() == 0) {
+//                int size = savedInstanceState.getInt(NUMBER_OF_NOTES);
+//
+//                // Retrieve keys we stored in the instance
+//                for (int i = 0; i < size; i++) {
+//                    String formula = savedInstanceState.getString(KEY_OF_NOTE + i + "1");
+//                    String formula_weight = savedInstanceState.getString(KEY_OF_NOTE + i
+//                            + "2");
+//                    String id = savedInstanceState.getString(KEY_OF_NOTE + i + "3");
+//                    String name = savedInstanceState.getString(KEY_OF_NOTE + i + "4");
+//                    Note note = new Note(formula, formula_weight, id, name, username);
+//                    notesList.add(note);
+//                }
+//            }
+//        }
+//    }
 }
