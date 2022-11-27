@@ -30,7 +30,7 @@ public class PBD_Note_Activity extends AppCompatActivity {
     DatabaseReference databaseRef;
     RecyclerView noteRecyclerView;
     NoteAdapter noteAdapter;
-    String formula, formula_weight, id, name, username = "";
+    String formula, formula_weight, id, name, username;
     Context context;
 
     static final int ADD_NOTE_REQUEST = 1;
@@ -46,7 +46,7 @@ public class PBD_Note_Activity extends AppCompatActivity {
         //initialItemData(savedInstanceState);
 
         firebaseDB = FirebaseDatabase.getInstance();
-        databaseRef = firebaseDB.getReference("MoleculeSummary/");
+        databaseRef = firebaseDB.getReference("MoleculeSummary");
 
         noteRecyclerView = findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -67,12 +67,17 @@ public class PBD_Note_Activity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.i("snapshot", snapshot.getKey());
                 for (DataSnapshot datasnapshot : snapshot.getChildren()) {
-                    formula =  Objects.requireNonNull(datasnapshot.child("formula").getValue()).toString();
-                    formula_weight =  Objects.requireNonNull(datasnapshot.child("formula_weight").getValue()).toString();
-                    id =  Objects.requireNonNull(datasnapshot.child("id").getValue()).toString();
-                    name =  Objects.requireNonNull(datasnapshot.child("name").getValue()).toString();
-                    username = Objects.requireNonNull(datasnapshot.child("username").getValue()).toString();
                     Note note = new Note(formula, formula_weight, id, name, username);
+                    note.setFormula(Objects.requireNonNull(datasnapshot.child("formula").getValue())
+                            .toString());
+                    note.setFormula_weight(Objects.requireNonNull(datasnapshot
+                            .child("formula_weight").getValue()).toString());
+                    note.setId(Objects.requireNonNull(datasnapshot.child("id").getValue())
+                            .toString());
+                    note.setName(Objects.requireNonNull(datasnapshot.child("name").getValue())
+                            .toString());
+                    note.setUserName(Objects.requireNonNull(datasnapshot.child("userName")
+                                    .getValue()).toString());
                     notesList.add(note);
                 }
                 noteAdapter = new NoteAdapter(notesList);

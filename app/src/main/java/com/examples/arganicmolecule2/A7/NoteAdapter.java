@@ -52,11 +52,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
         private final TextView username;
         public NotesViewHolder(@NonNull View notesView) {
             super(notesView);
-            formula = notesView.findViewById(R.id.molecule_formula);
-            formula_weight = notesView.findViewById(R.id.molecule_formular_weight);
-            id = notesView.findViewById(R.id.molecule_id);
-            name = notesView.findViewById(R.id.molecule_name);
-            username = notesView.findViewById(R.id.molecule_username_editText);
+            formula = notesView.findViewById(R.id.formula);
+            formula_weight = notesView.findViewById(R.id.formula_weight);
+            id = notesView.findViewById(R.id.id);
+            name = notesView.findViewById(R.id.name);
+            username = notesView.findViewById(R.id.username2);
         }
     }
 }
