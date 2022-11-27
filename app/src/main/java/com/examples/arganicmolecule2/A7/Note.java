@@ -3,11 +3,11 @@ package com.examples.arganicmolecule2.A7;
 import android.widget.EditText;
 
 public class Note {
-    private String formula;
-    private String formula_weight;
-    private String id;
-    private String name;
-    private String username;
+    private String formula = "";
+    private String formula_weight = "";
+    private String id = "";
+    private String name = "";
+    private String username = "";
 
     public Note() {}
 

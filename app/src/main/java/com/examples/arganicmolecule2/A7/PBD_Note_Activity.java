@@ -30,9 +30,12 @@ public class PBD_Note_Activity extends AppCompatActivity {
     DatabaseReference databaseRef;
     RecyclerView noteRecyclerView;
     NoteAdapter noteAdapter;
-    String formula, formula_weight, id, name, username = "";
+    String formula, formula_weight, id, name, username;
 
     static final int ADD_NOTE_REQUEST = 1;
+
+    private static final String KEY_OF_NOTE = "KEY_OF_NOTE";
+    private static final String NUMBER_OF_NOTES = "NUMBER_OF_NOTES";
 
 
     @Override
@@ -42,7 +45,7 @@ public class PBD_Note_Activity extends AppCompatActivity {
         notesList = new ArrayList<>();
 
         // initial link item data
-        //initialItemData(savedInstanceState);
+        initialItemData(savedInstanceState);
 
         firebaseDB = FirebaseDatabase.getInstance();
         databaseRef = firebaseDB.getReference("MoleculeSummary" + username);
@@ -73,8 +76,8 @@ public class PBD_Note_Activity extends AppCompatActivity {
                             .toString());
                     note.setName(Objects.requireNonNull(datasnapshot.child("name").getValue())
                             .toString());
-                    note.setName(datasnapshot.child("username").getValue()
-                            .toString());
+                    note.setUserName(Objects.requireNonNull(datasnapshot.child("username")
+                                    .getValue()).toString());
                     notesList.add(note);
                 }
                 noteAdapter = new NoteAdapter(notesList);
@@ -150,24 +153,24 @@ public class PBD_Note_Activity extends AppCompatActivity {
 //        super.onSaveInstanceState(outState);
 //    }
 
-//    private void initialItemData(Bundle savedInstanceState) {
-//
-//        // Not the first time to open this Activity
-//        if (savedInstanceState != null && savedInstanceState.containsKey(NUMBER_OF_NOTES)) {
-//            if (notesList== null || notesList.size() == 0) {
-//                int size = savedInstanceState.getInt(NUMBER_OF_NOTES);
-//
-//                // Retrieve keys we stored in the instance
-//                for (int i = 0; i < size; i++) {
-//                    String formula = savedInstanceState.getString(KEY_OF_NOTE + i + "1");
-//                    String formula_weight = savedInstanceState.getString(KEY_OF_NOTE + i
-//                            + "2");
-//                    String id = savedInstanceState.getString(KEY_OF_NOTE + i + "3");
-//                    String name = savedInstanceState.getString(KEY_OF_NOTE + i + "4");
-//                    Note note = new Note(formula, formula_weight, id, name);
-//                    notesList.add(note);
-//                }
-//            }
-//        }
-//    }
+    private void initialItemData(Bundle savedInstanceState) {
+
+        // Not the first time to open this Activity
+        if (savedInstanceState != null && savedInstanceState.containsKey(NUMBER_OF_NOTES)) {
+            if (notesList== null || notesList.size() == 0) {
+                int size = savedInstanceState.getInt(NUMBER_OF_NOTES);
+
+                // Retrieve keys we stored in the instance
+                for (int i = 0; i < size; i++) {
+                    String formula = savedInstanceState.getString(KEY_OF_NOTE + i + "1");
+                    String formula_weight = savedInstanceState.getString(KEY_OF_NOTE + i
+                            + "2");
+                    String id = savedInstanceState.getString(KEY_OF_NOTE + i + "3");
+                    String name = savedInstanceState.getString(KEY_OF_NOTE + i + "4");
+                    Note note = new Note(formula, formula_weight, id, name, username);
+                    notesList.add(note);
+                }
+            }
+        }
+    }
 }

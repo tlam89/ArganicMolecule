@@ -36,6 +36,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
         holder.formula_weight.setText(notes.get(position).getFormula_weight());
         holder.id.setText(notes.get(position).getId());
         holder.name.setText(notes.get(position).getName());
+        holder.username.setText(notes.get(position).getUserName());
     }
 
     @Override
@@ -48,12 +49,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NotesViewHolde
         private final TextView formula_weight;
         private final TextView id;
         private final TextView name;
+        private final TextView username;
         public NotesViewHolder(@NonNull View notesView) {
             super(notesView);
             formula = notesView.findViewById(R.id.molecule_formula);
             formula_weight = notesView.findViewById(R.id.molecule_formular_weight);
             id = notesView.findViewById(R.id.molecule_id);
             name = notesView.findViewById(R.id.molecule_name);
+            username = notesView.findViewById(R.id.molecule_username_editText);
         }
     }
 }
