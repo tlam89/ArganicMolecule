@@ -50,6 +50,14 @@ public class ChemAPI_Activity extends AppCompatActivity {
                 startActivity(ws);
             }
         });
+        pbd_mom=findViewById(R.id.mom_clickable_image);
+        pbd_mom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mom=new Intent(ChemAPI_Activity.this,PBD_Date_Activity.class);
+                startActivity(mom);
+            }
+        });
 
         // Wire up the Web Service button
         //Button web_view_Button = (Button) findViewById(R.id.webview_button);
