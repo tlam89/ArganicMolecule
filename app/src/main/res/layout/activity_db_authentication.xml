@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:background="@color/buttomcolor"
+    android:background="@color/backgroundcolor"
     tools:context=".A8.DB_authentication_activity">
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="ARganicMolecule2"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="30sp"
         android:textAlignment="center"
         android:textStyle="bold"
@@ -33,6 +33,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
         android:hint="Mobile Number"
+        android:textColorHint="@color/buttomcolor"
         android:inputType="phone"
         android:maxLines="1"
         android:minHeight="48dp"
@@ -49,6 +50,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:hint="Password (Optional)"
+        android:textColorHint="@color/buttomcolor"
         android:inputType="textPassword"
         android:maxLines="1"
         android:minHeight="48dp"
@@ -80,6 +82,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:text="Don't have an account?"/>
         <TextView
             android:id="@+id/registerNowBtn"
@@ -87,6 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Register Now"
+            android:textColor="@color/white"
             android:textStyle="bold"
             />
     </LinearLayout>
