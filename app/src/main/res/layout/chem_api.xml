@@ -1,168 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:id="@+id/motm"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/backgroundcolor"
-    tools:context=".A7.ChemAPI_Activity">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-        <RelativeLayout
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+    android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/as_homepage">
+    <Button
+        android:id="@+id/button_for_webView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/launch_webView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.327" />
 
-                <ImageView
-                    android:id="@+id/homePage_clickable_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="3dp"
-                    android:clickable="true"
-                    android:src="@drawable/as_homepage"
-                    app:tint="#AEB1C3" />
+    <Button
+        android:id="@+id/webview_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/launch_webservice"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_for_webView"
+        app:layout_constraintVertical_bias="0.451" />
 
-                <RelativeLayout
-                    android:layout_width="65dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="6dp"
-                    android:background="@drawable/as_homepage">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="10dp"
-                        android:src="@drawable/homepage"
-                        app:tint="#AEB1C3"></ImageView>
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/homePage_textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="65dp"
-                    android:gravity="center"
-                    android:text="PBD HomePage"
-                    android:textSize="20sp" />
-            </RelativeLayout>
-        </RelativeLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-        <RelativeLayout
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <RelativeLayout
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/as_molecule">
-
-                <ImageView
-                    android:id="@+id/molecule_clickable_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="3dp"
-                    android:layout_marginBottom="3dp"
-                    android:clickable="true"
-                    android:src="@drawable/as_molecule"
-                    app:tint="#AEB1C3" />
-
-                <RelativeLayout
-                    android:layout_width="65dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="6dp"
-                    android:background="@drawable/as_molecule">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="10dp"
-                        android:src="@drawable/molecules"
-                        app:tint="#fff"></ImageView>
-                </RelativeLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="65dp"
-                    android:gravity="center"
-                    android:text="Web Service"
-                    android:textAllCaps="true"
-                    android:textColor="#000"
-                    android:textSize="20sp" />
-            </RelativeLayout>
-        </RelativeLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-        <RelativeLayout
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <RelativeLayout
-                android:layout_width="200dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/as_mom"
-                android:layout_height="60dp">
-                <ImageView
-                    android:id="@+id/mom_clickable_image"
-                    android:clickable="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/as_mom"
-                    app:tint="#AEB1C3"
-                    android:layout_margin="3dp"/>
-                <RelativeLayout
-                    android:layout_width="65dp"
-                    android:layout_height="50dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="6dp"
-                    android:background="@drawable/as_mom">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/chemistry"
-                        app:tint="#fff">
-                    </ImageView>
-                </RelativeLayout>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="65dp"
-                    android:gravity="center"
-                    android:textColor="#000"
-                    android:textSize="20sp"
-                    android:text="Molecule of the month"
-                    android:textAllCaps="true"/>
-            </RelativeLayout>
-        </RelativeLayout>
-    </LinearLayout>
-</LinearLayout>
-
-
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Molecule of the Month"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.651" />
+</androidx.constraintlayout.widget.ConstraintLayout>
