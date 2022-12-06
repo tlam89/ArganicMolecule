@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">ARganic Molecule</string>
+    <string name="app_name">ArganicMolecule2</string>
     <string name="task1">task1</string>
-    <string name="A7">PBD Web Service</string>
+    <string name="A7">A7: PBD Web Service</string>
     <string name="database">Database</string>
     <string name="ar">AR</string>
     <string name="search">Search</string>
@@ -38,8 +38,7 @@
     <string name="confirm">Confirm</string>
     <string name="ARview">View the AR model for this molecule</string>
     <string name="shakeDevice">Shake your device to animate the image
-        and launch the 3D AR view</string>
-    <string name="instruction">Inside AR view, move around for a flat surface, when you see white dots, tap the screen for Magic to happen~
+        and launch the 3D AR view
     </string>
     <string name="molecule_id">ID</string>
     <string name="sample_id_hint">Hint: Enter CFF to search</string>

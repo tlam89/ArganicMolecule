@@ -41,6 +41,7 @@ public class PBD_webview_Activity extends AppCompatActivity {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 progressBar.setVisibility(View.VISIBLE);
+                setTitle("LOADING...");
                 super.onPageStarted(view, url, favicon);
             }
 

@@ -8,12 +8,9 @@
 
     <Button
         android:id="@+id/button_for_webView"
-        android:layout_width="250dp"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/launch_webView"
-        android:background="@drawable/button_gradient"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.499"
@@ -23,12 +20,9 @@
 
     <Button
         android:id="@+id/webview_button"
-        android:layout_width="300dp"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/launch_webservice"
-        android:background="@drawable/button_gradient"
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,11 +31,8 @@
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="350dp"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_gradient"
         android:text="Molecule of the Month"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
