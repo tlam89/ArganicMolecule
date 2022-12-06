@@ -23,9 +23,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.ar.core.Anchor;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.assets.RenderableSource;
+import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.Renderable;
+import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 import com.google.firebase.FirebaseApp;
@@ -54,6 +57,7 @@ public class AR_Activity3 extends AppCompatActivity {
         arFragment.onCreate(savedInstanceState);
 
         FirebaseApp.initializeApp(this);
+
 
         storageRef = FirebaseStorage.getInstance().getReference();
 
@@ -133,6 +137,8 @@ public class AR_Activity3 extends AppCompatActivity {
         verifyStoragePermissions(this);
 
 
+
+
 //        File download = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 //        File file1 = new File(download.getAbsolutePath(), "1DAA.glb");
 //        Log.i("file1", file1.toString());
@@ -176,8 +182,10 @@ public class AR_Activity3 extends AppCompatActivity {
 //                    .setSource(this, callable)
                 .build()
                 .thenAccept(modelRenderable -> addModelToScene(anchor, modelRenderable));
-
     }
+
+
+
 
     private void addModelToScene(Anchor anchor, ModelRenderable modelRenderable) {
         AnchorNode node = new AnchorNode(anchor);

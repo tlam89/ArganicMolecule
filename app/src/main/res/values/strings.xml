@@ -38,7 +38,8 @@
     <string name="confirm">Confirm</string>
     <string name="ARview">View the AR model for this molecule</string>
     <string name="shakeDevice">Shake your device to animate the image
-        and launch the 3D AR view
+        and launch the 3D AR view</string>
+    <string name="instruction">Inside AR view, move around for a flat surface, when you see white dots, tap the screen for Magic to happen~
     </string>
     <string name="molecule_id">ID</string>
     <string name="sample_id_hint">Hint: Enter CFF to search</string>
