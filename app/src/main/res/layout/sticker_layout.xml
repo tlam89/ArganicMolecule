@@ -30,7 +30,7 @@
         android:id="@+id/cardView2"
         android:layout_width="170dp"
         android:layout_height="20dp"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="@color/red_app_bar"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
