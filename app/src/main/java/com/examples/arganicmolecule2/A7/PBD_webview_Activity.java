@@ -35,6 +35,8 @@ public class PBD_webview_Activity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
 
         progressBar = findViewById(R.id.progressBar);
+        progressBar.getIndeterminateDrawable().setColorFilter(0xFFC2173B,
+                android.graphics.PorterDuff.Mode.MULTIPLY);
 
 
         webView.setWebViewClient( new WebViewClient() {
