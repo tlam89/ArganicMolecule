@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/java"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -21,6 +22,32 @@
         app:layout_constraintStart_toStartOf="parent">
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/buttons_linearLayout02"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/design_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="0dp"
+        android:background="@drawable/transparent_button"
+        android:gravity="center"
+        android:text="ARorganic"
+        android:textColor="@color/black" />
 
     <Button
         android:id="@+id/PubChem_button"

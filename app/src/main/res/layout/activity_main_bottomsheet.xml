@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="ArOrganic"
+        android:text="@string/arganic_molecule"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="25sp"
@@ -20,6 +20,8 @@
         android:id="@+id/layoutWeb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:minHeight="48dp"
         android:orientation="horizontal"
         android:padding="8dp">
 
@@ -29,6 +31,7 @@
             android:src="@drawable/ic_baseline_web_24" />
 
         <TextView
+            android:id="@+id/web_service_bottomsheet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -41,6 +44,8 @@
         android:id="@+id/layoutData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:minHeight="48dp"
         android:orientation="horizontal"
         android:padding="8dp">
 
@@ -50,7 +55,8 @@
             android:src="@drawable/ic_baseline_dataset_24" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/data_service_bottomsheet"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="Data service"
@@ -61,6 +67,8 @@
         android:id="@+id/layoutAr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:minHeight="48dp"
         android:orientation="horizontal"
         android:padding="8dp">
 
@@ -70,6 +78,7 @@
             android:src="@drawable/ic_baseline_share_24" />
 
         <TextView
+            android:id="@+id/ar_bottomsheet_clickable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
