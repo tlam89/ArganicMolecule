@@ -113,7 +113,6 @@
         android:hint="@string/sample_id_hint"
         app:layout_constraintBottom_toTopOf="@+id/button_Molecule_Summary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout_Horizontal_Buttons"
         app:layout_constraintVertical_bias="1.0" />
@@ -123,12 +122,12 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="92dp"
         android:layout_marginEnd="20dp"
         android:text="@string/molecule_summary"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout_Horizontal_Buttons" />
 
@@ -198,12 +197,12 @@
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/molecule_username_editText"
         android:layout_width="389dp"
-        android:layout_height="39dp"
+        android:layout_height="45dp"
         android:hint="Enter Username"
         app:layout_constraintBottom_toTopOf="@+id/editText_Enter_ID_Name_Date"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout_Horizontal_Buttons" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_Horizontal_Buttons"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
