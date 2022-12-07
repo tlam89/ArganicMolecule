@@ -47,7 +47,8 @@ public class PBD_Date_Activity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
-        setTitle("LOADING...");
+        progressBar.getIndeterminateDrawable().setColorFilter(0xFFC2173B,
+                android.graphics.PorterDuff.Mode.MULTIPLY);
 
         //make network call
         Call<List<molecule>> call = APIclient.apiInterface().getmolecule();
