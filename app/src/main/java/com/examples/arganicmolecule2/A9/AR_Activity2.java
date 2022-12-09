@@ -22,6 +22,7 @@ import com.examples.arganicmolecule2.R;
 public class AR_Activity2 extends AppCompatActivity implements SensorEventListener {
     ImageView amino_acid_molecule_image;
     String model;
+    int count = 0;
 
     SensorManager sm;
     Sensor shakeDevice;
@@ -87,14 +88,15 @@ public class AR_Activity2 extends AppCompatActivity implements SensorEventListen
                     amino_acid_molecule_image.animate().scaleYBy(0.3F).scaleXBy(0.3F);
                     amino_acid_molecule_image.animate().alpha(0.1f).setStartDelay(500)
                             .setDuration(2900);
-
-                    new Handler().postDelayed(() -> {
-                        Intent AR3 = new Intent(AR_Activity2.this,
-                                AR_Activity3.class);
-                        AR3.putExtra("aminoName", model);
-                        startActivity(AR3);
-                        finish();
-                    }, 2900);
+                    count +=1;
+                    if (count == 1) {
+                        new Handler().postDelayed(() -> {
+                            Intent AR3 = new Intent(AR_Activity2.this, AR_Activity3.class);
+                            AR3.putExtra("aminoName", model);
+                            startActivity(AR3);
+                            finish();
+                        }, 2900);
+                    }
                 } else {
                     vibrateDevice.vibrate(500);
 
@@ -103,13 +105,16 @@ public class AR_Activity2 extends AppCompatActivity implements SensorEventListen
                     amino_acid_molecule_image.animate().alpha(0.1f).setStartDelay(500)
                             .setDuration(3000);
 
-                    new Handler().postDelayed(() -> {
-                        Intent AR3 = new Intent(AR_Activity2.this,
-                                AR_Activity3.class);
-                        AR3.putExtra("aminoName", model);
-                        startActivity(AR3);
-                        finish();
-                    }, 3500);
+                    count +=1;
+                    if (count == 1) {
+                        new Handler().postDelayed(() -> {
+                            Intent AR3 = new Intent(AR_Activity2.this,
+                                    AR_Activity3.class);
+                            AR3.putExtra("aminoName", model);
+                            startActivity(AR3);
+                            finish();
+                        }, 3500);
+                    }
                 }
             }
         }
