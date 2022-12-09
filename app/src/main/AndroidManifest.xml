@@ -21,7 +21,8 @@
         android:theme="@style/Theme.ArganicMolecule2">
         <activity
             android:name=".A9.AR_Activity3"
-            android:exported="true">
+            android:exported="true"
+            android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
         <activity
             android:name=".A9.AR_Activity2"
