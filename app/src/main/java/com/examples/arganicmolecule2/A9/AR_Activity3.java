@@ -45,6 +45,7 @@ public class AR_Activity3 extends AppCompatActivity {
     private ArFragment arFragment;
     StorageReference storageRef;
     String model;
+    File tempfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,26 +133,11 @@ public class AR_Activity3 extends AppCompatActivity {
 
         verifyStoragePermissions(this);
 
-
-//        File download = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-//        File file1 = new File(download.getAbsolutePath(), "1DAA.glb");
-//        Log.i("file1", file1.toString());
-//        Log.i("file1_can_read", String.valueOf(file1.isFile()));
-//
-//
-//        Callable callable = new Callable() {
-//            @Override
-//            public InputStream call() throws Exception {
-//                InputStream inputStream = new FileInputStream(file1);
-//                return inputStream;
-//            }
-//        };
-
         arFragment.setOnTapArPlaneListener((hitResult, plane, motionEvent) -> {
             Anchor anchor = hitResult.createAnchor();
 
             try {
-                File tempfile = File.createTempFile("temp","glb");
+                tempfile = File.createTempFile("temp","glb");
                 aminoRef.getFile(tempfile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
@@ -173,7 +159,6 @@ public class AR_Activity3 extends AppCompatActivity {
                         .setScale(0.1f)
                         .setRecenterMode(RenderableSource.RecenterMode.ROOT)
                         .build())
-//                    .setSource(this, callable)
                 .build()
                 .thenAccept(modelRenderable -> addModelToScene(anchor, modelRenderable));
 
@@ -215,7 +200,8 @@ public class AR_Activity3 extends AppCompatActivity {
 //
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.MANAGE_EXTERNAL_STORAGE,
     };
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     public static void verifyStoragePermissions(Activity activity) {
@@ -257,4 +243,17 @@ public class AR_Activity3 extends AppCompatActivity {
 //            }
 //        }
 
+//        File download = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+//        File file1 = new File(download.getAbsolutePath(), "1DAA.glb");
+//        Log.i("file1", file1.toString());
+//        Log.i("file1_can_read", String.valueOf(file1.isFile()));
+//
+//
+//        Callable callable = new Callable() {
+//            @Override
+//            public InputStream call() throws Exception {
+//                InputStream inputStream = new FileInputStream(file1);
+//                return inputStream;
+//            }
+//        };
 
