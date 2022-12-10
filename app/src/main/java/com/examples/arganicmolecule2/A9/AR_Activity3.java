@@ -46,6 +46,9 @@ public class AR_Activity3 extends AppCompatActivity {
     StorageReference storageRef;
     String model;
     File tempfile;
+    int count=0;
+    Anchor anchor;
+    AnchorNode node;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,18 +137,24 @@ public class AR_Activity3 extends AppCompatActivity {
         verifyStoragePermissions(this);
 
         arFragment.setOnTapArPlaneListener((hitResult, plane, motionEvent) -> {
-            Anchor anchor = hitResult.createAnchor();
+            anchor = hitResult.createAnchor();
+            count += 1;
+            if (count%2 != 0) {
+                try {
+                    tempfile = File.createTempFile("temp", "glb");
+                    aminoRef.getFile(tempfile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 
-            try {
-                tempfile = File.createTempFile("temp","glb");
-                aminoRef.getFile(tempfile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        buildModel(tempfile,anchor);
-                    }
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
+                            buildModel(tempfile, anchor);
+
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                arFragment.getArSceneView().getScene().removeChild(node);
             }
 
         });
@@ -165,7 +174,7 @@ public class AR_Activity3 extends AppCompatActivity {
     }
 
     private void addModelToScene(Anchor anchor, ModelRenderable modelRenderable) {
-        AnchorNode node = new AnchorNode(anchor);
+        node = new AnchorNode(anchor);
         arFragment.getArSceneView().getScene().addChild(node);
 
         TransformableNode transformableNode = new TransformableNode(arFragment.getTransformationSystem());
